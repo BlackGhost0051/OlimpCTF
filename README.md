@@ -20,6 +20,12 @@ cd Backend/api
 npm run start
 ```
 
+# Docker
+
+```bash
+docker-compose up --build
+```
+
 
 # Categories
 
