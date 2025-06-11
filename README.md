@@ -25,6 +25,7 @@ To run the backend API:
 
 # 🐳 Docker
 
+To run the full stack using Docker:
 ```bash
   docker-compose up --build
 ```
