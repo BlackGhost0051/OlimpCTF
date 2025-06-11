@@ -7,8 +7,8 @@
 Angular
 
 ```bash
-cd Frontend
-ng serve
+  cd Frontend
+  ng serve
 ```
 
 # Backend
@@ -16,14 +16,14 @@ ng serve
 Express
 
 ```bash
-cd Backend/api
-npm run start
+  cd Backend/api
+  npm run start
 ```
 
 # Docker
 
 ```bash
-docker-compose up --build
+  docker-compose up --build
 ```
 
 
