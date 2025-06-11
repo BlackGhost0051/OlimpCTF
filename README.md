@@ -1,4 +1,4 @@
-# ⛰ OlimpCTF
+# ⛰️ OlimpCTF
 
 OlimpCTF is a Capture The Flag (CTF) platform designed for hosting cybersecurity challenges across various categories.
 
@@ -30,7 +30,7 @@ To run the backend API:
 ```
 
 
-# Categories
+# 📂 Categories
 
 - WEB
 - OSINT
