@@ -45,6 +45,6 @@ To run the full stack using Docker:
 
 ## Categories
 
-- WEB
-- OSINT
-- Cryptography
+### WEB
+### OSINT
+### Cryptography
