@@ -2,7 +2,19 @@
 
 OlimpCTF is a Capture The Flag (CTF) platform designed for hosting cybersecurity challenges across various categories.
 
-# Frontend
+
+# Content
+
+- [Start project](#start-project)
+  - [Frontend](#frontend)
+  - [Backend](#backend)
+  - [Docker](#docker)
+- [Categories](#categories)
+
+
+# Start project
+
+## Frontend
 
 **Framework:** Angular
 
@@ -12,7 +24,7 @@ To run the frontend:
   ng serve
 ```
 
-# Backend
+## Backend
 
 **Framework:** Express.js
 
@@ -23,7 +35,7 @@ To run the backend API:
   npm run start
 ```
 
-# Docker
+## Docker
 
 To run the full stack using Docker:
 ```bash
@@ -31,7 +43,7 @@ To run the full stack using Docker:
 ```
 
 
-# Categories
+## Categories
 
 - WEB
 - OSINT
