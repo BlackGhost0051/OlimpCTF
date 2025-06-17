@@ -1,5 +1,7 @@
 # OlimpCTF
 
+![Logo](Frontend/public/favicon.ico)
+
 OlimpCTF is a Capture The Flag (CTF) platform designed for hosting cybersecurity challenges across various categories.
 
 
