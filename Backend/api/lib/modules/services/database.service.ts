@@ -28,11 +28,30 @@ class DatabaseService{
 
 
     async init(){
-        console.log("Init database");
+        await this.createUsersTable();
+    }
+
+
+
+
+
+    private async createUsersTable() {
+        const query =`
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                login VARCHAR(50) NOT NULL UNIQUE,
+                email VARCHAR(150) NOT NULL UNIQUE,
+                password TEXT NOT NULL,
+                isAdmin BOOLEAN DEFAULT FALSE,
+                created_at TIMESTAMP DEFAULT NOW()
+            )
+        `;
+
         try {
-            await this.pool.connect();
-        } catch (error){
-            console.log("Error: ", error);
+            await this.pool.query(query);
+            console.log("Users table exists");
+        } catch (err) {
+            console.error("Failed to create users table:", err);
         }
     }
 }

@@ -1,10 +1,13 @@
 import databaseService from "./database.service";
 import PasswordService from "./password.service";
+import DatabaseService from "./database.service";
 
 class UserService{
+    private databaseService: DatabaseService;
     private passwordService: PasswordService;
 
     constructor() {
+        this.databaseService = new DatabaseService();
         this.passwordService = new PasswordService();
     }
 

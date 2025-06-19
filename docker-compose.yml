@@ -55,6 +55,8 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
     depends_on:
       - postgres
     networks:
@@ -62,6 +64,7 @@ services:
 
 volumes:
   pgdata:
+  pgadmin-data:
 
 networks:
   app-network:
