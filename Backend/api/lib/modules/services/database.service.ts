@@ -31,7 +31,33 @@ class DatabaseService{
         await this.createUsersTable();
     }
 
+    public async query<T = any>(text: string, params?: any[]): Promise<{ rows: T[] }> {
+        return this.pool.query(text, params);
+    }
 
+
+    public async getUser(identifier: string): Promise<any | null> {
+        const query = `SELECT * FROM users WHERE login = $1 OR email = $1`;
+        const result = await this.query(query, [identifier]);
+
+        if (result.rows.length > 0) {
+            return result.rows[0];
+        }
+
+        return null;
+    }
+
+
+    public async addUser(login: string, email: string, hashedPassword:string): Promise<any>{
+        const query = `
+            INSERT INTO users (login, email, password)
+            VALUES ($1, $2, $3)
+            RETURNING id, login, email, isAdmin, created_at
+        `;
+
+        const result = await this.query(query, [login, email, hashedPassword]);
+        return result.rows[0];
+    }
 
 
 

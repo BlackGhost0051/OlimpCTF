@@ -30,7 +30,15 @@ class UserController implements Controller{
             return response.status(400).json({ error: "Login and password are required." });
         }
 
-        const status = this.userService.login(login,password);
+        try{
+            const user = await this.userService.login(login, password);
+
+            const token = this.jwtService.generateToken(user.login);
+
+            return response.status(200).json({ token });
+        } catch (error){
+            return response.status(401).json({ error: error.message });
+        }
 
     }
 
@@ -41,7 +49,16 @@ class UserController implements Controller{
             return response.status(400).json({ error: "Login, password and email are required." });
         }
 
-        const status = this.userService.register(login, password, email);
+        try{
+            const user = await this.userService.register(login, email, password);
+
+            const token = this.jwtService.generateToken(user.login);
+
+            return response.status(201).json({ token });
+
+        } catch (error){
+            return response.status(400).json({ error: error.message });
+        }
     }
 }
 
