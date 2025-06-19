@@ -1,12 +1,12 @@
 import Controller from "../interfaces/controller.interface";
-import e, { Router, Request, Response } from "express";
+import { Router, Request, Response } from "express";
 import UserService from "../modules/services/user.service";
 import JwtService from "../modules/services/jwt.service";
 
 
 class UserController implements Controller{
-    public path = '/api/user';
-    public router = Router();
+    public path: string = '/api/user';
+    public router: Router = Router();
 
     private userService: UserService;
     private jwtService: JwtService;
