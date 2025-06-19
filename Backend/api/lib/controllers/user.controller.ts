@@ -52,6 +52,12 @@ class UserController implements Controller{
             return response.status(400).json({ error: "Login, password and email are required." });
         }
 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+            return response.status(400).json({ error: "Invalid email format." });
+        }
+
         try{
             const user = await this.userService.register(login, email, password);
 
