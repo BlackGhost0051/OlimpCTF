@@ -44,6 +44,11 @@ To run the full stack using Docker:
   docker-compose up --build
 ```
 
+To stop
+```bash
+  docker-compose down
+```
+
 
 ## Categories
 
