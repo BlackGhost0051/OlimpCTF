@@ -29,6 +29,11 @@ class DatabaseService{
 
     async init(){
         console.log("Init database");
+        try {
+            await this.pool.connect();
+        } catch (error){
+            console.log("Error: ", error);
+        }
     }
 }
 
