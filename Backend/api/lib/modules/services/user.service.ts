@@ -47,7 +47,18 @@ class UserService{
     }
 
     async change_password(login: string, password: string, new_password: string){
+        const user = await this.databaseService.getUser(login);
+        if (!user) {
+            throw new Error("User not found");
+        }
 
+        const isPasswordValid = await this.passwordService.comparePassword(password, user.password);
+        if (!isPasswordValid) {
+            throw new Error("Current password is incorrect");
+        }
+
+        const hashedPassword = await this.passwordService.hashPassword(new_password);
+        await this.databaseService.updateUserPassword(user.login, hashedPassword);
     }
 }
 

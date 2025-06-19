@@ -59,6 +59,11 @@ class DatabaseService{
         return result.rows[0];
     }
 
+    public async updateUserPassword(login: string, newHashedPassword: string): Promise<void> {
+        const query = `UPDATE users SET password = $1 WHERE login = $2`;
+        await this.query(query, [newHashedPassword, login]);
+    }
+
 
 
     private async createUsersTable() {

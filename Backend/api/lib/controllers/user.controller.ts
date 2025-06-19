@@ -2,6 +2,7 @@ import Controller from "../interfaces/controller.interface";
 import { Router, Request, Response } from "express";
 import UserService from "../modules/services/user.service";
 import JwtService from "../modules/services/jwt.service";
+import JwtMiddleware from "../middlewares/jwt.middleware";
 
 
 class UserController implements Controller{
@@ -21,6 +22,8 @@ class UserController implements Controller{
     private initializeRoutes(){
         this.router.post(`${this.path}/login`, this.login.bind(this));
         this.router.post(`${this.path}/register`, this.register.bind(this));
+
+        this.router.patch(`${this.path}/change_password`, JwtMiddleware, this.change_password.bind(this));
     }
 
     private async login(request: Request, response: Response){
@@ -56,6 +59,28 @@ class UserController implements Controller{
 
             return response.status(201).json({ token });
 
+        } catch (error){
+            return response.status(400).json({ error: error.message });
+        }
+    }
+
+    private async change_password(request: Request, response: Response){
+        const {password, new_password} = request.body;
+
+        if(!password || !new_password){
+            return response.status(400).json({ error: "Password and new password are required." });
+        }
+
+        try{
+            const user = (request as any).user;
+
+            if (!user || !user.login) {
+                return response.status(401).json({ error: "Unauthorized" });
+            }
+
+            await this.userService.change_password(user.login, password, new_password);
+
+            return response.status(200).json({ message: "Password changed successfully" });
         } catch (error){
             return response.status(400).json({ error: error.message });
         }
