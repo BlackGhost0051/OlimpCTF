@@ -2,6 +2,8 @@ import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {DOCUMENT} from '@angular/common';
+import {map} from 'rxjs';
+import {Token} from '../models/token'
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +15,24 @@ export class AuthService {
 
   constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {}
 
-  login(){
-
+  login(login_info: any){
+    const localStorage = this.document.defaultView?.localStorage;
+    return this.http.post(this.url + '/user/auth', {
+      login: login_info.login,
+      password: login_info.password
+    }).pipe(
+      map((result: Token | any) => {
+        if (result && result.token) {
+          localStorage?.setItem('token', result.token);
+          return true;
+        }
+        return false;
+      })
+    );
   }
 
-  register(){
-
+  register(register_info: any){
+    return this.http.post(this.url + '/user/register', register_info);
   }
 
   logout(){
