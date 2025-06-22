@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   logout(){
-
+    this.document.defaultView?.localStorage?.removeItem('token');
   }
 
   isLoggedIn(){
