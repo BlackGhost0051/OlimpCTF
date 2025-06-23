@@ -27,6 +27,12 @@ export class LoginComponent {
 
   login(){
     this.errorMessage = undefined;
+
+    if (!this.login_info.login || !this.login_info.password) {
+      this.errorMessage = 'All fields are required';
+      return;
+    }
+
     return this.userService.login(this.login_info).subscribe((result) => {
       if (!result){
         this.logged = false;
