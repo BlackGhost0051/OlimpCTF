@@ -4,11 +4,11 @@
 
     <form action="post" autocomplete="off" method="POST">
       <div class="input-container">
-        <input type="text" name="login" placeholder="Login or email" title="Login" class="input-form">
+        <input [(ngModel)]="login_info.login" type="text" name="login" placeholder="Login or email" title="Login" class="input-form">
       </div>
 
       <div class="input-container">
-        <input type="password" name="password" placeholder="Password" title="Password" class="input-form">
+        <input [(ngModel)]="login_info.password" type="password" name="password" placeholder="Password" title="Password" class="input-form">
       </div>
 
       @if(errorMessage){

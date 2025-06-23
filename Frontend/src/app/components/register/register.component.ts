@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Router , RouterLink} from '@angular/router';
 import {UserService} from '../../services/user/user.service';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-register',
   imports: [
-    RouterLink
+    RouterLink,
+    FormsModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'

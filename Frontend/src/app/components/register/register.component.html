@@ -4,20 +4,20 @@
 
     <form action="post" autocomplete="off" method="POST">
       <div class="input-container">
-        <input type="text" name="login" placeholder="Username" title="Username" class="input-form">
+        <input [(ngModel)]="register_info.login" type="text" name="login" placeholder="Username" title="Username" class="input-form">
       </div>
 
       <div class="input-container">
-        <input type="text" name="email" placeholder="Email" title="Email" class="input-form">
+        <input [(ngModel)]="register_info.email" type="text" name="email" placeholder="Email" title="Email" class="input-form">
       </div>
 
 
       <div class="input-container">
-        <input type="password" name="password" placeholder="Password" title="Password" class="input-form">
+        <input [(ngModel)]="register_info.password" type="password" name="password" placeholder="Password" title="Password" class="input-form">
       </div>
 
       <div class="input-container">
-        <input type="password" name="password" placeholder="Password" title="Password" class="input-form">
+        <input [(ngModel)]="register_info.confirmPassword" type="password" name="password" placeholder="Password" title="Password" class="input-form">
       </div>
 
 
