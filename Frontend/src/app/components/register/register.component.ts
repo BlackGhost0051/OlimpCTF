@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router , RouterLink} from '@angular/router';
+import {UserService} from '../../services/user/user.service';
 
 @Component({
   selector: 'app-register',
@@ -10,6 +11,51 @@ import { Router , RouterLink} from '@angular/router';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  errorMessage: string = "";
+
+  public register_info = {
+    login: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  }
+
+  public errorMessage?: string;
+
+  constructor(private userService: UserService, public router: Router) {}
+
+  register(){
+    this.errorMessage = undefined;
+
+
+    if (!this.register_info.login || !this.register_info.email || !this.register_info.password || !this.register_info.confirmPassword) {
+      this.errorMessage = 'All fields are required';
+      return;
+    }
+
+    if (this.register_info.password.length < 6) {
+      this.errorMessage = 'Password must be at least 6 characters long';
+      return;
+    }
+
+    if (this.register_info.password !== this.register_info.confirmPassword) {
+      this.errorMessage = 'Passwords do not match';
+      return;
+    }
+
+
+    this.userService.register({
+      login: this.register_info.login,
+      email: this.register_info.email,
+      password: this.register_info.password
+    }).subscribe(
+      () => {
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        this.errorMessage = `User with this login already exists.`;
+      }
+    );
+
+  }
 
 }

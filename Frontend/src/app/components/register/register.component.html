@@ -25,7 +25,7 @@
         <p class="error-message">{{ errorMessage }}</p>
       }
 
-      <button type="submit" title="Sign in" class="submit-btn">Register</button>
+      <button (click)="register()" type="submit" title="Sign in" class="submit-btn">Register</button>
 
       <a href="#" [routerLink]="['/login']">Login</a>
     </form>
