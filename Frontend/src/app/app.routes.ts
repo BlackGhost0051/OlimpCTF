@@ -8,10 +8,13 @@ import {RegisterComponent} from './components/register/register.component';
 import {WebComponent} from './components/categories/web/web.component';
 import {OsintComponent} from './components/categories/osint/osint.component';
 import {CryptographyComponent} from './components/categories/cryptography/cryptography.component';
+import {MainComponent} from './components/main/main.component';
 
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: MainComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'welcome', component: WelcomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
