@@ -12,6 +12,8 @@ export class MainComponent implements AfterViewInit{
 
   ngAfterViewInit() {
     this.router.navigate(['/home']);
+    // this.router.navigate(['/welcome']);
+    // this.router.navigate(['/dashboard']);
   }
 
 }
