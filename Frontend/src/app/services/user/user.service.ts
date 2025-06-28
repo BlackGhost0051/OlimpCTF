@@ -11,13 +11,13 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 
 export class UserService {
 
-  private url = 'http://backend:5000/api';
+  private url = 'http://localhost:5000/api';
 
   constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {}
 
   login(login_info: any){
     const localStorage = this.document.defaultView?.localStorage;
-    return this.http.post(this.url + '/user/auth', {
+    return this.http.post(this.url + '/user/login', {
       login: login_info.login,
       password: login_info.password
     }).pipe(
