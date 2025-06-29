@@ -9,7 +9,7 @@ import {JwtHelperService} from "@auth0/angular-jwt";
   providedIn: 'root'
 })
 
-export class UserService {
+export class AuthService {
 
   private url = 'http://localhost:5000/api';
 
@@ -48,5 +48,9 @@ export class UserService {
       return false;
     }
     return !(jwtHelper.isTokenExpired(token));
+  }
+
+  isAdmin(){
+    return false;
   }
 }

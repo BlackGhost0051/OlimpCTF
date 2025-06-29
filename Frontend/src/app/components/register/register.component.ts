@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router , RouterLink} from '@angular/router';
-import {UserService} from '../../services/user/user.service';
+import { AuthService } from '../../services/auth/auth.service';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -23,7 +23,7 @@ export class RegisterComponent {
 
   public errorMessage?: string;
 
-  constructor(private userService: UserService, public router: Router) {}
+  constructor(private authService: AuthService, public router: Router) {}
 
   register(){
     this.errorMessage = undefined;
@@ -45,7 +45,7 @@ export class RegisterComponent {
     }
 
 
-    this.userService.register({
+    this.authService.register({
       login: this.register_info.login,
       email: this.register_info.email,
       password: this.register_info.password

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
-import {UserService} from '../../services/user/user.service';
+import { AuthService } from '../../services/auth/auth.service';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -23,7 +23,7 @@ export class LoginComponent {
   public errorMessage?: string;
 
 
-  constructor(public userService: UserService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
 
   login(){
@@ -39,7 +39,7 @@ export class LoginComponent {
       return;
     }
 
-    return this.userService.login(this.login_info).subscribe((result) => {
+    return this.authService.login(this.login_info).subscribe((result) => {
       if (!result){
         this.logged = false;
       } else {

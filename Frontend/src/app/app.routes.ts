@@ -10,8 +10,10 @@ import {OsintComponent} from './components/categories/osint/osint.component';
 import {CryptographyComponent} from './components/categories/cryptography/cryptography.component';
 import {MainComponent} from './components/main/main.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {AdminComponent} from './components/admin/admin.component';
 
 import { authGuard } from './services/auth/auth.guard';
+import {adminGuard} from './services/admin/admin.guard';
 
 
 export const routes: Routes = [
@@ -27,5 +29,7 @@ export const routes: Routes = [
 
   { path: 'categories/web', component: WebComponent, canActivate: [authGuard] },
   { path: 'categories/osint', component: OsintComponent, canActivate: [authGuard] },
-  { path: 'categories/cryptography', component: CryptographyComponent, canActivate: [authGuard]}
+  { path: 'categories/cryptography', component: CryptographyComponent, canActivate: [authGuard]},
+
+  { path: 'admin', component: AdminComponent, canActivate: [adminGuard]}
 ];
