@@ -1,6 +1,6 @@
-import PasswordService from "./password.service";
 import { Pool } from 'pg';
 import {config} from "../../config";
+import * as process from "node:process";
 
 class DatabaseService{
     private pool: Pool;
@@ -28,7 +28,17 @@ class DatabaseService{
 
 
     async init(){
-        await this.createUsersTable();
+        try{
+            const client = await this.pool.connect();
+            console.log('Database connection successful');
+
+            await this.createUsersTable();
+        } catch (error){
+            console.log("Database connection failed: ", error);
+            process.exit(1);
+        }
+
+
     }
 
     public async query<T = any>(text: string, params?: any[]): Promise<{ rows: T[] }> {
