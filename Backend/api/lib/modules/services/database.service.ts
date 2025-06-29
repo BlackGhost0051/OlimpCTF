@@ -30,8 +30,6 @@ class DatabaseService{
     async init(){
         try{
             const client = await this.pool.connect();
-            console.log('Database connection successful');
-
             await this.createUsersTable();
         } catch (error){
             console.log("Database connection failed: ", error);
