@@ -11,6 +11,8 @@ import {CryptographyComponent} from './components/categories/cryptography/crypto
 import {MainComponent} from './components/main/main.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 
+import { authGuard } from './services/auth/auth.guard';
+
 
 export const routes: Routes = [
   { path: '', component: MainComponent },
@@ -23,7 +25,7 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'categories', component: CategoriesComponent },
 
-  { path: 'categories/web', component: WebComponent },
-  { path: 'categories/osint', component: OsintComponent },
-  { path: 'categories/cryptography', component: CryptographyComponent}
+  { path: 'categories/web', component: WebComponent, canActivate: [authGuard] },
+  { path: 'categories/osint', component: OsintComponent, canActivate: [authGuard] },
+  { path: 'categories/cryptography', component: CryptographyComponent, canActivate: [authGuard]}
 ];
