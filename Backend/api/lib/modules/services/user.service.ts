@@ -11,6 +11,22 @@ class UserService{
         this.passwordService = new PasswordService();
     }
 
+    async getUser(identifier: string) {
+        const user = await this.databaseService.getUser(identifier);
+
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        return {
+            id: user.id,
+            login: user.login,
+            email: user.email,
+            isAdmin: user.isadmin,
+            created_at: user.created_at,
+        };
+    }
+
     async login(login: string, password: string ){
         const user = await this.databaseService.getUser(login);
 
