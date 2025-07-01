@@ -72,6 +72,17 @@ class DatabaseService{
         await this.query(query, [newHashedPassword, login]);
     }
 
+    public async isAdmin(login: string): Promise<boolean> {
+        const query = `SELECT isAdmin FROM users WHERE login = $1`;
+        const result = await this.query<{ isadmin: boolean }>(query, [login]);
+
+        if (result.rows.length > 0) {
+            return result.rows[0].isadmin;
+        }
+
+        return false;
+    }
+
 
 
     private async createUsersTable() {
