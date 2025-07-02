@@ -1,6 +1,25 @@
 version: '3.9'
 
 services:
+  task-runner:
+    build:
+      context: ./TaskRunner/api
+    container_name: task-runner
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./TaskRunner/api:/app
+    depends_on:
+      - postgres
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=admin
+      - DB_PASSWORD=admin_password
+      - DB_NAME=db
+    networks:
+      - app-network
+
   backend:
     build:
       context: ./Backend/api
