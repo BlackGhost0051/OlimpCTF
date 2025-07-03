@@ -12,8 +12,8 @@ services:
     depends_on:
       - postgres
     environment:
-      - DB_HOST=postgres
-      - DB_PORT=5432
+      - DB_HOST=task-runner
+      - DB_PORT=5433
       - DB_USER=admin
       - DB_PASSWORD=admin_password
       - DB_NAME=db
@@ -23,6 +23,8 @@ services:
   task-runner-db:
     image: postgres:15
     container_name: postgres
+    ports:
+      - "5433:5432"
     restart: always
     environment:
       POSTGRES_USER: admin
