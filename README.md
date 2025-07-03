@@ -37,6 +37,17 @@ To run the backend API:
   npm run start
 ```
 
+## TaskRunner
+
+**Framework:** Express.js
+
+To run the task-runner API:
+```bash
+  cd TaskRunner/api
+  npm install
+  npm run start
+```
+
 ## Docker
 
 To run the full stack using Docker:
