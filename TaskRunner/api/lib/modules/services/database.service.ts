@@ -41,6 +41,22 @@ class DatabaseService{
     public async query<T = any>(text: string, params?: any[]): Promise<{ rows: T[] }> {
         return this.pool.query(text, params);
     }
+
+    private async createTasksTable(){
+        const query =`
+            CREATE TABLE IF NOT EXISTS tasks (
+                id TEXT NOT NULL,
+                flag TEXT NOT NULL
+            )
+        `;
+
+        try {
+            await this.pool.query(query);
+            console.log("Tasks table exists");
+        } catch (err) {
+            console.error("Failed to create tasks table:", err);
+        }
+    }
 }
 
 export default DatabaseService;
