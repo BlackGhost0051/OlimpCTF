@@ -18,6 +18,14 @@ class TaskService {
         return storedFlag === submittedFlag;
     }
 
+    public async addTask(task_id: string, flag: string){
+
+    }
+
+    public async updateTask(task_id: string, flag: string){
+
+    }
+
 }
 
 export default TaskService;
