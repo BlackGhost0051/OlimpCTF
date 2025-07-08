@@ -32,6 +32,8 @@ class DatabaseService{
     async init(){
         try{
             const client = await this.pool.connect();
+
+            await this.createTasksTable();
         } catch (error){
             console.log("Database connection failed: ", error);
             process.exit(1);
