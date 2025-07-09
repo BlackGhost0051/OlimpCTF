@@ -42,7 +42,12 @@ class TaskController implements Controller{
             return response.status(400).json({ message : "Must be flag and task_id." });
         }
 
-        await this.taskService.addTask(task_id, flag);
+        try{
+            await this.taskService.addTask(task_id, flag);
+            return response.status(201).json({ message: "Task added successfully." });
+        } catch (error){
+            return response.status(500).json({ message: error.message || "Failed to add task." });
+        }
     }
 
     private async updateTask(request: Request, response: Response){
@@ -52,7 +57,12 @@ class TaskController implements Controller{
             return response.status(400).json({ message : "Must be flag and task_id." });
         }
 
-        await this.taskService.updateTask(task_id, flag);
+        try {
+            await this.taskService.updateTask(task_id, flag);
+            return response.status(200).json({ message: "Task updated successfully." });
+        } catch (err: any) {
+            return response.status(500).json({ message: err.message || "Failed to update task." });
+        }
     }
 }
 
