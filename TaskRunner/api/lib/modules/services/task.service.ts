@@ -19,11 +19,11 @@ class TaskService {
     }
 
     public async addTask(task_id: string, flag: string){
-
+        await this.databaseService.addTask(task_id, flag);
     }
 
     public async updateTask(task_id: string, flag: string){
-
+        await this.databaseService.updateTask(task_id, flag);
     }
 
 }
