@@ -55,6 +55,33 @@ class DatabaseService{
         }
     }
 
+    public async addTask(task_id: string, flag: string){
+        const query = `INSERT INTO tasks (id, flag) VALUES ($1, $2)`;
+
+        try{
+            await this.pool.query(query, [task_id, flag]);
+            console.log(`Task ${task_id} inserted.`);
+        } catch (error){
+            console.error(`Failed to insert task ${task_id}:`, error);
+            throw error;
+        }
+    }
+
+    public async updateTask(task_id: string, flag: string){
+        const query = `UPDATE tasks SET flag = $2 WHERE id = $1`;
+
+        try{
+            const result = await this.pool.query(query, [task_id, flag]);
+            if (result.rowCount === 0) {
+                throw new Error(`Task with id "${task_id}" not found`);
+            }
+            console.log(`Task ${task_id} updated.`);
+        } catch (error){
+            console.error(`Failed to update task ${task_id}:`, error);
+            throw error;
+        }
+    }
+
 
     private async createTasksTable(){
         const query =`
