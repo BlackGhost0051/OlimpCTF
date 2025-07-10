@@ -11,6 +11,7 @@
   "author": "Black Ghost",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
     "express": "^4.21.2",
     "nodemon": "^3.1.0",
     "pg": "^8.16.1",
