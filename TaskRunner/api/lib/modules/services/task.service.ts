@@ -3,27 +3,32 @@ import CryptographyService from "./cryptography.service";
 
 class TaskService {
     private databaseService: DatabaseService;
+    private cryptographyService: CryptographyService;
 
-    constructor(databaseService: DatabaseService) {}
+    constructor(databaseService: DatabaseService,
+                cryptographyService: CryptographyService) {}
 
 
-    public async verify_flag(task_id: string, submittedFlag: string): Promise<boolean> {
-        const storedFlag = await this.databaseService.getFlagByTaskId(task_id);
+    public async verify_flag(task_id: string, flag: string): Promise<boolean> {
+        const dbFlag = await this.databaseService.getFlagByTaskId(task_id);
 
-        if (!storedFlag) {
+        if (!dbFlag) {
             console.warn(`Task with id "${task_id}" not found.`);
             return false;
         }
 
-        return storedFlag === submittedFlag;
+        const decryptedFlag = this.cryptographyService.decryptFlag(dbFlag);
+        return decryptedFlag === flag;
     }
 
     public async addTask(task_id: string, flag: string){
-        await this.databaseService.addTask(task_id, flag);
+        const encryptedFlag = this.cryptographyService.encryptFlag(flag);
+        await this.databaseService.addTask(task_id, encryptedFlag);
     }
 
     public async updateTask(task_id: string, flag: string){
-        await this.databaseService.updateTask(task_id, flag);
+        const encryptedFlag = this.cryptographyService.encryptFlag(flag);
+        await this.databaseService.updateTask(task_id, encryptedFlag);
     }
 
 }
