@@ -5,8 +5,10 @@ class TaskService {
     private databaseService: DatabaseService;
     private cryptographyService: CryptographyService;
 
-    constructor(databaseService: DatabaseService,
-                cryptographyService: CryptographyService) {}
+    constructor() {
+        this.databaseService = new DatabaseService();
+        this.cryptographyService = new CryptographyService();
+    }
 
 
     public async verify_flag(task_id: string, flag: string): Promise<boolean> {
@@ -22,6 +24,11 @@ class TaskService {
     }
 
     public async addTask(task_id: string, flag: string){
+        const existingFlag = await this.databaseService.getFlagByTaskId(task_id);
+        if (existingFlag !== null) {
+            throw new Error(`Task already exists.`);
+        }
+
         const encryptedFlag = this.cryptographyService.encryptFlag(flag);
         await this.databaseService.addTask(task_id, encryptedFlag);
     }
