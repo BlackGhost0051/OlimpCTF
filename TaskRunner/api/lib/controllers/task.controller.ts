@@ -9,7 +9,8 @@ class TaskController implements Controller{
     private taskService: TaskService;
 
 
-    constructor(taskService: TaskService) {
+    constructor() {
+        this.taskService = new TaskService();
         this.initializeRoutes();
     }
 
