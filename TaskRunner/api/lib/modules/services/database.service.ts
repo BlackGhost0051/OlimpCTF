@@ -2,12 +2,10 @@ import { Pool } from 'pg';
 import {config} from "../../config";
 import * as process from "node:process";
 
-import CryptographyService from "./cryptography.service";
-
 class DatabaseService{
     private pool: Pool;
 
-    constructor(cryptographyService: CryptographyService) {
+    constructor() {
         this.pool = new Pool({
             host: config.db_host,
             port: config.db_port,
