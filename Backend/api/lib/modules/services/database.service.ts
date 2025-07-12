@@ -126,7 +126,11 @@ class DatabaseService{
         const query =`
             CREATE TABLE IF NOT EXISTS tasks (
                 id TEXT NOT NULL,
-                flag TEXT NOT NULL,
+                title TEXT,
+                icon TEXT,
+                difficulty TEXT,
+                points INTEGER,
+                description TEXT
             )
         `;
 
