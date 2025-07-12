@@ -1,6 +1,7 @@
 import { Pool } from 'pg';
 import {config} from "../../config";
 import * as process from "node:process";
+import { v4 as uuidv4 } from 'uuid';
 
 class DatabaseService{
     private pool: Pool;
@@ -102,6 +103,38 @@ class DatabaseService{
             console.log("Users table exists");
         } catch (err) {
             console.error("Failed to create users table:", err);
+        }
+    }
+
+    async addTask(flag: string) {
+        let id: string;
+        let exists = true;
+
+        if(exists){
+            id = uuidv4();
+            const checkQuery = `SELECT 1 FROM tasks WHERE id = ? LIMIT 1`;
+            const result = await this.pool.query(checkQuery, [id]);
+            exists = result.rows.length > 0;
+        }
+
+        const query = `INSERT INTO tasks (id, flag) VALUES (?, ?)`;
+        await this.pool.query(query, [id, flag]);
+        console.log(`Task added with id ${id}`);
+    }
+
+    private async createTasksTable(){
+        const query =`
+            CREATE TABLE IF NOT EXISTS tasks (
+                id TEXT NOT NULL,
+                flag TEXT NOT NULL,
+            )
+        `;
+
+        try {
+            await this.pool.query(query);
+            console.log("Tasks table exists");
+        } catch (err) {
+            console.error("Failed to create tasks table:", err);
         }
     }
 }
