@@ -2,6 +2,7 @@ import { Pool } from 'pg';
 import {config} from "../../config";
 import * as process from "node:process";
 import { v4 as uuidv4 } from 'uuid';
+import { Task } from '../models/task.model';
 
 class DatabaseService{
     private pool: Pool;
@@ -106,7 +107,7 @@ class DatabaseService{
         }
     }
 
-    async addTask(flag: string) {
+    async addTask(task: Task & { flag: string }) {
         let id: string;
         let exists = true;
 
@@ -115,10 +116,23 @@ class DatabaseService{
             const checkQuery = `SELECT 1 FROM tasks WHERE id = ? LIMIT 1`;
             const result = await this.pool.query(checkQuery, [id]);
             exists = result.rows.length > 0;
+            if (exists) id = uuidv4();
         }
 
-        const query = `INSERT INTO tasks (id, flag) VALUES (?, ?)`;
-        await this.pool.query(query, [id, flag]);
+        const query = `
+            INSERT INTO tasks (id, category, title, icon, difficulty, points, description)
+            VALUES ($1, $2, $3, $4, $5, $6, $7)
+        `;
+        await this.pool.query(query, [
+            id,
+            task.category,
+            task.title,
+            task.icon || null,
+            task.difficulty || null,
+            task.points || 0,
+            task.description || ''
+        ]);
+
         console.log(`Task added with id ${id}`);
     }
 
