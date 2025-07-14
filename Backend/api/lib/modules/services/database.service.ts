@@ -145,10 +145,15 @@ class DatabaseService{
                 id TEXT NOT NULL,
                 category TEXT NOT NULL,
                 title TEXT,
+                author TEXT,
                 icon TEXT,
                 difficulty TEXT,
                 points INTEGER,
-                description TEXT
+                description TEXT,
+                is_active BOOLEAN DEFAULT TRUE,
+                created_at TIMESTAMP DEFAULT NOW(),
+                updated_at TIMESTAMP,
+                hint TEXT[]
             )
         `;
 
