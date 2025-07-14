@@ -33,6 +33,7 @@ class DatabaseService{
         try{
             const client = await this.pool.connect();
             await this.createUsersTable();
+            await this.createTasksTable();
         } catch (error){
             console.log("Database connection failed: ", error);
             process.exit(1);
@@ -116,7 +117,7 @@ class DatabaseService{
 
         if(exists){
             id = uuidv4();
-            const checkQuery = `SELECT 1 FROM tasks WHERE id = ? LIMIT 1`;
+            const checkQuery = `SELECT 1 FROM tasks WHERE id = $1 LIMIT 1`;
             const result = await this.pool.query(checkQuery, [id]);
             exists = result.rows.length > 0;
             if (exists) id = uuidv4();
