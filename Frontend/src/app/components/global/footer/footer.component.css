@@ -1,6 +1,19 @@
 .footer-container{
+  background: black;
+  padding: 5ex;
 }
 
 .footer-box{
+  background: red;
+  margin: 1ex;
   display: flex;
+}
+
+li{
+  list-style: none;
+}
+
+a{
+  color: white;
+  text-decoration: none;
 }
