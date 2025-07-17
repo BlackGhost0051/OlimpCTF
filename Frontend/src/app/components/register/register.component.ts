@@ -10,7 +10,7 @@ import {FormsModule} from '@angular/forms';
     FormsModule
   ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
 

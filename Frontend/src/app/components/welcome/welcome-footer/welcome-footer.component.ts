@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-welcome-footer',
   imports: [],
   templateUrl: './welcome-footer.component.html',
-  styleUrl: './welcome-footer.component.css'
+  styleUrl: './welcome-footer.component.scss'
 })
 export class WelcomeFooterComponent {
 

@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-welcome-header',
   imports: [],
   templateUrl: './welcome-header.component.html',
-  styleUrl: './welcome-header.component.css'
+  styleUrl: './welcome-header.component.scss'
 })
 export class WelcomeHeaderComponent {
 

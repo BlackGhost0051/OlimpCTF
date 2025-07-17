@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-osint',
   imports: [],
   templateUrl: './osint.component.html',
-  styleUrl: './osint.component.css'
+  styleUrl: './osint.component.scss'
 })
 export class OsintComponent {
 

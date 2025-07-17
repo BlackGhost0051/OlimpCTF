@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-cryptography',
   imports: [],
   templateUrl: './cryptography.component.html',
-  styleUrl: './cryptography.component.css'
+  styleUrl: './cryptography.component.scss'
 })
 export class CryptographyComponent {
 

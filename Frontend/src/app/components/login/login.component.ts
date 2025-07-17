@@ -8,7 +8,7 @@ import {FormsModule} from '@angular/forms';
   imports: [RouterLink, FormsModule],
   standalone: true,
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.scss'
 })
 
 export class LoginComponent {
