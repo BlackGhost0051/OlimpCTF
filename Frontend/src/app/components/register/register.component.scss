@@ -6,59 +6,53 @@
   color: white;
 
   height: 98vh;
+
+  .register-form {
+    background-color: #393939;
+    text-align: center;
+    padding: 2rem;
+    border-radius: 1ex;
+    max-width: 40ex;
+
+    h2 {
+      margin-bottom: 1rem;
+    }
+
+    .input-container {
+      margin-bottom: 1.5rem;
+      text-align: left;
+
+      .input-form {
+        padding: 1.5ex;
+        border-radius: 0.5ex;
+        font-size: 1rem;
+        outline: none;
+      }
+    }
+
+    .submit-btn {
+      color: white;
+      width: 100%;
+      padding: 1.5ex;
+      background-color: black;
+      border: none;
+      border-radius: 0.5ex;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    a{
+      margin-top: 1ex;
+      color: white;
+      text-decoration: none;
+      display: block;
+      text-align: right;
+    }
+
+    .error-message {
+      color: #ff4d4d;
+      margin-bottom: 1rem;
+    }
+  }
 }
 
-
-
-
-.register-form {
-  background-color: #393939;
-  text-align: center;
-  padding: 2rem;
-  border-radius: 1ex;
-  max-width: 40ex;
-}
-
-
-.register-form h2 {
-  margin-bottom: 1rem;
-}
-
-.input-container {
-  margin-bottom: 1.5rem;
-  text-align: left;
-}
-
-.input-form {
-  padding: 1.5ex;
-  border-radius: 0.5ex;
-  font-size: 1rem;
-  outline: none;
-}
-
-
-.submit-btn {
-  color: white;
-  width: 100%;
-  padding: 1.5ex;
-  background-color: black;
-  border: none;
-  border-radius: 0.5ex;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-
-.register-form a{
-  margin-top: 1ex;
-  color: white;
-  text-decoration: none;
-  display: block;
-  text-align: right;
-}
-
-
-.error-message {
-  color: #ff4d4d;
-  margin-bottom: 1rem;
-}
