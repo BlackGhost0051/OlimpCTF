@@ -1,21 +1,19 @@
 .navbar-container{
+  ul{
+    display: flex;
 
-}
+    li{
+      list-style: none;
+      padding: 1ex;
 
-.navbar-container ul{
-  display: flex;
-}
+      a{
+        text-decoration: none;
+        color: black;
+      }
 
-.navbar-container ul li{
-  list-style: none;
-  padding: 1ex;
-}
-
-.navbar-container ul li a{
-  text-decoration: none;
-  color: black;
-}
-
-.navbar-container ul li a:hover{
-  color: #393939;
+      a:hover{
+        color: #393939;
+      }
+    }
+  }
 }
