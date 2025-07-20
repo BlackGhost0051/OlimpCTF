@@ -3,7 +3,7 @@
   @for(category of categories; track category.id){
     <div class="category-container">
       <img/>
-      <a [routerLink]="['/categories/', category.url]">{{category.name}}</a>
+      <a [routerLink]="['/category/', category.url]">{{category.name}}</a>
     </div>
   }
 </div>
