@@ -1,21 +1,10 @@
 <div class="categories-container">
-<!--  -->
-<!--  @for(category){-->
-<!--    -->
-<!--  }-->
-  <div class="category-container">
-    <img/>
-    <a [routerLink]="['/categories/web']">Web</a>
-  </div>
 
-  <div class="category-container">
-    <img/>
-    <a [routerLink]="['/categories/osint']">OSINT</a>
-  </div>
-
-  <div class="category-container">
-    <img/>
-    <a [routerLink]="['/categories/cryptography']">Cryptography</a>
-  </div>
+  @for(category of categories; track category.id){
+    <div class="category-container">
+      <img/>
+      <a [routerLink]="['/categories/', category.url]">{{category.name}}</a>
+    </div>
+  }
 </div>
 
