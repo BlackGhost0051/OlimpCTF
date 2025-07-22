@@ -86,7 +86,14 @@ class DatabaseService{
         return false;
     }
 
-
+    private async createCategoryTable(){
+        const query =`
+            CREATE TABLE IF NOT EXISTS categories (
+                id SERIAL PRIMARY KEY,
+                name TEXT
+            )
+        `;
+    }
 
     private async createUsersTable() {
         const query =`
