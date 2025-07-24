@@ -10,4 +10,8 @@ export class TaskService {
   verifyFlag(){
 
   }
+
+  getCategories(){
+
+  }
 }
