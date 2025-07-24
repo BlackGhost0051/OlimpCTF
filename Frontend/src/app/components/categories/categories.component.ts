@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Router,RouterLink } from '@angular/router';
+import {TaskService} from '../../services/task/task.service';
 
 @Component({
   selector: 'app-categories',
@@ -7,7 +8,16 @@ import { Router,RouterLink } from '@angular/router';
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css'
 })
-export class CategoriesComponent {
+export class CategoriesComponent implements OnInit{
+
+  private categories: any[];
+
+  constructor(private taskService: TaskService) {
+  }
+
+  ngOnInit() {
+    this.taskService.getCategories();
+  }
 
   categories = [
     {
