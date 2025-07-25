@@ -17,4 +17,8 @@ export class TaskComponent{
 
   constructor() {
   }
+
+  verifyFlag(){
+
+  }
 }
