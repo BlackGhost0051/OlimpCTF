@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TaskComponent} from '../task/task.component';
-import {TaskService} from '../../services/task/task.service';
+import {ChallengeService} from '../../services/challenge/challenge.service';
 
 @Component({
   selector: 'app-category',
@@ -14,7 +14,7 @@ import {TaskService} from '../../services/task/task.service';
 export class CategoryComponent implements OnInit{
   categoryName: string = '';
 
-  constructor(private taskService: TaskService,
+  constructor(private challengeService: ChallengeService,
               private route: ActivatedRoute) {}
 
 

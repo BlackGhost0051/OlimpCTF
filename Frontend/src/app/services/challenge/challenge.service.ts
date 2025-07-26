@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class ChallengeService {
 
-  private url = 'http://localhost:5001/';
+  private url = 'http://localhost:5000/';
 
 
   constructor(private http: HttpClient) { }
@@ -17,6 +17,25 @@ export class ChallengeService {
   }
 
   getCategories(){
-
+    return [
+      {
+        id: 1,
+        name: "WEB",
+        url: "web",
+        icon: ""
+      },
+      {
+        id: 2,
+        name: "OSINT",
+        url: "osint",
+        icon: ""
+      },
+      {
+        id: 3,
+        name: "Cryptography",
+        url: "cryptography",
+        icon: ""
+      },
+    ]
   }
 }
