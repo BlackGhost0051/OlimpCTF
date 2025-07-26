@@ -25,6 +25,13 @@ class ChallengeService {
     async verifyFlag(login: string, task_id: string, flag: string ): Promise<boolean>{
         return true;
     }
+
+    async getCategories(){}
+    async getCategoryTasks(category: string){
+        const tasks: Task[] = await this.databaseService.getTasksByCategory(category);
+        return tasks;
+        // return await this.databaseService.getTasksByCategory(category);
+    }
 }
 
 export default ChallengeService;

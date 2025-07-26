@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class ChallengeService {
 
-  private url = 'http://localhost:5000/';
+  private url = 'http://localhost:5000/api/challenge';
 
 
   constructor(private http: HttpClient) { }
@@ -37,5 +37,9 @@ export class ChallengeService {
         icon: ""
       },
     ]
+  }
+
+  getCategoryTasks(category: string){
+    return this.http.post(this.url + '/category_tasks', { category: category });
   }
 }

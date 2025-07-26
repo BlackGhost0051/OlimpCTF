@@ -147,6 +147,12 @@ class DatabaseService{
         console.log(`Task added with id ${id}`);
     }
 
+    async getTasksByCategory(category: string) {
+        const query = `SELECT * FROM tasks WHERE category = $1`;
+        const result = await this.pool.query(query, [category]);
+        return result.rows;
+    }
+
     private async createTasksTable(){
         const query =`
             CREATE TABLE IF NOT EXISTS tasks (
