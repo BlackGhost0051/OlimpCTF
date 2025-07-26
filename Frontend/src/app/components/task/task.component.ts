@@ -1,8 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Task} from '../../models/task';
 import {FormsModule} from '@angular/forms';
-import {TaskService} from '../../services/task/task.service';
-import {resolve} from 'node:path';
+import {ChallengeService} from '../../services/challenge/challenge.service';
 
 @Component({
   selector: 'app-task',
@@ -17,10 +16,10 @@ export class TaskComponent{
 
   flagInput= "";
 
-  constructor(private taskService: TaskService) {
+  constructor(private challengeService: ChallengeService) {
   }
 
   verifyFlag(id: string){
-    let result = this.taskService.verifyFlag(id, this.flagInput);
+    let result = this.challengeService.verifyFlag(id, this.flagInput);
   }
 }
