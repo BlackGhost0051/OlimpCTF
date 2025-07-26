@@ -7,8 +7,8 @@ export class TaskService {
 
   constructor() { }
 
-  verifyFlag(){
-
+  verifyFlag(id: string, flag:string){
+    return true;
   }
 
   getCategories(){
