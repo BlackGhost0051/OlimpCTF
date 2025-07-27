@@ -153,6 +153,7 @@ class DatabaseService{
         return result.rows;
     }
 
+    // autor change to user id
     private async createTasksTable(){
         const query =`
             CREATE TABLE IF NOT EXISTS tasks (
