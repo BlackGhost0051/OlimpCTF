@@ -1,7 +1,7 @@
 import DatabaseService from "./database.service";
 import CryptographyService from "./cryptography.service";
 
-class TaskService {
+class ChallengeService {
     private databaseService: DatabaseService;
     private cryptographyService: CryptographyService;
 
@@ -40,4 +40,4 @@ class TaskService {
 
 }
 
-export default TaskService;
+export default ChallengeService;

@@ -1,16 +1,16 @@
 import Controller from "../interfaces/controller.interface";
 import { Router, Request, Response } from "express";
 
-import TaskService from "../modules/services/task.service";
+import ChallengeService from "../modules/services/challenge.service";
 
-class TaskController implements Controller{
+class ChallengeController implements Controller{
     public path: string = '/api/task';
     public router: Router = Router();
-    private taskService: TaskService;
+    private taskService: ChallengeService;
 
 
     constructor() {
-        this.taskService = new TaskService();
+        this.taskService = new ChallengeService();
         this.initializeRoutes();
     }
 
@@ -68,4 +68,4 @@ class TaskController implements Controller{
 }
 
 
-export default TaskController;
+export default ChallengeController;

@@ -1,8 +1,8 @@
 import App from './app';
-import TaskController from "./controllers/task.controller";
+import ChallengeController from "./controllers/challenge.controller";
 
 const app: App = new App([
-    new TaskController()
+    new ChallengeController()
 ]);
 
 app.listen();
