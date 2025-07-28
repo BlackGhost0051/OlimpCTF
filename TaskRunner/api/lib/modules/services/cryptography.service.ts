@@ -13,6 +13,8 @@ const KEY = Buffer.from(KEY_HEX, 'hex');
 class CryptographyService{
     constructor() {}
 
+
+    // need add hash
     public encryptFlag(flag: string): string {
         const iv = crypto.randomBytes(12);
         const cipher = crypto.createCipheriv('aes-256-gcm', KEY, iv);
