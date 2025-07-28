@@ -7,7 +7,7 @@ import {Task} from '../../models/task';
 @Component({
   selector: 'app-category',
   imports: [
-    TaskComponent
+    // TaskComponent
   ],
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss'
@@ -30,9 +30,10 @@ export class CategoryComponent implements OnInit{
     this.route.params.subscribe(params => {
       this.categoryName = params['name'];
 
-      const categoryExist = categories.find(category => category.name.toUpperCase() === this.categoryName.toUpperCase());
-      if(categoryExist){
-        this.categoryName = categoryExist.name;
+      const categoryExist = categories.find(category => category.url === this.categoryName);
+      if(!categoryExist){
+        console.log("Category does not exist");
+        return;
       }
 
       // this.tasks = this.getCategoryTasks(this.categoryName); // Call the method to get tasks
