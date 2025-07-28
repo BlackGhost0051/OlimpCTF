@@ -22,17 +22,20 @@ export class CategoryComponent implements OnInit{
 
 
   ngOnInit() {
+    let categories = this.challengeService.getCategories();
+
+
+
+
     this.route.params.subscribe(params => {
       this.categoryName = params['name'];
 
-      if(this.categoryName == "web"){
-        this.categoryName = "WEB";
-      }
-      if(this.categoryName == "osint"){
-        this.categoryName = "OSINT";
+      const categoryExist = categories.find(category => category.name.toUpperCase() === this.categoryName.toUpperCase());
+      if(categoryExist){
+        this.categoryName = categoryExist.name;
       }
 
-      this.tasks = this.getCategoryTasks(this.categoryName); // Call the method to get tasks
+      // this.tasks = this.getCategoryTasks(this.categoryName); // Call the method to get tasks
     });
   }
 
