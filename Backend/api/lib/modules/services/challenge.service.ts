@@ -5,6 +5,11 @@ import TaskRunnerService from './task.runner.service';
 
 class ChallengeService {
     private databaseService: DatabaseService;
+
+    constructor() {
+        this.databaseService = new DatabaseService();
+    }
+
     getTaskInfo(id: string){
         const task: Task = {
             id: "a32q33r3qw2r2q33r2",
@@ -28,9 +33,9 @@ class ChallengeService {
 
     async getCategories(){}
     async getCategoryTasks(category: string){
-        const tasks: Task[] = await this.databaseService.getTasksByCategory(category);
-        return tasks;
-        // return await this.databaseService.getTasksByCategory(category);
+        // const tasks: any[]= await this.databaseService.getTasksByCategory(category);
+        // return tasks;
+        return await this.databaseService.getTasksByCategory(category);
     }
 }
 

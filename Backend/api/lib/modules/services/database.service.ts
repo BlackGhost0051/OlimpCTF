@@ -150,6 +150,7 @@ class DatabaseService{
     async getTasksByCategory(category: string) {
         const query = `SELECT * FROM tasks WHERE category = $1`;
         const result = await this.pool.query(query, [category]);
+        console.log(result.rows);
         return result.rows;
     }
 

@@ -71,7 +71,7 @@ class ChallengeController implements Controller{
         }
 
         try{
-            const tasks: Task[] = await this.challengeService.getCategoryTasks(category);
+            const tasks = await this.challengeService.getCategoryTasks(category);
 
             return response.status(200).json({ status: true, tasks, message: "Category tasks." });
         } catch (error) {
