@@ -14,6 +14,7 @@ import {Task} from '../../models/task';
 })
 export class CategoryComponent implements OnInit{
   categoryName: string = '';
+  categoryExists: boolean = false;
 
   tasks: Task[] = [];
 
@@ -24,19 +25,23 @@ export class CategoryComponent implements OnInit{
   ngOnInit() {
     let categories = this.challengeService.getCategories();
 
-
-
-
     this.route.params.subscribe(params => {
       this.categoryName = params['name'];
+      const category = categories.find(category => category.url === this.categoryName);
 
-      const categoryExist = categories.find(category => category.url === this.categoryName);
-      if(!categoryExist){
-        console.log("Category does not exist");
-        return;
-      }
+      // if (category) {
+      //   this.categoryExists = true;
+      //   this.getCategoryTasks(category.name).subscribe((response: any) => {
+      //     this.tasks = response.tasks;
+      //   });
+      // }
+    });
 
-      // this.tasks = this.getCategoryTasks(this.categoryName); // Call the method to get tasks
+
+
+    this.getCategoryTasks("WEB").subscribe((response: any) => {
+      this.tasks = response.tasks;
+      console.log(response);
     });
   }
 
