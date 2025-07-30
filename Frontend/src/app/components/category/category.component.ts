@@ -29,19 +29,18 @@ export class CategoryComponent implements OnInit{
       this.categoryName = params['name'];
       const category = categories.find(category => category.url === this.categoryName);
 
-      // if (category) {
-      //   this.categoryExists = true;
-      //   this.getCategoryTasks(category.name).subscribe((response: any) => {
-      //     this.tasks = response.tasks;
-      //   });
-      // }
-    });
+      if (category) {
+        this.categoryExists = true;
+        this.getCategoryTasks(category.name).subscribe((response: any) => {
+          this.tasks = response.tasks;
+          console.log(response);
+        });
+      }
 
-
-
-    this.getCategoryTasks("WEB").subscribe((response: any) => {
-      this.tasks = response.tasks;
-      console.log(response);
+      // this.getCategoryTasks(category!.name).subscribe((response: any) => {
+      //   this.tasks = response.tasks;
+      //   console.log(response);
+      // });
     });
   }
 

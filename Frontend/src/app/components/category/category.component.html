@@ -1,12 +1,13 @@
-<h1>{{ categoryName }}</h1>
+<div class="category-container">
+  @if(categoryExists){
+    <h1>{{ categoryName }}</h1>
+    <div>
+      @for(task of tasks; track task.id){
+        <div>{{ task.title }}</div>
+      }
+    </div>
+  }
+</div>
 
-
-@if(!categoryExists){
-  <div>
-    @for(task of tasks; track task.id){
-      <div>{{ task.title }}</div>
-    }
-  </div>
-}
 
 <!--<app-task></app-task>-->
