@@ -22,10 +22,10 @@ export const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'categories', component: CategoriesComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
+  { path: 'categories', component: CategoriesComponent, canActivate: [authGuard] },
 
-  { path: 'category/:name', component: CategoryComponent/*, canActivate: [authGuard] */},
+  { path: 'category/:name', component: CategoryComponent, canActivate: [authGuard] },
 
   { path: 'admin', component: AdminComponent, canActivate: [adminGuard]}
 ];
