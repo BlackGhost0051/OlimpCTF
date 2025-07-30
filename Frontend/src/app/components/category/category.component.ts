@@ -36,11 +36,6 @@ export class CategoryComponent implements OnInit{
           console.log(response);
         });
       }
-
-      // this.getCategoryTasks(category!.name).subscribe((response: any) => {
-      //   this.tasks = response.tasks;
-      //   console.log(response);
-      // });
     });
   }
 
