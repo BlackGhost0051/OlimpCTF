@@ -18,9 +18,9 @@ class ChallengeController implements Controller{
     }
 
     private initializeRoutes(){
-        // this.router.post(`${this.path}/:id`, JwtMiddleware , this.getTaskInfo.bind(this));
         this.router.post(`${this.path}/verify_flag`, JwtMiddleware , this.verifyFlag.bind(this));
         this.router.post(`${this.path}/category_tasks`, this.getCategoryTasks.bind(this));
+        this.router.post(`${this.path}/task/:id`, JwtMiddleware , this.getTaskInfo.bind(this));
     }
 
 
