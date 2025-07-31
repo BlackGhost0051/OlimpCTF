@@ -3,11 +3,15 @@
     <h1>{{ categoryName }}</h1>
     <div>
       @for(task of tasks; track task.id){
-        <div>{{ task.title }}</div>
+        <div >{{ task.title }}</div>
       }
     </div>
   }
 </div>
 
 
-<!--<app-task></app-task>-->
+@if(clickedTask){
+  <app-task [task]="clickedTask"></app-task>
+}
+
+

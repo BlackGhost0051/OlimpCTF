@@ -7,6 +7,7 @@ import {Task} from '../../models/task';
 @Component({
   selector: 'app-category',
   imports: [
+    TaskComponent,
     // TaskComponent
   ],
   templateUrl: './category.component.html',
@@ -15,6 +16,7 @@ import {Task} from '../../models/task';
 export class CategoryComponent implements OnInit{
   categoryName: string = '';
   categoryExists: boolean = false;
+  clickedTask!: Task;
 
   tasks: Task[] = [];
 
@@ -41,5 +43,9 @@ export class CategoryComponent implements OnInit{
 
   getCategoryTasks(category: string){
     return this.challengeService.getCategoryTasks(category);
+  }
+
+  onTaskClick(task: Task){
+    this.clickedTask = task;
   }
 }
