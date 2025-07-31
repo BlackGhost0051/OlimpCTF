@@ -1,21 +1,23 @@
-<div class="task-container">
-  <div>
-    <h1>{{ task.title }} | Status</h1>
-    <h2>Points: {{ task.points }}</h2>
-    <h2>Difficulty: {{ task.difficulty }}</h2>
-    <h2>Is active: {{ task.is_active }}</h2>
-    <h2>Created at: {{ task.created_at }}</h2>
-    <h2>Author: {{ task.author }}</h2>
-  </div>
-  <div>
-    <p>{{ task.description }}</p>
-
+<div class="back">
+  <div class="task-container">
     <div>
-      Hints: {{ task.hint }}
+      <h1>{{ task.title }} | Status</h1>
+      <h2>Points: {{ task.points }}</h2>
+      <h2>Difficulty: {{ task.difficulty }}</h2>
+      <h2>Is active: {{ task.is_active }}</h2>
+      <h2>Created at: {{ task.created_at }}</h2>
+      <h2>Author: {{ task.author }}</h2>
     </div>
-  </div>
-  <div>
-    <input type="text" [(ngModel)]="flagInput">
-    <input type="submit" (click)="verifyFlag(task.id)">
+    <div>
+      <p>{{ task.description }}</p>
+
+      <div>
+        Hints: {{ task.hint }}
+      </div>
+    </div>
+    <div>
+      <input type="text" [(ngModel)]="flagInput">
+      <input type="submit" (click)="verifyFlag(task.id)">
+    </div>
   </div>
 </div>
