@@ -3,7 +3,7 @@
     <h1>{{ categoryName }}</h1>
     <div>
       @for(task of tasks; track task.id){
-        <div >{{ task.title }}</div>
+        <div (click)="onTaskClick(task)">{{ task.title }}</div>
       }
     </div>
   }
