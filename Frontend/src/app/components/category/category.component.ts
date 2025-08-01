@@ -17,6 +17,7 @@ export class CategoryComponent implements OnInit{
   categoryName: string = '';
   categoryExists: boolean = false;
   clickedTask!: Task;
+  showTask = false;
 
   tasks: Task[] = [];
 
@@ -47,5 +48,9 @@ export class CategoryComponent implements OnInit{
 
   onTaskClick(task: Task){
     this.clickedTask = task;
+    this.showTask = true;
+  }
+  onTaskClose(){
+    this.showTask = false;
   }
 }

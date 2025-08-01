@@ -10,8 +10,8 @@
 </div>
 
 
-@if(clickedTask){
-  <app-task [task]="clickedTask"></app-task>
+@if(showTask){
+  <app-task [task]="clickedTask" (close)="onTaskClose()"></app-task>
 }
 
 
