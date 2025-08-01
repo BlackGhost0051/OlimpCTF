@@ -1,5 +1,8 @@
 <div class="back">
   <div class="task-container">
+    <div class="header">
+      <a (click)="onCloseClick()">Close</a>
+    </div>
     <div>
       <h1>{{ task.title }} | Status</h1>
       <h2>Points: {{ task.points }}</h2>

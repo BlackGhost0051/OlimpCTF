@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Task} from '../../models/task';
 import {FormsModule} from '@angular/forms';
 import {ChallengeService} from '../../services/challenge/challenge.service';
@@ -13,6 +13,7 @@ import {ChallengeService} from '../../services/challenge/challenge.service';
 })
 export class TaskComponent{
   @Input() task!: Task;
+  @Output() close = new EventEmitter<any>();
 
   flagInput= "";
 
@@ -21,5 +22,9 @@ export class TaskComponent{
 
   verifyFlag(id: string){
     let result = this.challengeService.verifyFlag(id, this.flagInput);
+  }
+
+  onCloseClick(){
+    this.close.emit();
   }
 }
