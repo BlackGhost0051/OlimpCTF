@@ -86,15 +86,6 @@ class DatabaseService{
         return false;
     }
 
-    private async createCategoryTable(){
-        const query =`
-            CREATE TABLE IF NOT EXISTS categories (
-                id SERIAL PRIMARY KEY,
-                name TEXT
-            )
-        `;
-    }
-
     private async createUsersTable() {
         const query =`
             CREATE TABLE IF NOT EXISTS users (
@@ -178,6 +169,24 @@ class DatabaseService{
             console.log("Tasks table exists");
         } catch (err) {
             console.error("Failed to create tasks table:", err);
+        }
+    }
+
+    private async createCategoriesTable(){
+        const query =`
+            CREATE TABLE IF NOT EXISTS categories (
+                id SERIAL PRIMARY KEY,
+                name TEXT,
+                icon TEXT,
+                url TEXT
+            )
+        `;
+
+        try {
+            await this.pool.query(query);
+            console.log("Categories table exists");
+        } catch (err) {
+            console.error("Failed to create categories table:", err);
         }
     }
 }
