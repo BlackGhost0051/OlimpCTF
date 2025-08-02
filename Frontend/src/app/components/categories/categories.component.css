@@ -3,10 +3,23 @@
   align-items: center;
 
   .category-container{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     margin: 10px;
     height: 200px;
     width: 400px;
 
+    border-radius: 1rem;
+
     background: #393939;
+
+
+    .category-name{
+      color: white;
+      font-size: 2rem;
+    }
   }
 }
