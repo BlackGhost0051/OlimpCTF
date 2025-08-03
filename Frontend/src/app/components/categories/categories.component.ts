@@ -15,6 +15,9 @@ export class CategoriesComponent implements OnInit{
   constructor(private challengeService: ChallengeService) {}
 
   ngOnInit() {
-    this.categories = this.challengeService.getCategories();
+     this.challengeService.getCategories().subscribe((response: any) => {
+       this.categories = response.categories;
+       console.log(response.categories);
+    });
   }
 }

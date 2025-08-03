@@ -1,7 +1,7 @@
 <div class="categories-container">
 
   @for(category of categories; track category.id){
-    <a [routerLink]="['/category/', category.url]" class="category-container">
+    <a [routerLink]="['/category/', category.name]" class="category-container">
       <div class="category-name">{{category.name}}</div>
     </a>
   }
