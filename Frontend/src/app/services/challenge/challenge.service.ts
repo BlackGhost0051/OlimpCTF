@@ -17,30 +17,34 @@ export class ChallengeService {
     return this.http.post(this.url + '/user/register', { id:id, flag:flag});
   }
 
-  getCategories(){
-    return [
-      {
-        id: 1,
-        name: "WEB",
-        url: "web",
-        icon: ""
-      },
-      {
-        id: 2,
-        name: "OSINT",
-        url: "osint",
-        icon: ""
-      },
-      {
-        id: 3,
-        name: "Cryptography",
-        url: "cryptography",
-        icon: ""
-      },
-    ]
-  }
+  // getCategories(){
+  //   return [
+  //     {
+  //       id: 1,
+  //       name: "WEB",
+  //       url: "web",
+  //       icon: ""
+  //     },
+  //     {
+  //       id: 2,
+  //       name: "OSINT",
+  //       url: "osint",
+  //       icon: ""
+  //     },
+  //     {
+  //       id: 3,
+  //       name: "Cryptography",
+  //       url: "cryptography",
+  //       icon: ""
+  //     },
+  //   ]
+  // }
 
   getCategoryTasks(category: string){
     return this.http.post(this.url + '/category_tasks', { category: category });
   }
+
+  getCategories(){
+    return this.http.post(this.url + '/categories', {});
+  } 
 }

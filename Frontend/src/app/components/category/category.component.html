@@ -1,17 +1,16 @@
 <div class="category-container">
-  @if(categoryExists){
-    <h1>{{ categoryName }}</h1>
-    <div>
+  <h1>{{ categoryName }}</h1>
+  <div>
 
-      @if(tasks.length === 0){
-        <div>Tasks not found.</div>
-      }
+    @if(tasks.length === 0){
+      <div>Tasks not found.</div>
+    }
 
-      @for(task of tasks; track task.id){
-        <div (click)="onTaskClick(task)">{{ task.title }}</div>
-      }
-    </div>
-  }
+    @for(task of tasks; track task.id){
+      <div (click)="onTaskClick(task)">{{ task.title }}</div>
+    }
+  </div>
+
 </div>
 
 

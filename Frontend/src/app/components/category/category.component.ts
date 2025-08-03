@@ -15,7 +15,6 @@ import {Task} from '../../models/task';
 })
 export class CategoryComponent implements OnInit{
   categoryName: string = '';
-  categoryExists: boolean = false;
   clickedTask!: Task;
   showTask = false;
 
@@ -26,19 +25,19 @@ export class CategoryComponent implements OnInit{
 
 
   ngOnInit() {
-    let categories = this.challengeService.getCategories();
-
+    // let categories = this.challengeService.getCategories();
+    //
     this.route.params.subscribe(params => {
       this.categoryName = params['name'];
-      const category = categories.find(category => category.url === this.categoryName);
-
-      if (category) {
-        this.categoryExists = true;
-        this.getCategoryTasks(category.name).subscribe((response: any) => {
+    //   const category = categories.find(category => category.url === this.categoryName);
+    //
+    //   if (category) {
+    //     this.categoryExists = true;
+        this.getCategoryTasks(this.categoryName).subscribe((response: any) => {
           this.tasks = response.tasks;
           console.log(response);
         });
-      }
+    //   }
     });
   }
 
