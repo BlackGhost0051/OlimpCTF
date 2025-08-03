@@ -20,6 +20,7 @@ class ChallengeController implements Controller{
     private initializeRoutes(){
         this.router.post(`${this.path}/verify_flag`, JwtMiddleware , this.verifyFlag.bind(this));
         this.router.post(`${this.path}/category_tasks`, this.getCategoryTasks.bind(this));
+        this.router.post(`${this.path}/categories`, this.getCategories.bind(this));
         this.router.post(`${this.path}/task/:id`, JwtMiddleware , this.getTaskInfo.bind(this));
     }
 
@@ -76,6 +77,16 @@ class ChallengeController implements Controller{
             return response.status(200).json({ status: true, tasks, message: "Category tasks." });
         } catch (error) {
             return response.status(500).json({ status: false, message: "Failed to get category tasks." });
+        }
+    }
+
+    private async getCategories(request: Request, response: Response){
+        try{
+            const categories = await this.challengeService.getCategories();
+
+            return response.status(200).json({ status: true, categories, message: "Categories." });
+        } catch (error) {
+            return response.status(500).json({ status: false, message: "Failed to get categories." });
         }
     }
 }

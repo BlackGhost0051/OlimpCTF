@@ -34,6 +34,7 @@ class DatabaseService{
             const client = await this.pool.connect();
             await this.createUsersTable();
             await this.createTasksTable();
+            await this.createCategoriesTable();
         } catch (error){
             console.log("Database connection failed: ", error);
             process.exit(1);
@@ -141,7 +142,6 @@ class DatabaseService{
     async getTasksByCategory(category: string) {
         const query = `SELECT * FROM tasks WHERE category = $1`;
         const result = await this.pool.query(query, [category]);
-        console.log(result.rows);
         return result.rows;
     }
 
@@ -177,8 +177,8 @@ class DatabaseService{
             CREATE TABLE IF NOT EXISTS categories (
                 id SERIAL PRIMARY KEY,
                 name TEXT,
-                icon TEXT,
-                url TEXT
+                url TEXT,
+                icon TEXT
             )
         `;
 
@@ -188,6 +188,12 @@ class DatabaseService{
         } catch (err) {
             console.error("Failed to create categories table:", err);
         }
+    }
+
+    async getCategories() {
+        const query = `SELECT * FROM categories`;
+        const result = await this.pool.query(query);
+        return result.rows;
     }
 }
 

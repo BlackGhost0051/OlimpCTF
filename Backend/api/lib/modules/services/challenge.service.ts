@@ -31,7 +31,9 @@ class ChallengeService {
         return true;
     }
 
-    async getCategories(){}
+    async getCategories(){
+        return await this.databaseService.getCategories();
+    }
     async getCategoryTasks(category: string){
         // const tasks: any[]= await this.databaseService.getTasksByCategory(category);
         // return tasks;
