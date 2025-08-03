@@ -6,7 +6,7 @@ import {ChallengeService} from '../../services/challenge/challenge.service';
   selector: 'app-categories',
   imports: [ RouterLink ],
   templateUrl: './categories.component.html',
-  styleUrl: './categories.component.css'
+  styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent implements OnInit{
 
