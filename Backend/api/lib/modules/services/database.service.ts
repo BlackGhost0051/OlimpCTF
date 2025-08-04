@@ -146,6 +146,7 @@ class DatabaseService{
     }
 
     // autor change to user id
+    // add category id
     private async createTasksTable(){
         const query =`
             CREATE TABLE IF NOT EXISTS tasks (
