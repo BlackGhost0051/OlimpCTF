@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TaskComponent} from '../task/task.component';
 import {ChallengeService} from '../../services/challenge/challenge.service';
 import {Task} from '../../models/task';
@@ -21,23 +21,21 @@ export class CategoryComponent implements OnInit{
   tasks: Task[] = [];
 
   constructor(private challengeService: ChallengeService,
-              private route: ActivatedRoute) {}
+              private route: ActivatedRoute,
+              private router: Router) {}
 
 
   ngOnInit() {
-    // let categories = this.challengeService.getCategories();
-    //
     this.route.params.subscribe(params => {
       this.categoryName = params['name'];
-    //   const category = categories.find(category => category.url === this.categoryName);
-    //
-    //   if (category) {
-    //     this.categoryExists = true;
+
         this.getCategoryTasks(this.categoryName).subscribe((response: any) => {
           this.tasks = response.tasks;
-          console.log(response);
-        });
-    //   }
+        },
+          (error) => {
+            this.router.navigate(['/categories']);
+          }
+        );
     });
   }
 
