@@ -20,6 +20,19 @@ class AdminController implements Controller{
     }
 
 
+    private async addTask(request: Request, response: Response) {
+        return response.status(200).json({ status: true });
+    }
+
+    private async getUsers(request: Request, response: Response) {
+        return response.status(200).json({ status: true });
+    }
+
+    private async getLogs(request: Request, response: Response) {
+        return response.status(200).json({ status: true });
+    }
+
+
     private async isAdmin(request: Request, response: Response) {
         return response.status(200).json({ status: true });
     }
