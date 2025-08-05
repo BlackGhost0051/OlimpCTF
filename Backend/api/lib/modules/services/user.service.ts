@@ -11,6 +11,9 @@ class UserService{
         this.passwordService = new PasswordService();
     }
 
+    async getUsers(){
+    }
+
     async getUser(identifier: string) {
         const user = await this.databaseService.getUser(identifier);
 
