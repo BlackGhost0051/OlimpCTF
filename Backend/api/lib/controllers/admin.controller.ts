@@ -2,16 +2,14 @@ import Controller from "../interfaces/controller.interface";
 import { Router, Request, Response} from "express";
 import AdminService from "../modules/services/admin.service";
 import AdminMiddleware from "../middlewares/admin.middleware";
+import ChallengeService from "../modules/services/challenge.service";
 
 class AdminController implements Controller{
     public path: string =  '/api/admin';
     public router: Router = Router();
 
-    private adminService: AdminService;
-
-    constructor() {
-        this.adminService = new AdminService();
-
+    constructor(private challengeService: ChallengeService,
+                private adminService: AdminService) {
         this.initializeRoutes();
     }
 
@@ -21,7 +19,12 @@ class AdminController implements Controller{
 
 
     private async addTask(request: Request, response: Response) {
-        return response.status(200).json({ status: true });
+
+        try{
+
+        } catch (error){
+            return response.status(500).json({ status: false });
+        }
     }
 
     private async getUsers(request: Request, response: Response) {
