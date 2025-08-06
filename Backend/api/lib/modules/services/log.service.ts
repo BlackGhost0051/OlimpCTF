@@ -1,4 +1,7 @@
 class LogService{
+    connect(){
+        console.log("connected");
+    }
 
 }
 
