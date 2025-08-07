@@ -9,9 +9,15 @@ class AdminController implements Controller{
     public path: string =  '/api/admin';
     public router: Router = Router();
 
-    constructor(private challengeService: ChallengeService,
-                private adminService: AdminService,
-                private userService: UserService) {
+    private challengeService: ChallengeService;
+    private adminService: AdminService;
+    private userService: UserService;
+
+    constructor() {
+        this.challengeService = new ChallengeService();
+        this.adminService = new AdminService();
+        this.userService = new UserService();
+
         this.initializeRoutes();
     }
 

@@ -5,6 +5,7 @@ import Controller from "./interfaces/controller.interface";
 
 import bodyParser from "body-parser";
 import cors from "cors"
+import loggerMiddleware from './middlewares/logger.middleware';
 
 class App {
     public app: express.Application;
@@ -24,6 +25,7 @@ class App {
     }
 
     private initializeMiddlewares(): void{
+        this.app.use(loggerMiddleware);
         this.app.use(cors());
         this.app.use(bodyParser.json());
 
