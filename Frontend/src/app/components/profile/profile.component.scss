@@ -1,0 +1,21 @@
+.profile-container{
+
+  .profile-info-container{
+    border-radius: 1rem;
+    border: 1px solid #393939;
+
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+
+    display: grid;
+
+    grid-template-columns: 1fr 5fr;
+
+    .profile-rank{
+      border-radius: 1rem;
+      background: #393939;
+
+
+    }
+  }
+
+}
