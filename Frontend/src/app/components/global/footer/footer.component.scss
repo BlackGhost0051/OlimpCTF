@@ -1,19 +1,38 @@
+@use 'colors' as colors;
+
 .footer-container{
-  background: black;
-  padding: 5ex;
+  background: colors.$footer_background;
 
-  .footer-box{
-    background: red;
-    margin: 1ex;
-    display: flex;
+  .links-box{
+    padding: 2rem;
 
-    li{
-      list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 
-      a{
-        color: white;
+    .box{
+      display: flex;
+      flex-direction: column;
+
+      .title{
+        color: colors.$footer_title;
+
+        .box-icon{
+          i{
+
+          }
+        }
+      }
+      .subtitle{
         text-decoration: none;
+        color: colors.$footer_text;
       }
     }
+  }
+
+  .copyright{
+    text-align: center;
+    color: colors.$footer_text;
+
+    padding: 2rem;
   }
 }
