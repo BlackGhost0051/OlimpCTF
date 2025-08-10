@@ -23,8 +23,18 @@
         }
       }
       .subtitle{
+        padding-top: 1rem;
+        width: 80%;
+        color: colors.$footer_text;
+      }
+
+      .link{
         text-decoration: none;
         color: colors.$footer_text;
+
+        &:hover{
+          color: colors.$footer_title;
+        }
       }
     }
   }
