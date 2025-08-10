@@ -1,0 +1,19 @@
+.home-container{
+  .home-header-container{
+
+  }
+
+  .statistics-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    padding: 2rem;
+
+    .statistics-item{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
