@@ -1,6 +1,39 @@
+@use 'colors' as colors;
+
 .home-container{
   .home-header-container{
+    padding: 4rem;
 
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+
+    .home-header-title{
+      font-size: 3rem;
+    }
+    .home-header-subtitle{
+      font-size: 1.5rem;
+    }
+    button{
+      margin-right: 1rem;
+      margin-top: 1rem;
+      height: 3rem;
+      width: 8rem;
+
+
+      border: 0;
+      border-radius: 0.5rem;
+
+      &.start_competing_button{
+        color: white;
+        background: black;
+      }
+      &.view_challenges_button{
+        border: 1px solid black;
+        color: black;
+        background: white;
+      }
+    }
   }
 
   .statistics-container{
