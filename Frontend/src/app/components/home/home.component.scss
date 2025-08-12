@@ -77,20 +77,32 @@
 
     .categories-container{
       display: flex;
+      padding: 1rem;
 
       .category{
         background: rgba(0, 0, 0, 0.13);
 
+        padding: 2rem;
+        height: 10rem;
+        width: 20rem;
+        border-radius: 1rem;
+
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
 
         .box-icon{
+          height: 2rem;
+          width: 2rem;
+          background: black;
+
           i{
             height: 1.5rem;
             width: 1.5rem;
-            background: black;
+
           }
         }
         .category-title{
-
+          font-size: 1.5rem;
         }
         .category-subtitle{
 
