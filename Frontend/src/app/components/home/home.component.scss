@@ -61,4 +61,44 @@
       justify-content: center;
     }
   }
+
+  .challenge-categories-container{
+    padding: 2rem;
+
+    .title{
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    .subtitle{
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .categories-container{
+      display: flex;
+
+      .category{
+        background: rgba(0, 0, 0, 0.13);
+
+
+        .box-icon{
+          i{
+            height: 1.5rem;
+            width: 1.5rem;
+            background: black;
+          }
+        }
+        .category-title{
+
+        }
+        .category-subtitle{
+
+        }
+        .challenges-count{
+
+        }
+      }
+    }
+  }
 }
