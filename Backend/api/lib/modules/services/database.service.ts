@@ -161,7 +161,7 @@ class DatabaseService{
                 is_active BOOLEAN DEFAULT TRUE,
                 created_at TIMESTAMP DEFAULT NOW(),
                 updated_at TIMESTAMP,
-                hint TEXT[]
+                hints TEXT[]
             )
         `;
 

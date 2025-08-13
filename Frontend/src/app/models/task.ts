@@ -11,5 +11,5 @@ export interface Task {
   is_active: boolean;
   created_at: string;
   updated_at: string;
-  hint: any;
+  hints: any;
 }
