@@ -15,6 +15,7 @@ export class TaskComponent{
   @Input() task!: Task;
   @Output() close = new EventEmitter<any>();
 
+  showHints: boolean = false;
   flagInput= "";
 
   constructor(private challengeService: ChallengeService) {
@@ -26,5 +27,8 @@ export class TaskComponent{
 
   onCloseClick(){
     this.close.emit();
+  }
+  noHintsClick(){
+    this.showHints = !this.showHints;
   }
 }

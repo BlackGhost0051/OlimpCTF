@@ -15,7 +15,15 @@
       <p>{{ task.description }}</p>
 
       <div>
-        Hints: {{ task.hint }}
+        <button (click)="noHintsClick()">Hints ???</button>
+        <div class="hints">
+          @if(showHints){
+            @for(hint of task.hints; track hint){
+              <div class="hint">{{ hint }}</div>
+            }
+          }
+
+        </div>
       </div>
     </div>
     <div>
