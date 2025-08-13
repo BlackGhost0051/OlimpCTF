@@ -77,6 +77,8 @@
 
     .categories-container{
       display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       padding: 1rem;
 
       .category{
@@ -86,7 +88,7 @@
         height: 10rem;
         width: 20rem;
         border-radius: 1rem;
-        margin-right: 1rem;
+        margin: 1rem;
 
         display: grid;
         grid-template-rows: 1fr 1fr 1fr 1fr;
