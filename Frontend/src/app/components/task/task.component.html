@@ -3,7 +3,8 @@
     <div class="header">
       <a (click)="onCloseClick()">Close</a>
     </div>
-    <div>
+
+    <div class="">
       <h1>{{ task.title }} | Status</h1>
       <h2>Points: {{ task.points }}</h2>
       <h2>Difficulty: {{ task.difficulty }}</h2>
@@ -11,22 +12,24 @@
       <h2>Created at: {{ task.created_at }}</h2>
       <h2>Author: {{ task.author }}</h2>
     </div>
-    <div>
-      <p>{{ task.description }}</p>
 
-      <div>
-        <button (click)="noHintsClick()">Hints ???</button>
+    <div class="main-container">
+      <div class="task-description">{{ task.description }}</div>
+
+      <div class="hints-container">
+        <button class="hints-button" (click)="noHintsClick()">Hints ???</button>
         <div class="hints">
           @if(showHints){
             @for(hint of task.hints; track hint){
-              <div class="hint">{{ hint }}</div>
+              <div class="hint">{{ hint }},</div>
             }
           }
 
         </div>
       </div>
     </div>
-    <div>
+
+    <div class="submit-flag-container">
       <input type="text" [(ngModel)]="flagInput">
       <input type="submit" (click)="verifyFlag(task.id)">
     </div>
