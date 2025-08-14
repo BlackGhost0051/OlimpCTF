@@ -87,6 +87,7 @@ class DatabaseService{
         return false;
     }
 
+    // TODO: name lastname bio???
     private async createUsersTable() {
         const query =`
             CREATE TABLE IF NOT EXISTS users (
@@ -147,6 +148,8 @@ class DatabaseService{
 
     // autor change to user id
     // add category id
+    // TODO: category with category TABLE
+    // TODO: author with user TABLE
     private async createTasksTable(){
         const query =`
             CREATE TABLE IF NOT EXISTS tasks (
