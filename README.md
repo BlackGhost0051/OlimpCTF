@@ -60,9 +60,7 @@ To stop
   docker-compose down
 ```
 
-sssss
 ## Categories
 
-### WEB
-### OSINT
-### Cryptography
+### Dynamic  for database
+
