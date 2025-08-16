@@ -9,7 +9,7 @@ OlimpCTF is a Capture The Flag (CTF) platform designed for hosting cybersecurity
 
 - [Start project](#start-project)
   - [Frontend](#frontend)
-  - [Backend](#backend)
+  - [Bac. kend](#backend)
   - [Docker](#docker)
 - [Categories](#categories)
 
