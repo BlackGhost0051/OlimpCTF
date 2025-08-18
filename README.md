@@ -62,5 +62,7 @@ To stop
 
 ## Categories
 
-### Dynamic  for database
+### Dynamic for database
 
+
+```TABLE categories```
