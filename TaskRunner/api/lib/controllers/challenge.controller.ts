@@ -4,7 +4,7 @@ import { Router, Request, Response } from "express";
 import ChallengeService from "../modules/services/challenge.service";
 
 class ChallengeController implements Controller{
-    public path: string = '/api/task';
+    public path: string = '/api/challenge';
     public router: Router = Router();
     private taskService: ChallengeService;
 
