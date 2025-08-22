@@ -20,8 +20,9 @@ class LoggerService {
         const userAgent = request.headers['user-agent'] || 'Unknown';
         const method = request.method;
         const url = request.url;
+        const body = request.body;
 
-        const fullMessage = `[${timestamp}] ${ip} ${method} ${url} ${userAgent}\n`;
+        const fullMessage = `[${timestamp}] ${ip} ${method} ${url} ${userAgent}\n ${body}\n`;
 
 
         fs.appendFileSync(this.logFilePath, fullMessage, 'utf8');
