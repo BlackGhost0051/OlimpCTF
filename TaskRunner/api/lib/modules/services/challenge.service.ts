@@ -32,6 +32,9 @@ class ChallengeService {
         return decryptedFlag === flag;
     }
 
+    // TODO: all tasks have file
+    // TODO: add if delete task it must delete folder
+    // TODO: request have file ? make with file and without
     public async addTask(task_id: string, flag: string){
         const existingFlag = await this.databaseService.getFlagByTaskId(task_id);
         if (existingFlag !== null) {
