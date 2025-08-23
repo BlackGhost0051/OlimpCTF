@@ -16,9 +16,10 @@ class ChallengeController implements Controller{
 
     private initializeRoutes(){
         this.router.post(`${this.path}/verify_flag`, this.verifyFlag.bind(this));
-        this.router.post(`${this.path}/add`, this.addTask.bind(this));
+        this.router.post(`${this.path}/task`, this.addTask.bind(this));
+        this.router.delete(`${this.path}/task`, this.deleteTask.bind(this));
 
-        this.router.put(`${this.path}/add`, this.updateTask.bind(this));
+        this.router.put(`${this.path}/task`, this.updateTask.bind(this));
     }
 
 
@@ -48,6 +49,21 @@ class ChallengeController implements Controller{
             return response.status(201).json({ status: true, message: "Task added successfully." });
         } catch (error){
             return response.status(500).json({ status: false, message: "Failed to add task." });
+        }
+    }
+
+    private async deleteTask(request: Request, response: Response){
+        const { task_id } = request.body;
+
+        if(!task_id){
+            return response.status(400).json({ status: false, message : "Must be task_id." });
+        }
+
+        try{
+            await this.taskService.deleteTask(task_id);
+            return response.status(201).json({ status: true, message: "Task deleted successfully." });
+        } catch (error) {
+            return response.status(500).json({ status: false, message: "Failed to delete task." });
         }
     }
 
