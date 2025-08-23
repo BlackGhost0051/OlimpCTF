@@ -46,7 +46,17 @@ class ChallengeService {
 
         // make folder with id task
         const folderPath = path.join(this.baseTaskFolder, task_id);
-        fs.mkdirSync(folderPath, { recursive: true });
+        fs.rmSync(folderPath, { recursive: true, force: true });
+    }
+
+    public async deleteTask(task_id: string){
+        const existingFlag = await this.databaseService.getFlagByTaskId(task_id);
+        if (existingFlag !== null) {
+            await this.databaseService.deleteTask(task_id);
+
+            const folderPath = path.join(this.baseTaskFolder, task_id);
+            fs.rmSync(folderPath, { recursive: true, force: true });
+        }
     }
 
     public async updateTask(task_id: string, flag: string){
