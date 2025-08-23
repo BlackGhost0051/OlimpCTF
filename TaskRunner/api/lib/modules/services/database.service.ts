@@ -65,6 +65,18 @@ class DatabaseService{
         }
     }
 
+    public async deleteTask(task_id: string){
+        const query = `DELETE FROM tasks WHERE id = $1`;
+
+        try{
+            await this.pool.query(query, [task_id]);
+            console.log(`Task ${task_id} deleted.`);
+        } catch (error){
+            console.error(`Failed to delete task ${task_id}:`, error);
+            throw error;
+        }
+    }
+
     public async updateTask(task_id: string, flag: string){
         const query = `UPDATE tasks SET flag = $2 WHERE id = $1`;
 
