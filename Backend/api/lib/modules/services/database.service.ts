@@ -113,7 +113,7 @@ class DatabaseService{
         }
     }
 
-    async addTask(task: Task & { flag: string }) {
+    async addTask(task: Task) {
         let id: string;
         let exists = true;
 
