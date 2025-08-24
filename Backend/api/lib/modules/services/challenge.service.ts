@@ -4,6 +4,7 @@ import {Task} from '../models/task.model';
 import TaskRunnerService from './task.runner.service';
 
 class ChallengeService {
+    private taskRunnerService: TaskRunnerService;
     private databaseService: DatabaseService;
 
     constructor() {
@@ -23,12 +24,21 @@ class ChallengeService {
         return task;
     }
 
-    async addTask(flag: string){
+    // TODO: test logic
+    async addTask(task: Task, flag: string ){
+        try{
+            task.id = uuidv4();
+            await this.databaseService.addTask(task);
 
+            await this.taskRunnerService.addTask(task.id, flag);
+
+        } catch (error){
+            console.error(`Failed to add task ${task.id}:`, error);
+        }
     }
 
     async verifyFlag(login: string, task_id: string, flag: string ): Promise<boolean>{
-        return true;
+        return await this.taskRunnerService.verifyFlag(task_id, flag);
     }
 
     async getCategories(){
