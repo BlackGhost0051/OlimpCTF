@@ -35,6 +35,20 @@ class AdminController implements Controller{
         }
     }
 
+    private async deleteTask(request: Request, response: Response){
+        const { task_id } = request.body;
+
+        if(!task_id){
+            return response.status(400).json({ status: false, message : "Must be id." });
+        }
+
+        try{
+            await this.challengeService.deleteTask(task_id);
+        } catch (error) {
+            return response.status(500).json({ status: false });
+        }
+    }
+
     private async getUsers(request: Request, response: Response) {
         try{
             const users = await this.userService.getUsers();
