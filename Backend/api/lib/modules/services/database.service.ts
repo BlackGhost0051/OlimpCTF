@@ -142,6 +142,20 @@ class DatabaseService{
         console.log(`Task added with id ${id}`);
     }
 
+    async deleteTask(task_id: string){
+        const checkQuery = `SELECT 1 FROM tasks WHERE id = $1 LIMIT 1`;
+        const result = await this.pool.query(checkQuery, [task_id]);
+        const exist = result.rows.length > 0;
+
+        if(exist){
+            const query = `DELETE FROM tasks WHERE id = $1`;
+            await this.pool.query(query, [task_id]);
+            console.log(`Task deleted with id ${task_id}`);
+        } else {
+            console.error(`Task not exist.`);
+        }
+    }
+
     async getTasksByCategory(category: string) {
         const query = `SELECT * FROM tasks WHERE category = $1`;
         const result = await this.pool.query(query, [category]);
