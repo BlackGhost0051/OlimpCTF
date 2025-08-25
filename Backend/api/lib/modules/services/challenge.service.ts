@@ -37,6 +37,14 @@ class ChallengeService {
         }
     }
 
+    async deleteTask(task_id: string){
+        try{
+            await this.databaseService.deleteTask(task_id);
+        } catch (error) {
+            console.error(`Failed to delete task ${task_id}:`, error);
+        }
+    }
+
     async verifyFlag(login: string, task_id: string, flag: string ): Promise<boolean>{
         return await this.taskRunnerService.verifyFlag(task_id, flag);
     }
