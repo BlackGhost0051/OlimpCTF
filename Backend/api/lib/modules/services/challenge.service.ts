@@ -40,6 +40,7 @@ class ChallengeService {
     async deleteTask(task_id: string){
         try{
             await this.databaseService.deleteTask(task_id);
+            await this.taskRunnerService.deleteTask(task_id);
         } catch (error) {
             console.error(`Failed to delete task ${task_id}:`, error);
         }
