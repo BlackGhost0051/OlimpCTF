@@ -12,8 +12,21 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 export class AuthService {
 
   private url = 'http://localhost:5000/api';
+  redirectUrl?: string = undefined;
 
   constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {}
+
+  setRedirectUrl(url: string){
+    this.redirectUrl = url;
+  }
+
+  getRedirectUrl(){
+    return this.redirectUrl;
+  }
+
+  clearRedirectUrl(){
+    this.redirectUrl = undefined;
+  }
 
   login(login_info: any){
     const localStorage = this.document.defaultView?.localStorage;

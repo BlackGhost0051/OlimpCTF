@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
+import {Router, RouterLink, ActivatedRoute} from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import {FormsModule} from '@angular/forms';
 
@@ -49,7 +49,15 @@ export class LoginComponent {
           login: '',
           password: ''
         };
-        this.router.navigate(['/']);
+
+        const redirectUrl = this.authService.getRedirectUrl();
+        if(redirectUrl){
+          this.router.navigate([redirectUrl]);
+        } else {
+          this.router.navigate(['/']);
+        }
+
+        this.authService.clearRedirectUrl();
       }
     },
       (error) => {
