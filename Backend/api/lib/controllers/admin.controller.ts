@@ -4,6 +4,7 @@ import AdminService from "../modules/services/admin.service";
 import AdminMiddleware from "../middlewares/admin.middleware";
 import ChallengeService from "../modules/services/challenge.service";
 import UserService from "../modules/services/user.service";
+import { Task } from "../modules/models/task.model";
 
 class AdminController implements Controller{
     public path: string =  '/api/admin';
@@ -23,13 +24,25 @@ class AdminController implements Controller{
 
     private initializeRoutes(){
         this.router.post(`${this.path}`, AdminMiddleware ,this.isAdmin.bind(this));
+
+        this.router.post(`${this.path}/task`, this.addTask.bind(this));
+        this.router.delete(`${this.path}/task`, this.deleteTask.bind(this));
+
+        this.router.get(`${this.path}/users`, this.getUsers.bind(this));
+        this.router.get(`${this.path}/logs`, this.getLogs.bind(this));
     }
 
 
     private async addTask(request: Request, response: Response) {
+        const { task, flag } = request.body;
+
+        if (!task || !flag) {
+            return response.status(400).json({ status: false, message: "Task and flag are required." });
+        }
+
         try{
-            const task = await this.challengeService.addTask("");
-            return response.status(200).json({ status: true, task:task, message: "Task added." });
+            await this.challengeService.addTask(task, flag);
+            return response.status(200).json({ status: true, message: "Task added." });
         } catch (error){
             return response.status(500).json({ status: false });
         }
@@ -44,6 +57,7 @@ class AdminController implements Controller{
 
         try{
             await this.challengeService.deleteTask(task_id);
+            return response.status(200).json({ status: true, message: "Task deleted." });
         } catch (error) {
             return response.status(500).json({ status: false });
         }
