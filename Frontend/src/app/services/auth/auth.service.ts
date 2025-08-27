@@ -62,19 +62,4 @@ export class AuthService {
     }
     return !(jwtHelper.isTokenExpired(token));
   }
-
-  isAdmin(): Observable<boolean> {
-    const localStorage = this.document.defaultView?.localStorage;
-    const token = localStorage?.getItem('token');
-
-    return this.http.post<{ status: boolean }>(this.url + '/admin', {}, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      }
-    }).pipe(
-      map(response => response.status),
-      catchError(err => of(false))
-    );
-  }
 }
