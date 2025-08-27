@@ -25,11 +25,11 @@ class AdminController implements Controller{
     private initializeRoutes(){
         this.router.post(`${this.path}`, AdminMiddleware ,this.isAdmin.bind(this));
 
-        this.router.post(`${this.path}/task`, this.addTask.bind(this));
-        this.router.delete(`${this.path}/task`, this.deleteTask.bind(this));
+        this.router.post(`${this.path}/task`, AdminMiddleware ,this.addTask.bind(this));
+        this.router.delete(`${this.path}/task`, AdminMiddleware , this.deleteTask.bind(this));
 
-        this.router.get(`${this.path}/users`, this.getUsers.bind(this));
-        this.router.get(`${this.path}/logs`, this.getLogs.bind(this));
+        this.router.get(`${this.path}/users`, AdminMiddleware ,this.getUsers.bind(this));
+        this.router.get(`${this.path}/logs`, AdminMiddleware , this.getLogs.bind(this));
     }
 
 
