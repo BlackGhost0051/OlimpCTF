@@ -13,6 +13,7 @@ export class AdminService {
 
   constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {}
 
+  // TODO: verify
   getUsers() {
     const localStorage = this.document.defaultView?.localStorage;
     const token = localStorage?.getItem('token');
