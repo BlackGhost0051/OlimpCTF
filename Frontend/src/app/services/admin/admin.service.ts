@@ -32,6 +32,24 @@ export class AdminService {
     });
   }
 
+  addTask(){
+    const localStorage = this.document.defaultView?.localStorage;
+    const token = localStorage?.getItem('token');
+    return this.http.post(this.url + '/task', {}, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      }
+    }).subscribe({
+      next: response => {
+        console.log(response);
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+
   isAdmin(): Observable<boolean> {
     const localStorage = this.document.defaultView?.localStorage;
     const token = localStorage?.getItem('token');
