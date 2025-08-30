@@ -52,6 +52,11 @@ export class AuthService {
     this.document.defaultView?.localStorage?.removeItem('token');
   }
 
+  getToken() {
+    const localStorage = this.document.defaultView?.localStorage;
+    return localStorage?.getItem('token');
+  }
+
   isLoggedIn(){
     const localStorage = this.document.defaultView?.localStorage;
     const jwtHelper = new JwtHelperService();

@@ -1,8 +1,8 @@
 import {Inject, Injectable} from '@angular/core';
 import {catchError, map, Observable, of, tap} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {DOCUMENT} from '@angular/common';
 import {response} from 'express';
+import {AuthService} from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +11,12 @@ export class AdminService {
 
   private url = 'http://localhost:5000/api/admin';
 
-  constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {}
+  constructor(private http: HttpClient,
+              private authService: AuthService) {}
 
   // TODO: verify
   getUsers() {
-    const localStorage = this.document.defaultView?.localStorage;
-    const token = localStorage?.getItem('token');
+    const token = this.authService.getToken();
     return this.http.get(this.url + '/users', {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -34,8 +34,7 @@ export class AdminService {
 
   // TODO: verify
   addTask(){
-    const localStorage = this.document.defaultView?.localStorage;
-    const token = localStorage?.getItem('token');
+    const token = this.authService.getToken();
     return this.http.post(this.url + '/task', {}, {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -52,8 +51,7 @@ export class AdminService {
   }
 
   isAdmin(): Observable<boolean> {
-    const localStorage = this.document.defaultView?.localStorage;
-    const token = localStorage?.getItem('token');
+    const token = this.authService.getToken();
 
     return this.http.post<{ status: boolean }>(this.url, {}, {
       headers: {
