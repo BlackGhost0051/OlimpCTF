@@ -50,6 +50,24 @@ export class AdminService {
     });
   }
 
+
+  modTask(){
+    const token = this.authService.getToken();
+    return this.http.post(this.url + '/task', {}, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      }
+    }).subscribe({
+      next: response => {
+        console.log(response);
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+
   isAdmin(): Observable<boolean> {
     const token = this.authService.getToken();
 
