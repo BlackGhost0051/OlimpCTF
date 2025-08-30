@@ -53,7 +53,25 @@ export class AdminService {
 
   modTask(){
     const token = this.authService.getToken();
-    return this.http.post(this.url + '/task', {}, {
+    return this.http.patch(this.url + '/task', {}, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      }
+    }).subscribe({
+      next: response => {
+        console.log(response);
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+
+
+  deleteTask(){
+    const token = this.authService.getToken();
+    return this.http.delete(this.url + '/task', {}, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
