@@ -50,7 +50,7 @@ export class AdminService {
     });
   }
 
-
+  // TODO: verify
   modTask(){
     const token = this.authService.getToken();
     return this.http.patch(this.url + '/task', {}, {
@@ -68,7 +68,7 @@ export class AdminService {
     });
   }
 
-
+  // TODO: verify
   deleteTask(){
     const token = this.authService.getToken();
     return this.http.delete(this.url + '/task', {}, {
