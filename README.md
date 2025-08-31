@@ -45,6 +45,12 @@ POST /api/admin/task
 DELETE /api/admin/task
 GET /api/admin/users
 GET /api/admin/logs  
+
+
+POST /api/challenge/verify_flag
+POST /api/challenge/category_tasks
+POST /api/challenge/categories
+POST /api/challenge/task/:id
 ```
 
 ## TaskRunner
