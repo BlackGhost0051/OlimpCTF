@@ -37,6 +37,16 @@ To run the backend API:
   npm run start
 ```
 
+### API
+
+```
+POST /api/admin/
+POST /api/admin/task
+DELETE /api/admin/task
+GET /api/admin/users
+GET /api/admin/logs  
+```
+
 ## TaskRunner
 
 **Framework:** Express.js
