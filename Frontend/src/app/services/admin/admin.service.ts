@@ -71,7 +71,7 @@ export class AdminService {
   // TODO: verify
   deleteTask(){
     const token = this.authService.getToken();
-    return this.http.delete(this.url + '/task', {}, {
+    return this.http.delete(this.url + '/task', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
