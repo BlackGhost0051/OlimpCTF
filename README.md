@@ -51,6 +51,11 @@ POST /api/challenge/verify_flag
 POST /api/challenge/category_tasks
 POST /api/challenge/categories
 POST /api/challenge/task/:id
+
+
+POST /api/user/login
+POST /api/user/register
+PATCH /api/user/change_password
 ```
 
 ## TaskRunner
