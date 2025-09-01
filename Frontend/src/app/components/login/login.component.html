@@ -1,23 +1,29 @@
 <div class="login-container">
-  <div class="login-form">
+  <form class="login-form" action="post" autocomplete="off" method="POST">
     <h2>Login</h2>
 
-    <form action="post" autocomplete="off" method="POST">
-      <div class="input-container">
-        <input [(ngModel)]="login_info.login" type="text" name="login" placeholder="Login or email" title="Login" class="input-form">
-      </div>
+    <div class="input-container">
+      <input [(ngModel)]="login_info.login" type="text" name="login" placeholder="Login or email" title="Login">
+    </div>
 
-      <div class="input-container">
-        <input [(ngModel)]="login_info.password" type="password" name="password" placeholder="Password" title="Password" class="input-form">
-      </div>
+    <div class="input-container">
+      <input [(ngModel)]="login_info.password" type="password" name="password" placeholder="Password" title="Password">
+    </div>
 
-      @if(errorMessage){
-        <p class="error-message">{{ errorMessage }}</p>
-      }
+    @if(errorMessage){
+      <p class="error-message">{{ errorMessage }}</p>
+    }
 
-      <button (click)="login()" type="submit" title="Sign in" class="submit-btn">Login</button>
+    <button
+      (click)="login()"
+      class="submit-btn"
+      type="submit"
+      title="Sign in"
+    >Login</button>
 
+    <div class="link-container">
       <a href="#" [routerLink]="['/register']">Register</a>
-    </form>
-  </div>
+    </div>
+
+  </form>
 </div>
