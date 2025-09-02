@@ -84,6 +84,23 @@
       }
     }
 
+    .custom-login-container{
+      width: 100%;
+
+      .google-login{
+        text-decoration: none;
+        color: colors.$text_secondary;
+
+        i{
+
+        }
+
+        div{
+          font-size: 1.25rem;
+        }
+      }
+    }
+
 
     .error-message {
       color: colors.$text_error;
