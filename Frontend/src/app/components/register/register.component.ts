@@ -14,6 +14,8 @@ import {FormsModule} from '@angular/forms';
 })
 export class RegisterComponent {
 
+  firstStep = true;
+
   public register_info = {
     login: '',
     email: '',
@@ -58,6 +60,10 @@ export class RegisterComponent {
       }
     );
 
+  }
+
+  nextStep(){
+    this.firstStep = false;
   }
 
 }

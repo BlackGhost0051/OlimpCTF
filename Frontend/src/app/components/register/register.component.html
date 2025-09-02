@@ -1,8 +1,9 @@
 <div class="register-container">
-  <div class="register-form">
+
+  <form class="register-form" action="post" autocomplete="off" method="POST">
     <h2>Register</h2>
 
-    <form action="post" autocomplete="off" method="POST">
+    @if(firstStep){
       <div class="input-container">
         <input [(ngModel)]="register_info.login" type="text" name="login" placeholder="Username" title="Username" class="input-form">
       </div>
@@ -11,7 +12,8 @@
         <input [(ngModel)]="register_info.email" type="text" name="email" placeholder="Email" title="Email" class="input-form">
       </div>
 
-
+      <button (click)="nextStep()" type="submit" title="Next step" class="submit-btn">Next</button>
+    } @else {
       <div class="input-container">
         <input [(ngModel)]="register_info.password" type="password" name="password" placeholder="Password" title="Password" class="input-form">
       </div>
@@ -20,14 +22,20 @@
         <input [(ngModel)]="register_info.confirmPassword" type="password" name="password" placeholder="Password" title="Password" class="input-form">
       </div>
 
-
       @if(errorMessage){
         <p class="error-message">{{ errorMessage }}</p>
       }
 
       <button (click)="register()" type="submit" title="Sign in" class="submit-btn">Register</button>
+    }
 
+
+
+
+
+    <div class="link-container">
       <a href="#" [routerLink]="['/login']">Login</a>
-    </form>
-  </div>
+    </div>
+
+  </form>
 </div>
