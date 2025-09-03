@@ -1,0 +1,28 @@
+<div class="back">
+  <div class="add-task-from-container">
+    <form class="add-task-form" action="post" autocomplete="off" method="POST">
+      <div class="input-container">
+        <input [(ngModel)]="task.title" type="text" name="title" placeholder="Title" title="Title">
+      </div>
+      <div class="input-container">
+        <input [(ngModel)]="task.category" type="text" name="category" placeholder="Category" title="Category">
+      </div>
+      <div class="input-container">
+        <input [(ngModel)]="task.icon" type="text" name="icon" placeholder="Icon" title="icon">
+      </div>
+      <div class="input-container">
+        <input [(ngModel)]="task.difficulty" type="text" name="difficulty" placeholder="difficulty" title="difficulty">
+      </div>
+      <div class="input-container">
+        <input [(ngModel)]="task.points" type="text" name="points" placeholder="points" title="points">
+      </div>
+      <div class="input-container">
+        <input [(ngModel)]="task.description" type="text" name="description" placeholder="description" title="description">
+      </div>
+      <div class="input-container">
+        <input [(ngModel)]="task.flag" type="text" name="flag" placeholder="flag" title="flag">
+      </div>
+    </form>
+  </div>
+</div>
+

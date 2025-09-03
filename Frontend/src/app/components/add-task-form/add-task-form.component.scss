@@ -1,0 +1,25 @@
+@use 'colors' as colors;
+
+.back{
+  z-index: 100;
+
+  position: absolute;
+
+  height: 100vh;
+  width: 100vw;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  background: rgba(colors.$background_secondary, 0.4);
+
+
+  .add-task-from-container{
+    background: colors.$background;
+  }
+}
+
