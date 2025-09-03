@@ -114,32 +114,21 @@ class DatabaseService{
     }
 
     async addTask(task: Task) {
-        let id: string;
-        let exists = true;
-
-        if(exists){
-            id = uuidv4();
-            const checkQuery = `SELECT 1 FROM tasks WHERE id = $1 LIMIT 1`;
-            const result = await this.pool.query(checkQuery, [id]);
-            exists = result.rows.length > 0;
-            if (exists) id = uuidv4();
-        }
-
         const query = `
             INSERT INTO tasks (id, category, title, icon, difficulty, points, description)
             VALUES ($1, $2, $3, $4, $5, $6, $7)
         `;
         await this.pool.query(query, [
-            id,
-            task.category,
-            task.title,
+            task.id,
+            task.category || null,
+            task.title || null,
             task.icon || null,
             task.difficulty || null,
-            task.points || 0,
-            task.description || ''
+            task.points || null,
+            task.description || null
         ]);
 
-        console.log(`Task added with id ${id}`);
+        console.log(`Task added with id ${task.id}`);
     }
 
     async deleteTask(task_id: string){
@@ -172,7 +161,7 @@ class DatabaseService{
                 id TEXT NOT NULL,
                 category TEXT NOT NULL,
                 title TEXT,
-                author TEXT,
+                author INTEGER,
                 icon TEXT,
                 difficulty TEXT,
                 points INTEGER,
@@ -180,7 +169,8 @@ class DatabaseService{
                 is_active BOOLEAN DEFAULT TRUE,
                 created_at TIMESTAMP DEFAULT NOW(),
                 updated_at TIMESTAMP,
-                hints TEXT[]
+                hints TEXT[],
+                CONSTRAINT fk_author FOREIGN KEY (author) REFERENCES users(id)
             )
         `;
 
