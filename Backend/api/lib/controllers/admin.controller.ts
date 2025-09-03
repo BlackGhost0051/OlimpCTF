@@ -25,13 +25,27 @@ class AdminController implements Controller{
     private initializeRoutes(){
         this.router.post(`${this.path}`, AdminMiddleware ,this.isAdmin.bind(this));
 
-        this.router.post(`${this.path}/task`, AdminMiddleware ,this.addTask.bind(this));
+        this.router.post(`${this.path}/task`, this.addTask.bind(this));
         this.router.delete(`${this.path}/task`, AdminMiddleware , this.deleteTask.bind(this));
 
         this.router.get(`${this.path}/users`, AdminMiddleware ,this.getUsers.bind(this));
         this.router.get(`${this.path}/logs`, AdminMiddleware , this.getLogs.bind(this));
     }
 
+
+    // TODO: it verified but need add in front
+    // POST http://localhost:5000/api/admin/task
+    // {
+    //     "task": {
+    //         "title": "Test title",
+    //         "category": "WEB",
+    //         "icon": "icon",
+    //         "difficulty": "hard",
+    //         "points": 100,
+    //         "description": "Test description"
+    //     },
+    //     "flag":"FLAG"
+    // }
 
     private async addTask(request: Request, response: Response) {
         const { task, flag } = request.body;
