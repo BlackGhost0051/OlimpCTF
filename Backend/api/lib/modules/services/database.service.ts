@@ -113,6 +113,7 @@ class DatabaseService{
         }
     }
 
+    // TODO: get author id and add in task
     async addTask(task: Task) {
         const query = `
             INSERT INTO tasks (id, category, title, icon, difficulty, points, description)
