@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Output, EventEmitter} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
@@ -12,6 +12,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   styleUrl: './add-task-form.component.scss'
 })
 export class AddTaskFormComponent {
+  @Output() close = new EventEmitter<any>();
+
   public task = {
     title: '',
     category: '',
