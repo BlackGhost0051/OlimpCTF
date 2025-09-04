@@ -33,9 +33,9 @@ export class AdminService {
   }
 
   // TODO: verify
-  addTask(){
+  addTask(task: any, flag: string){
     const token = this.authService.getToken();
-    return this.http.post(this.url + '/task', {}, {
+    return this.http.post(this.url + '/task', {task:task, flag:flag}, {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
