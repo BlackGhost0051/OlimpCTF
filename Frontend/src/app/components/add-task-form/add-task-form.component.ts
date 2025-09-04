@@ -1,5 +1,6 @@
 import {Component, Output, EventEmitter} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AdminService} from '../../services/admin/admin.service';
 
 
 @Component({
@@ -20,7 +21,16 @@ export class AddTaskFormComponent {
     icon: '',
     difficulty: '',
     points: '',
-    description: '',
-    flag: ''
+    description: ''
+  }
+
+  public flag: string = '';
+
+
+  constructor(private adminService: AdminService) {
+  }
+
+  addTaskToggled(){
+    this.adminService.addTask(this.task, this.flag);
   }
 }

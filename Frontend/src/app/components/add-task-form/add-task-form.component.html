@@ -20,8 +20,10 @@
         <input [(ngModel)]="task.description" type="text" name="description" placeholder="description" title="description">
       </div>
       <div class="input-container">
-        <input [(ngModel)]="task.flag" type="text" name="flag" placeholder="flag" title="flag">
+        <input [(ngModel)]="flag" type="text" name="flag" placeholder="flag" title="flag">
       </div>
+
+      <button (click)="addTaskToggled()">Add</button>
     </form>
   </div>
 </div>
