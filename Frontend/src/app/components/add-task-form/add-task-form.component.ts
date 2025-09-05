@@ -18,6 +18,7 @@ export class AddTaskFormComponent {
   response_msg: string = '';
 
   isEdit: boolean = false;
+  title: string = 'Add Task';
 
   public task = {
     title: '',

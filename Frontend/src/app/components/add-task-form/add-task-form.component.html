@@ -1,6 +1,10 @@
 <div class="back">
   <div class="add-task-from-container">
     <form class="add-task-form" action="post" autocomplete="off" method="POST">
+      <div class="form-header">
+        <div class="title">{{ title }}</div>
+      </div>
+
       <div class="input-container">
         <input [(ngModel)]="task.title" type="text" name="title" placeholder="Title" title="Title">
       </div>
