@@ -19,6 +19,9 @@
 
 
   .add-task-from-container{
+    height: 60vh;
+    width: 60vh;
+
     background: colors.$background;
     border-radius: 1rem;
 
@@ -36,7 +39,10 @@
 
       .input-container{
         margin-bottom: 1rem;
+
         input{
+          box-sizing: border-box;
+          width: 100%;
           padding: 0.25rem;
           border-radius: 0.25rem;
         }
