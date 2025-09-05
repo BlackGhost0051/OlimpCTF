@@ -15,6 +15,10 @@ import {AdminService} from '../../services/admin/admin.service';
 export class AddTaskFormComponent {
   @Output() close = new EventEmitter<any>();
 
+  response_msg: string = '';
+
+  isEdit: boolean = false;
+
   public task = {
     title: '',
     category: '',

@@ -23,6 +23,12 @@
         <input [(ngModel)]="flag" type="text" name="flag" placeholder="flag" title="flag">
       </div>
 
+      @if(response_msg){
+        <div class="response-block">
+          <div class="response-text">{{ response_msg }}</div>
+        </div>
+      }
+
       <button (click)="addTaskToggled()">Add</button>
     </form>
   </div>

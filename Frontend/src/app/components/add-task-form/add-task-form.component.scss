@@ -20,6 +20,19 @@
 
   .add-task-from-container{
     background: colors.$background;
+    border-radius: 1rem;
+
+    .add-task-form{
+      padding: 2rem;
+
+      .input-container{
+        margin-bottom: 1rem;
+        input{
+          padding: 0.25rem;
+          border-radius: 0.25rem;
+        }
+      }
+    }
   }
 }
 
