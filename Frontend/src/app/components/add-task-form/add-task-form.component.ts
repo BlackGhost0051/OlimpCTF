@@ -1,4 +1,4 @@
-import {Component, Output, EventEmitter} from '@angular/core';
+import {Component, Output, EventEmitter, Input, OnInit} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AdminService} from '../../services/admin/admin.service';
 
@@ -12,8 +12,9 @@ import {AdminService} from '../../services/admin/admin.service';
   templateUrl: './add-task-form.component.html',
   styleUrl: './add-task-form.component.scss'
 })
-export class AddTaskFormComponent {
+export class AddTaskFormComponent implements OnInit{
   @Output() close = new EventEmitter<any>();
+  @Input() inputTask: any;
 
   response_msg: string = '';
 
@@ -33,6 +34,18 @@ export class AddTaskFormComponent {
 
 
   constructor(private adminService: AdminService) {
+  }
+
+  ngOnInit() {
+    if (this.inputTask) {
+      this.enterEditMode();
+    }
+  }
+
+  private enterEditMode(){
+    this.isEdit = true;
+    this.title = 'Edit Task';
+    this.task = { ...this.inputTask };
   }
 
   addTaskToggled(){
