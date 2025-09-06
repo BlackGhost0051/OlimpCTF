@@ -8,24 +8,31 @@
       <div class="input-container">
         <input [(ngModel)]="task.title" type="text" name="title" placeholder="Title" title="Title">
       </div>
+<!--   TODO: must be array list  -->
       <div class="input-container">
         <input [(ngModel)]="task.category" type="text" name="category" placeholder="Category" title="Category">
       </div>
+<!--   TODO: user must enter custom icon ( svg ) or select used   -->
       <div class="input-container">
         <input [(ngModel)]="task.icon" type="text" name="icon" placeholder="Icon" title="icon">
       </div>
+<!--   TODO: change to array list   -->
       <div class="input-container">
         <input [(ngModel)]="task.difficulty" type="text" name="difficulty" placeholder="difficulty" title="difficulty">
       </div>
+<!--   TODO: verify if int or make array list   -->
       <div class="input-container">
         <input [(ngModel)]="task.points" type="text" name="points" placeholder="points" title="points">
       </div>
       <div class="input-container">
         <input [(ngModel)]="task.description" type="text" name="description" placeholder="description" title="description">
       </div>
+<!--    TODO: make fix start and end flag  -->
       <div class="input-container">
         <input [(ngModel)]="flag" type="text" name="flag" placeholder="flag" title="flag">
       </div>
+
+<!--   TODO: need area to add file or zip with docker container | make logic in backend   -->
 
       @if(response_msg){
         <div class="response-block">
