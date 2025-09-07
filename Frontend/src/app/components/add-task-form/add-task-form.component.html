@@ -30,6 +30,10 @@
 <!--    TODO: make fix start and end flag  -->
       <div class="input-container">
         <input [(ngModel)]="flag" type="text" name="flag" placeholder="flag" title="flag">
+        <div class="flag-constructor-container">
+          <div class="flag-container">Flag: <div class="flag">{{ flagPrefix }}{{ flag }}{{ flagSuffix }}</div></div>
+          <button (click)="addRandomToFlag()" >Add random</button>
+        </div>
       </div>
 
 <!--   TODO: need area to add file or zip with docker container | make logic in backend   -->

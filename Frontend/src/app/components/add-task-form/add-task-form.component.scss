@@ -46,6 +46,19 @@
           padding: 0.25rem;
           border-radius: 0.25rem;
         }
+
+        .flag-constructor-container{
+          margin-top: 0.25rem;
+
+          .flag-container{
+            display: flex;
+            margin-bottom: 0.25rem;
+            .flag{
+              margin-left: 0.25rem;
+              color: colors.$primary;
+            }
+          }
+        }
       }
 
       button{

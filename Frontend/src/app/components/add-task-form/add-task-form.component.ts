@@ -31,6 +31,8 @@ export class AddTaskFormComponent implements OnInit{
   }
 
   public flag: string = '';
+  flagPrefix: string = 'olimpCTF{';
+  flagSuffix: string = '}';
 
 
   constructor(private adminService: AdminService) {
@@ -48,7 +50,22 @@ export class AddTaskFormComponent implements OnInit{
     this.task = { ...this.inputTask };
   }
 
+  addRandomToFlag(){
+    const pattern = /_\d{6}_\d{6}$/;
+    const random1 = String(Math.floor(Math.random() * 1000000)).padStart(6, '0');
+    const random2 = String(Math.floor(Math.random() * 1000000)).padStart(6, '0');
+
+
+    if(pattern.test(this.flag)){
+      this.flag = this.flag.slice(0, -14);
+      this.flag = this.flag + "_" + random1 + "_" + random2;
+    } else {
+      this.flag = this.flag + "_" + random1 + "_" + random2;
+    }
+  }
+
   addTaskToggled(){
-    this.adminService.addTask(this.task, this.flag);
+    const completeFlag = this.flagPrefix + this.flag + this.flagSuffix;
+    this.adminService.addTask(this.task, completeFlag);
   }
 }
