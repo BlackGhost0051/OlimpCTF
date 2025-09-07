@@ -66,6 +66,20 @@ export class AddTaskFormComponent implements OnInit{
 
   addTaskToggled(){
     const completeFlag = this.flagPrefix + this.flag + this.flagSuffix;
-    this.adminService.addTask(this.task, completeFlag);
+    this.adminService.addTask(this.task, completeFlag).subscribe({
+      next: (response) => {
+        console.log('Task added:', response);
+        this.response_msg = 'Task successfully added!';
+        this.close.emit();
+      },
+      error: (error) => {
+        console.error('Error adding task:', error);
+        this.response_msg = error?.error?.message || 'Failed to add task.';
+      }
+    });
+  }
+
+  editTaskToggled(){
+
   }
 }

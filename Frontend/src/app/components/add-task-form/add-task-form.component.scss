@@ -28,12 +28,20 @@
     .add-task-form{
       padding: 2rem;
 
+
       .form-header{
         margin-bottom: 1rem;
 
         .title{
           text-align: center;
           font-size: 1.5rem;
+        }
+
+        .response-block{
+          .response-text{
+            color: colors.$text_error;
+            text-align: center;
+          }
         }
       }
 

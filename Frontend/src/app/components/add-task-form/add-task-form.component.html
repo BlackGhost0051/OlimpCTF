@@ -3,6 +3,12 @@
     <form class="add-task-form" action="post" autocomplete="off" method="POST">
       <div class="form-header">
         <div class="title">{{ title }}</div>
+
+        @if(response_msg){
+          <div class="response-block">
+            <div class="response-text">{{ response_msg }}</div>
+          </div>
+        }
       </div>
 
       <div class="input-container">
@@ -38,13 +44,13 @@
 
 <!--   TODO: need area to add file or zip with docker container | make logic in backend   -->
 
-      @if(response_msg){
-        <div class="response-block">
-          <div class="response-text">{{ response_msg }}</div>
-        </div>
+      @if(isEdit){
+        <button (click)="editTaskToggled()">Edit</button>
+      } @else {
+        <button (click)="addTaskToggled()">Add</button>
       }
 
-      <button (click)="addTaskToggled()">Add</button>
+
     </form>
   </div>
 </div>

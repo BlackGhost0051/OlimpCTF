@@ -40,13 +40,6 @@ export class AdminService {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       }
-    }).subscribe({
-      next: response => {
-        console.log(response);
-      },
-      error: error => {
-        console.log(error);
-      }
     });
   }
 
