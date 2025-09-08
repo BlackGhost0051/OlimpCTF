@@ -49,10 +49,12 @@
         margin-bottom: 1rem;
 
         input{
+          border: none;
+          border-bottom: 0.08rem solid colors.$text_primary;
+
           box-sizing: border-box;
           width: 100%;
           padding: 0.25rem;
-          border-radius: 0.25rem;
         }
 
         .flag-constructor-container{
