@@ -59,13 +59,22 @@
 
         .flag-constructor-container{
           margin-top: 0.25rem;
+          display: flex;
+          font-size: 0.75rem;
+
+          a{
+            text-decoration: none;
+            color: rgba(colors.$primary ,0.8);
+          }
 
           .flag-container{
             display: flex;
             margin-bottom: 0.25rem;
+            margin-left: 0.25rem;
+
             .flag{
               margin-left: 0.25rem;
-              color: colors.$primary;
+              color: rgba(colors.$primary ,0.8);
             }
           }
         }
