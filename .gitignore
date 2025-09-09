@@ -5,7 +5,7 @@
 
 /Backend/api/node_modules/
 /TaskRunner/api/node_modules/
-
+/TaskRunner/api/.env
 
 /DataBaseModels/
 
