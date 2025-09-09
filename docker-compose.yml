@@ -9,6 +9,7 @@ services:
       - "5001:5001"
     volumes:
       - ./TaskRunner/api:/app
+      - task-runner-node-modules:/app/node_modules
     depends_on:
       - postgres
     environment:
@@ -43,6 +44,7 @@ services:
       - "5000:5000"
     volumes:
       - ./Backend/api:/app
+      - backend-node-modules:/app/node_modules
     depends_on:
       - postgres
     environment:
@@ -99,6 +101,8 @@ services:
 volumes:
   pgdata:
   pgadmin-data:
+  backend-node-modules:
+  task-runner-node-modules:
 
 networks:
   app-network:
