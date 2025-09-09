@@ -16,6 +16,12 @@ OlimpCTF is a Capture The Flag (CTF) platform designed for hosting cybersecurity
 
 # Start project
 
+Install TS:
+
+```bash
+  sudo npm install -g ts-node
+```
+
 ## Frontend
 
 **Framework:** Angular
