@@ -12,6 +12,9 @@ class UserService{
     }
 
     async getUsers(){
+        const users: any[] = await this.databaseService.getUsers();
+
+        return users;
     }
 
     async getUser(identifier: string) {

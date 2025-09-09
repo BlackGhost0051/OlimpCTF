@@ -59,6 +59,17 @@ class DatabaseService{
         return null;
     }
 
+    public async getUsers(){
+        const query = `SELECT * FROM users;`;
+        const result = await this.pool.query(query);
+
+        if(result.rows.length > 0){
+            return result.rows;
+        }
+
+        return [];
+    }
+
 
     public async addUser(login: string, email: string, hashedPassword:string): Promise<any>{
         const query = `
