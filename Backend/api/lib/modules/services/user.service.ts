@@ -11,6 +11,7 @@ class UserService{
         this.passwordService = new PasswordService();
     }
 
+    // TODO: need verify
     async getUsers(){
         const users: any[] = await this.databaseService.getUsers();
 
