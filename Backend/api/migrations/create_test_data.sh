@@ -9,4 +9,4 @@ DB_NAME=db
 
 export PGPASSWORD=$DB_PASSWORD
 
-psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -f ./sql/tables/drop_all_tables.sql
+psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -f ./sql/data/data_categories_table.sql
