@@ -6,7 +6,9 @@
     "dev": "ts-node ./lib/index.ts",
     "watch": "nodemon",
     "start": "ts-node ./lib/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "migration:drop": "./migrations/drop_all_tables.sh",
+    "migration:create_all_datebase": "./migrations/drop_all_tables.sh"
   },
   "author": "Black Ghost",
   "dependencies": {
