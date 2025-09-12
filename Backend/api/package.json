@@ -8,7 +8,8 @@
     "start": "ts-node ./lib/index.ts",
     "build": "tsc",
     "migration:drop": "./migrations/drop_all_tables.sh",
-    "migration:create_all_datebase": "./migrations/drop_all_tables.sh"
+    "migration:create_all_datebase": "./migrations/create_all_datebase.sh",
+    "migration:create_test_date": "./migrations/data/create_test_data.sh"
   },
   "author": "Black Ghost",
   "dependencies": {
