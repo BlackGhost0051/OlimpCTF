@@ -1,41 +1,6 @@
 version: '3.9'
 
 services:
-  task-runner:
-    build:
-      context: ./TaskRunner/api
-    container_name: task-runner
-    ports:
-      - "5001:5001"
-    volumes:
-      - ./TaskRunner/api:/app
-      - task-runner-node-modules:/app/node_modules
-    depends_on:
-      - postgres
-    environment:
-      - DB_HOST=task-runner-db
-      - DB_PORT=5432
-      - DB_USER=admin
-      - DB_PASSWORD=admin_password
-      - DB_NAME=db
-    networks:
-      - app-network
-
-  task-runner-db:
-    image: postgres:15
-    container_name: task-runner-db
-    ports:
-      - "5433:5432"
-    restart: always
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin_password
-      POSTGRES_DB: db
-    volumes:
-      - pgdata:/var/lib/task-runner-db/data
-    networks:
-      - app-network
-
   backend:
     build:
       context: ./Backend/api
@@ -56,6 +21,26 @@ services:
     networks:
       - app-network
 
+  task-runner:
+    build:
+      context: ./TaskRunner/api
+    container_name: task-runner
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./TaskRunner/api:/app
+      - task-runner-node-modules:/app/node_modules
+    depends_on:
+      - postgres
+    environment:
+      - DB_HOST=task-runner-db
+      - DB_PORT=5432
+      - DB_USER=admin
+      - DB_PASSWORD=admin_password
+      - DB_NAME=db
+    networks:
+      - app-network
+
   frontend:
     build:
       context: ./Frontend
@@ -69,7 +54,7 @@ services:
     networks:
       - app-network
 
-  postgres:
+  backend-db:
     image: postgres:15
     container_name: postgres
     restart: always
@@ -80,9 +65,25 @@ services:
       POSTGRES_PASSWORD: admin_password
       POSTGRES_DB: db
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - backend-db-data:/var/lib/postgresql/data
     networks:
       - app-network
+
+  task-runner-db:
+    image: postgres:15
+    container_name: task-runner-db
+    ports:
+      - "5433:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin_password
+      POSTGRES_DB: db
+    volumes:
+      - task-runner-db-data:/var/lib/task-runner-db/data
+    networks:
+      - app-network
+
 
   pgadmin:
     image: dpage/pgadmin4
@@ -101,10 +102,13 @@ services:
       - app-network
 
 volumes:
-  pgdata:
-  pgadmin-data:
+  backend-db-data:
+  task-runner-db-data:
+
   backend-node-modules:
   task-runner-node-modules:
+
+  pgadmin-data:
 
 networks:
   app-network:
