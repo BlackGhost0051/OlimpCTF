@@ -13,7 +13,7 @@ services:
     depends_on:
       - postgres
     environment:
-      - DB_HOST=postgres
+      - DB_HOST=backend-db
       - DB_PORT=5432
       - DB_USER=admin
       - DB_PASSWORD=admin_password
