@@ -104,10 +104,8 @@ services:
 volumes:
   backend-db-data:
   task-runner-db-data:
-
   backend-node-modules:
   task-runner-node-modules:
-
   pgadmin-data:
 
 networks:
