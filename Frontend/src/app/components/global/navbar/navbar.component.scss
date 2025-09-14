@@ -1,10 +1,7 @@
-.navbar-container{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
+@use 'colors' as colors;
 
-  z-index: 1;
+.navbar-container{
+  width: 100vw;
 
   ul{
     display: flex;
@@ -15,11 +12,11 @@
 
       a{
         text-decoration: none;
-        color: black;
+        color: colors.$text_primary;
       }
 
       a:hover{
-        color: #393939;
+        color: rgba(colors.$text_primary, 0.8);
       }
     }
   }
