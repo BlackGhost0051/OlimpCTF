@@ -7,10 +7,7 @@
     "watch": "nodemon",
     "start": "ts-node ./lib/index.ts",
     "build": "tsc",
-    "migration": "./migrations/migrations.sh",
-    "migration:drop": "./migrations/sql/tables/drop_all_tables.sh",
-    "migration:create_all_datebase": "./migrations/sql/tables/create_all_tables.sh",
-    "migration:create_test_date": "./migrations/data/create_test_data.sh"
+    "migration": "sudo ./migrations/migrations.sh"
   },
   "author": "Black Ghost",
   "dependencies": {
