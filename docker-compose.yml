@@ -11,7 +11,7 @@ services:
       - ./Backend/api:/app
       - backend-node-modules:/app/node_modules
     depends_on:
-      - postgres
+      - backend-db
     environment:
       - DB_HOST=backend-db
       - DB_PORT=5432
@@ -31,7 +31,7 @@ services:
       - ./TaskRunner/api:/app
       - task-runner-node-modules:/app/node_modules
     depends_on:
-      - postgres
+      - task-runner-db
     environment:
       - DB_HOST=task-runner-db
       - DB_PORT=5432
@@ -56,7 +56,7 @@ services:
 
   backend-db:
     image: postgres:15
-    container_name: postgres
+    container_name: backend-db
     restart: always
     ports:
       - "5432:5432"
@@ -65,7 +65,7 @@ services:
       POSTGRES_PASSWORD: admin_password
       POSTGRES_DB: db
     volumes:
-      - backend-db-data:/var/lib/postgresql/data
+      - backend-db-data:/var/lib/backend-db/data
     networks:
       - app-network
 
@@ -97,7 +97,8 @@ services:
     volumes:
       - pgadmin-data:/var/lib/pgadmin
     depends_on:
-      - postgres
+      - backend-db
+      - task-runner-db
     networks:
       - app-network
 
