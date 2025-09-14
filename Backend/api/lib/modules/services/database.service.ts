@@ -48,6 +48,17 @@ class DatabaseService{
     }
 
 
+    public async getCategoryById(id: string): Promise<any | null> {
+        const query = `SELECT * FROM categories WHERE id = $1`;
+        const result = await this.query(query, [id]);
+
+        if (result.rows.length > 0) {
+            return result.rows[0];
+        }
+
+        return null;
+    }
+
     public async getUser(identifier: string): Promise<any | null> {
         const query = `SELECT * FROM users WHERE login = $1 OR email = $1`;
         const result = await this.query(query, [identifier]);

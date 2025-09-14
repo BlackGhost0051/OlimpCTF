@@ -21,9 +21,30 @@ class ChallengeController implements Controller{
         this.router.post(`${this.path}/verify_flag`, JwtMiddleware , this.verifyFlag.bind(this));
         this.router.post(`${this.path}/category_tasks`, this.getCategoryTasks.bind(this));
         this.router.post(`${this.path}/categories`, this.getCategories.bind(this));
+        this.router.post(`${this.path}/category`, this.getCategory.bind(this));
         this.router.post(`${this.path}/task/:id`, JwtMiddleware , this.getTaskInfo.bind(this));
     }
 
+
+    private async getCategory(request: Request, response: Response){
+        const { id } = request.body;
+
+        if(!id){
+            return response.status(400).json({ status: false, message : "Must be id." });
+        }
+
+        try{
+            const category = await this.challengeService.getCategory(id);
+
+            if(!category){
+                return response.status(404).json({ status: false, message: "Category not found." });
+            }
+
+            return response.status(200).json({ status: true, category, message: "Category info." });
+        } catch (error) {
+            return response.status(500).json({ status: false, message: "Failed to get category." });
+        }
+    }
 
 
     private async getTaskInfo(request: Request, response: Response){

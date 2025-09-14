@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {TaskComponent} from '../task/task.component';
 import {ChallengeService} from '../../services/challenge/challenge.service';
 import {Task} from '../../models/task';
+import {Category} from '../../models/category';
 
 @Component({
   selector: 'app-category',
@@ -14,7 +15,7 @@ import {Task} from '../../models/task';
   styleUrl: './category.component.scss'
 })
 export class CategoryComponent implements OnInit{
-  categoryName: string = '';
+  category!: Category;
   clickedTask!: Task;
   showTask = false;
 
@@ -27,9 +28,17 @@ export class CategoryComponent implements OnInit{
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.categoryName = params['name'];
+      const categoryId = params['id'];
 
-        this.getCategoryTasks(this.categoryName).subscribe((response: any) => {
+      this.challengeService.getCategory(categoryId).subscribe((response: any) => {
+          this.category = response.category;
+        },
+        (error) => {
+          this.router.navigate(['/categories']);
+        }
+      );
+
+        this.getCategoryTasks(categoryId).subscribe((response: any) => {
           this.tasks = response.tasks;
         },
           (error) => {

@@ -24,6 +24,10 @@ export class ChallengeService {
     return this.http.post(this.url + '/category_tasks', { category: category });
   }
 
+  getCategory(id: string){
+    return this.http.post(this.url + '/category', { id: id });
+  }
+
   getCategories(){
     return this.http.post(this.url + '/categories', {});
   }
