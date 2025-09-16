@@ -49,6 +49,7 @@ services:
       - "4200:4200"
     volumes:
       - ./Frontend:/app
+      - frontend-node-modules:/app/node_modules
     depends_on:
       - backend
     networks:
@@ -105,6 +106,7 @@ services:
 volumes:
   backend-db-data:
   task-runner-db-data:
+  frontend-node-modules:
   backend-node-modules:
   task-runner-node-modules:
   pgadmin-data:
