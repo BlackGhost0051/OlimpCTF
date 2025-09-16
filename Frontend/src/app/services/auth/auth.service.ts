@@ -1,8 +1,8 @@
-import {Inject, Injectable} from '@angular/core';
+import {Inject, Injectable, DOCUMENT} from '@angular/core';
 import {catchError, map, Observable, of} from 'rxjs';
 import {Token} from '../../models/token';
 import {HttpClient} from '@angular/common/http';
-import {DOCUMENT} from '@angular/common';
+
 import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Injectable({
