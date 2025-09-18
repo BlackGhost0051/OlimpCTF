@@ -31,10 +31,6 @@ class DatabaseService{
 
     async init(){
         try{
-            const client = await this.pool.connect();
-            //await this.createUsersTable();
-            //await this.createTasksTable();
-            //await this.createCategoriesTable();
         } catch (error){
             console.log("Database connection failed: ", error);
             process.exit(1);
