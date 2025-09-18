@@ -62,6 +62,11 @@ class ChallengeService {
         // return tasks;
         return await this.databaseService.getTasksByCategory(category);
     }
+
+    // make modal task method
+    async getTask(byCategory?: string, byId?: string){
+
+    }
 }
 
 export default ChallengeService;
