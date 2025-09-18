@@ -64,7 +64,7 @@ class ChallengeService {
     }
 
     // make modal task method
-    async getTask(byCategory?: string, byId?: string){
+    async getTask( filter: { byCategory?: string, byId?: string } ){
 
     }
 }
