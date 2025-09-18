@@ -109,33 +109,6 @@ class DatabaseService{
         return false;
     }
 
-    // TODO: name lastname bio???
-    private async createUsersTable() {
-        const query =`
-            CREATE TABLE IF NOT EXISTS users (
-                id SERIAL PRIMARY KEY,
-                name TEXT,
-                lastname TEXT,
-                login VARCHAR(50) NOT NULL UNIQUE,
-                password TEXT NOT NULL,
-                last_login TIMESTAMP,
-                email VARCHAR(150) NOT NULL UNIQUE,
-                email_verified BOOLEAN DEFAULT FALSE,
-                isAdmin BOOLEAN DEFAULT FALSE,
-                bio TEXT,
-                created_at TIMESTAMP DEFAULT NOW()
-            )
-        `;
-
-        try {
-            await this.pool.query(query);
-            console.log("Users table exists");
-        } catch (err) {
-            console.error("Failed to create users table:", err);
-        }
-    }
-
-    // TODO: get author id and add in task
     async addTask(task: Task) {
         const query = `
             INSERT INTO tasks (id, category, title, icon, difficulty, points, description)
@@ -172,56 +145,6 @@ class DatabaseService{
         const query = `SELECT * FROM tasks WHERE category = $1`;
         const result = await this.pool.query(query, [category]);
         return result.rows;
-    }
-
-    // autor change to user id
-    // add category id
-    // TODO: category with category TABLE
-    // TODO: author with user TABLE
-    private async createTasksTable(){
-        const query =`
-            CREATE TABLE IF NOT EXISTS tasks (
-                id TEXT NOT NULL,
-                category TEXT NOT NULL,
-                title TEXT,
-                author INTEGER,
-                icon TEXT,
-                difficulty TEXT,
-                points INTEGER,
-                description TEXT,
-                is_active BOOLEAN DEFAULT TRUE,
-                created_at TIMESTAMP DEFAULT NOW(),
-                updated_at TIMESTAMP,
-                hints TEXT[],
-                CONSTRAINT fk_author FOREIGN KEY (author) REFERENCES users(id)
-            )
-        `;
-
-        try {
-            await this.pool.query(query);
-            console.log("Tasks table exists");
-        } catch (err) {
-            console.error("Failed to create tasks table:", err);
-        }
-    }
-
-    private async createCategoriesTable(){
-        const query =`
-            CREATE TABLE IF NOT EXISTS categories (
-                id SERIAL PRIMARY KEY,
-                name TEXT,
-                details TEXT,
-                url TEXT,
-                icon TEXT
-            )
-        `;
-
-        try {
-            await this.pool.query(query);
-            console.log("Categories table exists");
-        } catch (err) {
-            console.error("Failed to create categories table:", err);
-        }
     }
 
     async getCategories() {
