@@ -49,7 +49,7 @@ class AdminController implements Controller{
     // }
 
     private async addTask(request: Request, response: Response) {
-        const { task, flag } = request.body;
+        const { task, flag } : {task: Task, flag: string} = request.body;
 
         if (!task || !flag) {
             return response.status(400).json({ status: false, message: "Task and flag are required." });
