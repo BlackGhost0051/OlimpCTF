@@ -48,11 +48,24 @@ class AdminController implements Controller{
     //     "flag":"FLAG"
     // }
 
+
+    // TODO: verify if it add to task-runner-db
+    // NOTE: It add to backend-db OK
     private async addTask(request: Request, response: Response) {
         const { task, flag } : {task: Task, flag: string} = request.body;
 
-        if (!task || !flag) {
-            return response.status(400).json({ status: false, message: "Task and flag are required." });
+        if (!task.title || task.title === "" ||
+            !task.category || task.category === "" ||
+            !task.difficulty || task.difficulty === "" ||
+            !task.points ||
+            !task.description || task.description === "" ||
+            !flag || flag === ""
+        ) {
+
+            return response.status(400).json({
+                status: false,
+                message: "Task must have title, category, flag, difficulty, points and description."
+            });
         }
 
         try{

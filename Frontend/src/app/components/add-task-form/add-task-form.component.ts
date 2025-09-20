@@ -23,7 +23,7 @@ export class AddTaskFormComponent implements OnInit{
 
   public task = {
     title: '',
-    category: '',
+    category: 1,
     icon: '',
     difficulty: '',
     points: '',
@@ -36,6 +36,16 @@ export class AddTaskFormComponent implements OnInit{
 
 
   constructor(private adminService: AdminService) {
+    // TEST AUTO FILL
+    this.task = {
+      title: 'Test title',
+      category: 1,
+      icon: 'icon',
+      difficulty: 'hard',
+      points: '100',
+      description: 'Test description'
+    }
+    this.flag = 'TEST_FLAG';
   }
 
   ngOnInit() {
