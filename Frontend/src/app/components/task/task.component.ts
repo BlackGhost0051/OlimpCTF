@@ -21,7 +21,7 @@ export class TaskComponent{
   constructor(private challengeService: ChallengeService) {
   }
 
-  verifyFlag(id: string){
+  verifyFlag(id: any){
     let result = this.challengeService.verifyFlag(id, this.flagInput);
   }
 
