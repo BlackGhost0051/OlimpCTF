@@ -14,7 +14,7 @@ export class ChallengeService {
 
   // need verify user || user_id
   verifyFlag(id: string, flag:string){
-    return this.http.post(this.url + '/user/register', { id:id, flag:flag});
+    return this.http.post(this.url + '/verify_flag', { task_id:id, flag:flag});
   }
 
   // TODO: verify internet connection

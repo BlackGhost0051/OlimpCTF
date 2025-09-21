@@ -22,7 +22,18 @@ export class TaskComponent{
   }
 
   verifyFlag(id: any){
-    let result = this.challengeService.verifyFlag(id, this.flagInput);
+    this.challengeService.verifyFlag(id, this.flagInput).subscribe({
+      next: (response: any) => {
+        if(response.status === true){
+          alert("Correct flag!");
+        } else {
+          alert(response.message);
+        }
+      },
+      error: (error) => {
+        alert("Error verifying flag");
+      }
+    });
   }
 
   onCloseClick(){
