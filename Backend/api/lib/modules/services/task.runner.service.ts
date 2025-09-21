@@ -1,52 +1,47 @@
-import fetch from "node-fetch";
+import axios from "axios";
 
 class TaskRunnerService{
     api_url: string = "http://task-runner:5001/api/challenge";
 
-    async addTask(id: string, flag:string){
-        const response = await fetch(this.api_url + '/task', {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
+
+    async addTask(id: string, flag: string) {
+        try {
+            const response = await axios.post(this.api_url + "/task", {
                 task_id: id,
                 flag: flag,
-            }),
-        });
+            });
 
-        if (!response.ok){
+            return response.data;
+        } catch (error) {
             throw new Error("Failed to create task");
         }
-        return await response.json();
     }
 
-    async deleteTask(task_id: string){
-        const response = await fetch(this.api_url + '/task', {
-            method: 'DELETE',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                task_id: task_id,
-            }),
-        });
+
+    async deleteTask(task_id: string) {
+        try {
+            await axios.delete(this.api_url + "/task", {
+                data: { task_id: task_id },
+                headers: { "Content-Type": "application/json" },
+            });
+        } catch (error) {
+            throw new Error("Failed to delete task");
+        }
     }
 
-    async verifyFlag(id: string, flag:string){
-        const response = await fetch(this.api_url + '/verify_flag', {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-               task_id: id,
-               flag: flag,
-            }),
-        });
+    async verifyFlag(id: string, flag: string) {
+        try {
+            const response = await axios.post(this.api_url + "/verify_flag", {
+                task_id: id,
+                flag: flag,
+            });
 
-        if (!response.ok){
-            console.log(response.body);
+            // TODO: verify logic
+            const data = response.data as { status: boolean };
+            return data.status;
+        } catch (error) {
             throw new Error("Failed to verify task");
         }
-
-        // TODO: verify logic
-        const data = await response.json() as { status: boolean };
-        return data.status;
     }
 }
 

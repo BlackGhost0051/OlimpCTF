@@ -9,6 +9,7 @@ class ChallengeService {
 
     constructor() {
         this.databaseService = new DatabaseService();
+        this.taskRunnerService = new TaskRunnerService();
     }
 
     getTaskInfo(id: string){
