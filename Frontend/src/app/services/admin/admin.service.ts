@@ -17,13 +17,7 @@ export class AdminService {
 
   // TODO: verify
   getUsers() {
-    const token = this.authService.getToken();
-    return this.http.get(this.url + '/users', {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      }
-    }).subscribe({
+    return this.http.get(this.url + '/users').subscribe({
       next: response => {
         console.log(response);
       },
@@ -35,24 +29,12 @@ export class AdminService {
 
   // TODO: verify
   addTask(task: any, flag: string){
-    const token = this.authService.getToken();
-    return this.http.post(this.url + '/task', {task:task, flag:flag}, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      }
-    });
+    return this.http.post(this.url + '/task', {task:task, flag:flag});
   }
 
   // TODO: verify
   modTask(){
-    const token = this.authService.getToken();
-    return this.http.patch(this.url + '/task', {}, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      }
-    }).subscribe({
+    return this.http.patch(this.url + '/task', {}).subscribe({
       next: response => {
         console.log(response);
       },
@@ -64,13 +46,7 @@ export class AdminService {
 
   // TODO: verify
   deleteTask(){
-    const token = this.authService.getToken();
-    return this.http.delete(this.url + '/task', {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      }
-    }).subscribe({
+    return this.http.delete(this.url + '/task').subscribe({
       next: response => {
         console.log(response);
       },
@@ -81,14 +57,7 @@ export class AdminService {
   }
 
   isAdmin(): Observable<boolean> {
-    const token = this.authService.getToken();
-
-    return this.http.post<{ status: boolean }>(this.url, {}, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      }
-    }).pipe(
+    return this.http.post<{ status: boolean }>(this.url, {}).pipe(
       map(response => response.status),
       catchError(err => of(false))
     );
