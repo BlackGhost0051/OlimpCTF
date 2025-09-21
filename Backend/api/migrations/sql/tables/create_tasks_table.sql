@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS tasks (
-    id TEXT NOT NULL,
+    id TEXT PRIMARY KEY,
     category INTEGER NOT NULL,
     title TEXT,
     author INTEGER,
