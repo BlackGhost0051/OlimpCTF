@@ -2,6 +2,7 @@ import {Inject, Injectable, DOCUMENT} from '@angular/core';
 import {catchError, map, Observable, of} from 'rxjs';
 import {Token} from '../../models/token';
 import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 import {JwtHelperService} from "@auth0/angular-jwt";
 
@@ -11,7 +12,7 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 
 export class AuthService {
 
-  private url = 'http://localhost:5000/api';
+  private url = environment.apiUrl;
   redirectUrl?: string = undefined;
 
   constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {}

@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Task } from '../../models/task';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChallengeService {
 
-  private url = 'http://localhost:5000/api/challenge';
+  private url = environment.apiUrl + '/challenge';
 
 
   constructor(private http: HttpClient) { }
