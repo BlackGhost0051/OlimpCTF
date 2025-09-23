@@ -12,4 +12,6 @@ export interface Task {
   created_at?: string;
   updated_at?: string;
   hints?: any;
+  completed?: boolean;
+  completed_at?: string;
 }
