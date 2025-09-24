@@ -7,7 +7,13 @@
     }
 
     @for(task of tasks; track task.id){
-      <div (click)="onTaskClick(task)">{{ task.title }}</div>
+      <div class="task-item" (click)="onTaskClick(task)" [class.completed]="task.completed">
+        <span class="task-title">{{ task.title }}</span>
+        <span class="task-points">{{ task.points }} pts</span>
+        @if(task.completed){
+          <span class="completion-badge">Completed</span>
+        }
+      </div>
     }
   </div>
 
