@@ -1,9 +1,10 @@
 <div class="category-container">
-  <h1>{{ category.name }}</h1>
+  <h1 class="category-name">{{ category.name }}</h1>
+
   <div>
 
     @if(tasks.length === 0){
-      <div>Tasks not found.</div>
+      <div class="info-message">Tasks not found.</div>
     }
 
     @for(task of tasks; track task.id){
