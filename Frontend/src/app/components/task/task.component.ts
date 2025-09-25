@@ -27,6 +27,8 @@ export class TaskComponent{
         if(response.status === true){
           alert("Correct flag!");
           // TODO: Refresh tasks it must add flag what was resolved
+
+          // TODO: Return data with completed flag in main task request
         } else {
           alert(response.message);
         }
