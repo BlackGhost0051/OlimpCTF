@@ -30,6 +30,8 @@ services:
     volumes:
       - ./TaskRunner/api:/app
       - task-runner-node-modules:/app/node_modules
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./TaskRunner/api/tasks:/app/tasks
     depends_on:
       - task-runner-db
     environment:
@@ -38,8 +40,10 @@ services:
       - DB_USER=admin
       - DB_PASSWORD=admin_password
       - DB_NAME=db
+      - DOCKER_HOST=unix:///var/run/docker.sock
     networks:
       - app-network
+    privileged: true
 
   frontend:
     build:
