@@ -66,6 +66,8 @@ PATCH /api/user/change_password
 
 ## TaskRunner
 
+Server to run tasks in docker containers. And server for checking flags.
+
 **Framework:** Express.js
 
 To run the task-runner API:
