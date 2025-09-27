@@ -34,6 +34,8 @@ To run the frontend:
 
 ## Backend
 
+Server for managing users, tasks, categories, and logs.
+
 **Framework:** Express.js
 
 To run the backend API:
