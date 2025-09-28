@@ -8,7 +8,9 @@
     "noImplicitAny": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "types": ["node"]
   },
   "include": [
     "lib/**/*.ts"
