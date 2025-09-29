@@ -1,0 +1,6 @@
+INSERT INTO tasks ( id, flag) VALUES
+('task-001', 'ENCRYPTED_TEST_FLAG'),
+('task-002', 'ENCRYPTED_TEST_FLAG'),
+('task-003', 'ENCRYPTED_TEST_FLAG'),
+('task-004', 'ENCRYPTED_TEST_FLAG'),
+('task-005', 'ENCRYPTED_TEST_FLAG');
