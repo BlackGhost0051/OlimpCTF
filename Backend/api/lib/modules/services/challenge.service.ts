@@ -51,6 +51,8 @@ class ChallengeService {
         }
     }
 
+    // TODO: NEED TEST
+    // TODO: NEED RATE-LIMIT
     async verifyFlag(login: string, task_id: string, flag: string ): Promise<boolean>{
 
         // TODO: add verification if user is making too many requests
