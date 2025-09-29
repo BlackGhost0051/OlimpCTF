@@ -16,6 +16,9 @@ class DockerService{
     }
 
 
+    restartAllContainers(){
+
+    }
 }
 
 export default DockerService;
