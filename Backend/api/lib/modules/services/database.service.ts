@@ -148,6 +148,32 @@ class DatabaseService{
         const result = await this.pool.query(query);
         return result.rows;
     }
+
+    async saveUserTaskCompletion(userId: number, taskId: string): Promise<void> {
+        const query = `
+            INSERT INTO user_tasks (user_id, task_id, completed, completed_at)
+            VALUES ($1, $2, true, NOW())
+            ON CONFLICT (user_id, task_id)
+            DO UPDATE SET completed = true, completed_at = NOW()
+        `;
+        await this.query(query, [userId, taskId]);
+    }
+
+    async hasUserCompletedTask(login: string, taskId: string) {
+        const query = `
+            SELECT ut.completed
+            FROM user_tasks ut
+            JOIN users u ON ut.user_id = u.id
+            WHERE u.login = $1 AND ut.task_id = $2
+        `;
+        const result = await this.query(query, [login, taskId]);
+
+        if (result.rows.length > 0) {
+            return result.rows[0].completed;
+        }
+
+        return false;
+    }
 }
 
 export default DatabaseService;

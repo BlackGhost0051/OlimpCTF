@@ -52,7 +52,22 @@ class ChallengeService {
     }
 
     async verifyFlag(login: string, task_id: string, flag: string ): Promise<boolean>{
-        return await this.taskRunnerService.verifyFlag(task_id, flag);
+
+        // TODO: add verification if user is making too many requests
+        // TODO: add verify task was already solved by user ???
+
+        const isValid = await this.taskRunnerService.verifyFlag(task_id, flag);
+
+        if (isValid) {
+            const userCompleted = await this.databaseService.hasUserCompletedTask(login, task_id);
+
+            const user = await this.databaseService.getUser(login);
+            if (user && !userCompleted) {
+                await this.databaseService.saveUserTaskCompletion(user.id, task_id);
+            }
+        }
+
+        return isValid;
     }
 
     async getCategories(){
