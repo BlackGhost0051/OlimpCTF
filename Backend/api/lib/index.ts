@@ -16,3 +16,6 @@ app.listen();
 // TODO: LOGGER SERVICE ??? how realise
 // TODO: input filters ONLY WHITE LIST SYMBOLS
 // TODO: STATISTICS GRAPHICS UI LIBRARY
+
+
+// TODO: All system need firewall
