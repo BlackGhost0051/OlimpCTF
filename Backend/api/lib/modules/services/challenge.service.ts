@@ -81,7 +81,7 @@ class ChallengeService {
         return await this.databaseService.getTasksByCategory(category);
     }
 
-    // make modal task method
+    // TODO: make modal task method
     async getTask( filter: {
         byCategory?: string,
         byDifficulty?: string,
