@@ -6,6 +6,7 @@
 /Backend/api/node_modules/
 /TaskRunner/api/node_modules/
 /TaskRunner/api/.env
+/TaskRunner/api/package-lock.json
 /TaskRunner/api/tasks
 
 /DataBaseModels/
