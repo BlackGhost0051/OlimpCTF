@@ -2,6 +2,8 @@ import Docker from 'dockerode';
 
 class DockerService{
 
+    // TODO: user must click in task start to run dokcer container ( user have custom ??? || or gobal task container ) || only start and make reload container in 30 or 60 minuts ||
+
     private MIN_PORT = 10000;
     private MAX_PORT = 10010;
 
