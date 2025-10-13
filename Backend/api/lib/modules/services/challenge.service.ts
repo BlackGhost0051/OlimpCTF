@@ -25,8 +25,8 @@ class ChallengeService {
         return task;
     }
 
-    async getCategory(id: string){
-        return await this.databaseService.getCategoryById(id);
+    async getCategory(nicename: string){
+        return await this.databaseService.getCategoryByNicename(nicename);
     }
 
     // TODO: test logic

@@ -28,9 +28,9 @@ export class CategoryComponent implements OnInit{
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      const categoryId = params['id'];
+      const categoryNicename = params['id'];
 
-      this.challengeService.getCategory(categoryId).subscribe((response: any) => {
+      this.challengeService.getCategory(categoryNicename).subscribe((response: any) => {
           this.category = response.category;
         },
         (error) => {
@@ -38,7 +38,7 @@ export class CategoryComponent implements OnInit{
         }
       );
 
-        this.getCategoryTasks(categoryId).subscribe((response: any) => {
+        this.getCategoryTasks(categoryNicename).subscribe((response: any) => {
           this.tasks = response.tasks;
         },
           (error) => {

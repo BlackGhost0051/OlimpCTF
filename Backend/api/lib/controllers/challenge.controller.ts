@@ -27,14 +27,14 @@ class ChallengeController implements Controller{
 
 
     private async getCategory(request: Request, response: Response){
-        const { id } = request.body;
+        const { nicename } = request.body;
 
-        if(!id){
-            return response.status(400).json({ status: false, message : "Must be id." });
+        if(!nicename){
+            return response.status(400).json({ status: false, message : "Must be nicename." });
         }
 
         try{
-            const category = await this.challengeService.getCategory(id);
+            const category = await this.challengeService.getCategory(nicename);
 
             if(!category){
                 return response.status(404).json({ status: false, message: "Category not found." });
