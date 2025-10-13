@@ -14,6 +14,11 @@ OlimpCTF is a Capture The Flag (CTF) platform designed for hosting cybersecurity
 - [Categories](#categories)
 
 
+# First start
+
+1. Go to `TaskRunner/api` and rename `.env.example` to `.env`
+
+
 # Start project
 
 Install TS:
