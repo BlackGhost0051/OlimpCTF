@@ -46,7 +46,10 @@
       </div>
     </div>
 
-<!--   TODO: need area to add file or zip with docker container | make logic in backend   -->
+    <div class="input-container">
+      <label for="zipFile">Upload ZIP file ( WEB task )</label>
+      <input type="file" id="zipFile" name="zipFile" accept=".zip" (change)="onFileChange($event)" title="ZIP file">
+    </div>
 
     @if(isEdit){
       <button (click)="editTaskToggled()">Edit</button>

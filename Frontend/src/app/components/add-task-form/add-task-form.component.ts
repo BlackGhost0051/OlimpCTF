@@ -34,6 +34,7 @@ export class AddTaskFormComponent implements OnInit{
   flagPrefix: string = 'olimpCTF{';
   flagSuffix: string = '}';
 
+  public zipFile: File | null = null;
 
   constructor(private adminService: AdminService) {
     // TEST AUTO FILL
@@ -76,7 +77,7 @@ export class AddTaskFormComponent implements OnInit{
 
   addTaskToggled(){
     const completeFlag = this.flagPrefix + this.flag + this.flagSuffix;
-    this.adminService.addTask(this.task, completeFlag).subscribe({
+    this.adminService.addTask(this.task, completeFlag, this.zipFile).subscribe({
       next: (response) => {
         console.log('Task added:', response);
         this.response_msg = 'Task successfully added!';
@@ -91,5 +92,14 @@ export class AddTaskFormComponent implements OnInit{
 
   editTaskToggled(){
 
+  }
+
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.zipFile = input.files[0];
+    } else {
+      this.zipFile = null;
+    }
   }
 }

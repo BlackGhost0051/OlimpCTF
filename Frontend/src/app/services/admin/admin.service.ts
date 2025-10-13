@@ -28,7 +28,7 @@ export class AdminService {
   }
 
   // TODO: verify
-  addTask(task: any, flag: string){
+  addTask(task: any, flag: string, zipFile: File | null = null){
     return this.http.post(this.url + '/task', {task:task, flag:flag});
   }
 
