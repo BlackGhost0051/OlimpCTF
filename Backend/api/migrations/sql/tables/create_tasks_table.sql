@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS tasks (
     id TEXT PRIMARY KEY,
-    category INTEGER NOT NULL,
+    category TEXT NOT NULL,
     title TEXT,
     author INTEGER,
     icon TEXT,
@@ -12,5 +12,5 @@ CREATE TABLE IF NOT EXISTS tasks (
     updated_at TIMESTAMP,
     hints TEXT[],
     CONSTRAINT fk_author FOREIGN KEY (author) REFERENCES users(id),
-    CONSTRAINT fk_category FOREIGN KEY (category) REFERENCES categories(id)
+    CONSTRAINT fk_category FOREIGN KEY (category) REFERENCES categories(nicename)
 );
