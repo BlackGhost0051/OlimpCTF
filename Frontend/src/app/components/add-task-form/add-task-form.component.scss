@@ -1,86 +1,80 @@
 @use 'colors' as colors;
 
+.add-task-from-container{
+  width: 60vh;
+      
+  background: colors.$background;
+  border-radius: 1rem;
+
+  .add-task-form{
+    padding: 2rem;
 
 
+    .form-header{
+      margin-bottom: 1rem;
 
-  .add-task-from-container{
-    width: 60vh;
+      .title{
+        text-align: center;
+        font-size: 1.5rem;
+      }
 
-    background: colors.$background;
-    border-radius: 1rem;
-
-    .add-task-form{
-      padding: 2rem;
-
-
-      .form-header{
-        margin-bottom: 1rem;
-
-        .title{
+      .response-block{
+        .response-text{
+          color: colors.$text_error;
           text-align: center;
-          font-size: 1.5rem;
-        }
-
-        .response-block{
-          .response-text{
-            color: colors.$text_error;
-            text-align: center;
-          }
-        }
-      }
-
-      .input-container{
-        margin-bottom: 1rem;
-
-        input{
-          border: none;
-          border-bottom: 0.08rem solid colors.$text_primary;
-
-          box-sizing: border-box;
-          width: 100%;
-          padding: 0.25rem;
-        }
-
-        .flag-constructor-container{
-          margin-top: 0.25rem;
-          display: flex;
-          font-size: 0.75rem;
-
-          a{
-            text-decoration: none;
-            color: rgba(colors.$primary ,0.8);
-          }
-
-          .flag-container{
-            display: flex;
-            margin-bottom: 0.25rem;
-            margin-left: 0.25rem;
-
-            .flag{
-              margin-left: 0.25rem;
-              color: rgba(colors.$primary ,0.8);
-            }
-          }
-        }
-      }
-
-      button{
-        padding: 0.5rem 1rem;
-        border-radius: 0.25rem;
-        border: none;
-
-        background: colors.$background_secondary;
-        color: colors.$text_secondary;
-
-        cursor: pointer;
-
-        &:hover{
-          background: rgba(colors.$background_secondary, 0.8);
-        }
-
-        &:active{
-          background: rgba(colors.$background_secondary, 0.4);
         }
       }
     }
-  }
+
+    .input-container{
+      margin-bottom: 1rem;
+
+      input{
+        border: none;
+        border-bottom: 0.08rem solid colors.$text_primary;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 0.25rem;
+      }
+
+      .flag-constructor-container{
+        margin-top: 0.25rem;
+        display: flex;
+        font-size: 0.75rem;
+
+        a{
+          text-decoration: none;
+          color: rgba(colors.$primary ,0.8);
+        }
+
+        .flag-container{
+          display: flex;
+          margin-bottom: 0.25rem;
+          margin-left: 0.25rem;
+
+          .flag{
+            margin-left: 0.25rem;
+            color: rgba(colors.$primary ,0.8);
+          }
+        }
+      }
+    }
+
+    button{
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      border: none;
+      background: colors.$background_secondary;
+      color: colors.$text_secondary;
+      cursor: pointer;
+
+      &:hover{
+        background: rgba(colors.$background_secondary, 0.8);
+      }
+
+      &:active{
+        background: rgba(colors.$background_secondary, 0.4);
+      }
+     }
+   }
+ }
