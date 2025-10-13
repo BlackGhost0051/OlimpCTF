@@ -1,4 +1,6 @@
 import Docker from 'dockerode';
+import * as fs from 'fs';
+import * as path from 'path';
 
 class DockerService{
 
@@ -15,9 +17,29 @@ class DockerService{
     }
 
     async startExampleWebTask() {
-        try { 
+        try {
+            const taskPath = '/app/tasks/example-web-task';
+
+            if (!fs.existsSync(taskPath)) {
+                console.log(`Task directory does not exist: ${taskPath}`);
+                return;
+            }
+
+            const stats = fs.statSync(taskPath);
+            if (!stats.isDirectory()) {
+                console.log(`Path ${taskPath} exists but is not a directory`);
+                return;
+            }
+
+            
+            const dockerfilePath = path.join(taskPath, 'Dockerfile');
+            if (!fs.existsSync(dockerfilePath)) {
+                console.log(`Dockerfile not found in: ${taskPath}`);
+                return;
+            }
+
             const stream = await this.docker.buildImage({
-                context: '/app/tasks/example-web-task',
+                context: taskPath,
                 src: ['.']
             }, { t: 'example-web-task:latest' });
 
