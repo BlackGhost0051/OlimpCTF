@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FooterComponent} from '../global/footer/footer.component';
 import {ChallengeService} from '../../services/challenge/challenge.service';
-import {AddTaskFormComponent} from '../add-task-form/add-task-form.component';
 
 
 @Component({
   selector: 'app-home',
-  imports: [FooterComponent, AddTaskFormComponent],
+  imports: [FooterComponent],
   standalone: true,
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
