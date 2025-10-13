@@ -3,10 +3,16 @@
 */node_modules/
 */.vscode/
 
+# dependence
+/Frontend/node_modules/
+/Frontend/package-lock.json
 /Backend/api/node_modules/
+/Backend/api/package-lock.json
 /TaskRunner/api/node_modules/
-/TaskRunner/api/.env
 /TaskRunner/api/package-lock.json
+
+
+/TaskRunner/api/.env
 /TaskRunner/api/tasks
 
 /DataBaseModels/
