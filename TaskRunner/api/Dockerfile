@@ -17,9 +17,7 @@ RUN apt-get update && apt-get install -y \
 #
 
 COPY package*.json ./
-RUN npm install
 
 COPY . .
 
-#CMD ["npm", "run", "dev"]
-CMD ["npm", "run", "watch"]
+CMD npm install && npm run watch
