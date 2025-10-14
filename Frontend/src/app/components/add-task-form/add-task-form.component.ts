@@ -23,7 +23,7 @@ export class AddTaskFormComponent implements OnInit{
 
   public task = {
     title: '',
-    category: 1,
+    category: '',
     icon: '',
     difficulty: '',
     points: '',
@@ -40,7 +40,7 @@ export class AddTaskFormComponent implements OnInit{
     // TEST AUTO FILL
     this.task = {
       title: 'Test title',
-      category: 1,
+      category: 'web',
       icon: 'icon',
       difficulty: 'hard',
       points: '100',
