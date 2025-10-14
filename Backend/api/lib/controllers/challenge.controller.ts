@@ -13,18 +13,22 @@ class ChallengeController implements Controller{
 
     constructor() {
         this.challengeService = new ChallengeService();
-
+ 
         this.initializeRoutes();
     }
 
     private initializeRoutes(){
         this.router.post(`${this.path}/verify_flag`, JwtMiddleware , this.verifyFlag.bind(this));
-        this.router.post(`${this.path}/category_tasks`, this.getCategoryTasks.bind(this));
+        this.router.post(`${this.path}/category_tasks`, JwtMiddleware , this.getCategoryTasks.bind(this));
         this.router.post(`${this.path}/categories`, this.getCategories.bind(this));
         this.router.post(`${this.path}/category`, this.getCategory.bind(this));
-        this.router.post(`${this.path}/task/:id`, JwtMiddleware , this.getTaskInfo.bind(this));
+        
+        // TODO: verify maybe dont need ???
+        // this.router.post(`${this.path}/task/:id`, JwtMiddleware , this.getTaskInfo.bind(this));
     }
 
+
+    
 
     private async getCategory(request: Request, response: Response){
         const { nicename } = request.body;
@@ -47,21 +51,26 @@ class ChallengeController implements Controller{
     }
 
 
-    private async getTaskInfo(request: Request, response: Response){
-        const { id } = request.body;
+    // private async getTaskInfo(request: Request, response: Response){
+    //     const { id } = request.body;
 
-        if(!id){
-            return response.status(400).json({ status: false, message : "Must be id." });
-        }
+    //     if(!id){
+    //         return response.status(400).json({ status: false, message : "Must be id." });
+    //     }
 
-        try{
-            const task: Task = this.challengeService.getTaskInfo(id);
+    //     try{
+    //         const user = (request as any).user;
+    //         const task = await this.challengeService.getTaskInfo(id, user?.id);
 
-            return response.status(200).json({ status: true, task, message: "Task info." });
-        } catch (error){
-            return response.status(500).json({ status: false, message: "Failed to get task info." });
-        }
-    }
+    //         if(!task){
+    //             return response.status(404).json({ status: false, message: "Task not found." });
+    //         }
+
+    //         return response.status(200).json({ status: true, task, message: "Task info." });
+    //     } catch (error){
+    //         return response.status(500).json({ status: false, message: "Failed to get task info." });
+    //     }
+    // }
 
     private async verifyFlag(request: Request, response: Response){
         const { flag, task_id } = request.body;
@@ -93,7 +102,13 @@ class ChallengeController implements Controller{
         }
 
         try{
-            const tasks = await this.challengeService.getCategoryTasks(category);
+            const user = (request as any).user;
+
+            if(!user.id){
+                return response.status(500).json({ status: false, message: "Failed to get user id." });
+            }
+
+            const tasks = await this.challengeService.getCategoryTasks(category, user.id);
 
             if(tasks.length === 0){
                 return response.status(404).json({ status: false, message: "Category not found." });

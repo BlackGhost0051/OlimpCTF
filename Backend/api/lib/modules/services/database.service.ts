@@ -137,9 +137,37 @@ class DatabaseService{
         }
     }
 
-    async getTasksByCategory(category: string) {
-        const query = `SELECT * FROM tasks WHERE category = $1`;
-        const result = await this.pool.query(query, [category]);
+    // async getTaskById(id: string, userId?: number) {
+    //     if (userId) {
+    //         const query = `  
+    //             SELECT
+    //                 t.*,
+    //                 COALESCE(ut.completed, false) AS completed
+    //             FROM tasks t
+    //             LEFT JOIN user_tasks ut
+    //             ON t.id = ut.task_id AND ut.user_id = $1 
+    //             WHERE t.id = $2
+    //         `;
+    //         const result = await this.pool.query(query, [userId, id]);
+    //         return result.rows[0] || null;
+    //     } else {
+    //         const query = `SELECT * FROM tasks WHERE id = $1`;
+    //         const result = await this.pool.query(query, [id]);
+    //         return result.rows[0] || null;
+    //     }
+    // }
+
+    async getTasksByCategory(category: string, userId: number) {
+        const query = `
+            SELECT
+            t.*,
+            COALESCE(ut.completed, false) AS completed
+            FROM tasks t
+            LEFT JOIN user_tasks ut
+            ON t.id = ut.task_id AND ut.user_id = $1
+            WHERE t.category = $2
+        `;
+        const result = await this.pool.query(query, [userId, category]);
         return result.rows;
     }
 

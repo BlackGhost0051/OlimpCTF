@@ -12,18 +12,9 @@ class ChallengeService {
         this.taskRunnerService = new TaskRunnerService();
     }
 
-    getTaskInfo(id: string){
-        const task: Task = {
-            id: "a32q33r3qw2r2q33r2",
-            category: "WEB",
-            title: "TITLE",
-            icon: "ICON CLASS",
-            difficulty: "EASY",
-            points: 100,
-            description: "HACK WEB"
-        };
-        return task;
-    }
+    // async getTaskInfo(id: string, userId?: number){
+    //     return await this.databaseService.getTaskById(id, userId);
+    // }
 
     async getCategory(nicename: string){
         return await this.databaseService.getCategoryByNicename(nicename);
@@ -75,19 +66,8 @@ class ChallengeService {
     async getCategories(){
         return await this.databaseService.getCategories();
     }
-    async getCategoryTasks(category: string){
-        // const tasks: any[]= await this.databaseService.getTasksByCategory(category);
-        // return tasks;
-        return await this.databaseService.getTasksByCategory(category);
-    }
-
-    // TODO: make modal task method
-    async getTask( filter: {
-        byCategory?: string,
-        byDifficulty?: string,
-        byId?: string
-    } ) {
-
+    async getCategoryTasks(category: string, userId: number){
+        return await this.databaseService.getTasksByCategory(category, userId);
     }
 }
 
