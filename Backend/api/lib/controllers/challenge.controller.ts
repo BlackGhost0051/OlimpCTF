@@ -104,11 +104,11 @@ class ChallengeController implements Controller{
         try{
             const user = (request as any).user;
 
-            if(!user.id){
-                return response.status(500).json({ status: false, message: "Failed to get user id." });
+            if(!user.login){
+                return response.status(500).json({ status: false, message: "Fix page!!!" });
             }
 
-            const tasks = await this.challengeService.getCategoryTasks(category, user.id);
+            const tasks = await this.challengeService.getCategoryTasks(category, user.login);
 
             if(tasks.length === 0){
                 return response.status(404).json({ status: false, message: "Category not found." });

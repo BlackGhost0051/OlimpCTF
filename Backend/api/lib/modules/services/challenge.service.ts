@@ -66,8 +66,14 @@ class ChallengeService {
     async getCategories(){
         return await this.databaseService.getCategories();
     }
-    async getCategoryTasks(category: string, userId: number){
-        return await this.databaseService.getTasksByCategory(category, userId);
+    async getCategoryTasks(category: string, login: string){
+        const user = await this.databaseService.getUser(login);
+
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        return await this.databaseService.getTasksByCategory(category, user.id);
     }
 }
 
