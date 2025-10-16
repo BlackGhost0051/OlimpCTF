@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO: Need test
+
 cd "$(dirname "$0")/.."
 
 echo "Reinstalling all project dependencies..."
