@@ -2,9 +2,13 @@
 
 .navbar-container{
   width: 100vw;
+  background: colors.$background_primary;
+
+
 
   ul{
     display: flex;
+    justify-content: end;
 
     li{
       list-style: none;
