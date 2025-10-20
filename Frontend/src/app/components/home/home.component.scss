@@ -4,6 +4,11 @@
   .home-header-container{
     padding: 4rem;
 
+
+
+    background-image: radial-gradient(circle at 1px 1px, rgba(colors.$primary, 0.15) 1px, transparent 0);
+    background-size: 20px 20px;
+
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
