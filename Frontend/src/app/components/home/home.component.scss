@@ -1,6 +1,8 @@
 @use 'colors' as colors;
 
 .home-container{
+  color: colors.$text_primary;
+
   .home-header-container{
     padding: 4rem;
 
