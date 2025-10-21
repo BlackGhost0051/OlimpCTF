@@ -4,23 +4,38 @@
   width: 100vw;
   background: colors.$background_primary;
 
+  border-bottom: solid 1px colors.$primary;
 
-
-  ul{
+  .navbar-box{
+    padding: 1rem 5rem;
     display: flex;
-    justify-content: end;
 
-    li{
-      list-style: none;
-      padding: 1ex;
+    justify-content: space-between;
+    align-items: center;
 
-      a{
-        text-decoration: none;
+    .navbar-logo{
+
+      .navbar-name{
+        font-size: 1.5rem;
         color: colors.$text_primary;
       }
+    }
 
-      a:hover{
-        color: rgba(colors.$text_primary, 0.8);
+    ul{
+      display: flex;
+      justify-content: end;
+
+      li{
+        margin-left: 1.5rem;
+        list-style: none;
+        a{
+          text-decoration: none;
+          color: colors.$text_primary;
+        }
+
+        a:hover{
+          color: rgba(colors.$text_primary, 0.8);
+        }
       }
     }
   }
