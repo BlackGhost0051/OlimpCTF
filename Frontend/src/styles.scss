@@ -17,3 +17,9 @@
 html{
   background: colors.$background_primary;
 }
+
+::-moz-selection,
+::selection {
+  color: colors.$background_primary;
+  background: colors.$primary;
+}
