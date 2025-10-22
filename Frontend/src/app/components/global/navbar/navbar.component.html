@@ -2,7 +2,10 @@
   <div class="navbar-box">
 
     <div class="navbar-logo">
-      <div class="navbar-name">>_ olimpCTF</div>
+      <div><a
+        class="navbar-name"
+        [routerLink]="['/home']"
+      >>_ olimpCTF</a></div>
     </div>
 
     <ul>
@@ -10,6 +13,8 @@
       <li><a [routerLink]="['/welcome']">~/welcome</a></li>
       <li><a [routerLink]="['/dashboard']">~/dashboard</a></li>
       <li><a [routerLink]="['/categories']">~/categories</a></li>
+
+<!--   TODO: need add profile   -->
     </ul>
   </div>
 </div>
