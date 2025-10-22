@@ -1,0 +1,36 @@
+<div class="category-view-container">
+  <div class="category-view-view">
+    @if(category){
+      <div class="category-view-name">{{ category.name }}</div>
+      <div class="category-view-details">{{ category.details }}</div>
+    }
+  </div>
+
+  <div class="task-item-container">
+
+    @if(tasks.length === 0){
+      <div class="info-message">Tasks not found.</div>
+    }
+
+    @for(task of tasks; track task.id){
+      <div class="task-item" (click)="onTaskClick(task)" [class.completed]="task.completed">
+
+        <div class="task-icon"><i>{{ task.icon }}</i></div>
+
+        <div class="task-info">
+          <div class="task-title">{{ task.title }}</div>
+          <div class="task-description">{{ task.description }} pts</div>
+        </div>
+
+      </div>
+    }
+  </div>
+
+</div>
+
+
+@if(showTask){
+  <app-task [task]="clickedTask" (close)="onTaskClose()"></app-task>
+}
+
+

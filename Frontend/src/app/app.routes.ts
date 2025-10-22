@@ -11,7 +11,7 @@ import {AdminComponent} from './components/admin/admin.component';
 
 import { authGuard } from './services/auth/auth.guard';
 import {adminGuard} from './services/admin/admin.guard';
-import {CategoryComponent} from './components/category/category.component';
+import {CategoryViewComponent} from './components/category-view/category-view.component';
 
 
 export const routes: Routes = [
@@ -25,7 +25,7 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
   { path: 'categories', component: CategoriesComponent, canActivate: [authGuard] },
 
-  { path: 'category/:id', component: CategoryComponent, canActivate: [authGuard] },
+  { path: 'category/:id', component: CategoryViewComponent, canActivate: [authGuard] },
 
   { path: 'admin', component: AdminComponent, canActivate: [adminGuard]}
 ];
