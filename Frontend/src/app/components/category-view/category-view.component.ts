@@ -6,7 +6,7 @@ import {Task} from '../../models/task';
 import {Category} from '../../models/category';
 
 @Component({
-  selector: 'app-category',
+  selector: 'app-category-view',
   imports: [
     TaskComponent,
     // TaskComponent
