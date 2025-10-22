@@ -29,8 +29,8 @@
 </div>
 
 
-@if(showTask){
-  <app-task [task]="clickedTask" (close)="onTaskClose()"></app-task>
+@if(showTaskView){
+  <app-task-view [task]="clickedTask" (close)="onTaskClose()"></app-task-view>
 }
 
 

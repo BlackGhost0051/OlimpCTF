@@ -1,0 +1,80 @@
+@use 'colors' as colors;
+
+
+.back{
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: colors.$back;
+
+  z-index: 100;
+
+  .task-view-container{
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: colors.$background;
+
+    padding: 1rem;
+    border-radius: 1rem;
+
+    height: 50%;
+    width: 60%;
+
+
+    .hints-container{
+      .hints-button{
+        cursor: pointer;
+        margin-right: 1rem;
+        margin-top: 1rem;
+        height: 3rem;
+        width: 8rem;
+
+
+        border: 0;
+        border-radius: 0.5rem;
+
+        color: white;
+        background: black;
+      }
+
+      .hints{
+        display: flex;
+        .hint{
+
+        }
+      }
+    }
+
+    .submit-flag-container{
+      input[type='text']{
+        cursor: pointer;
+
+        height: 3rem;
+
+
+        border: 1px solid colors.$back;
+        border-radius: 0.5rem;
+
+      }
+      input[type='submit']{
+        cursor: pointer;
+        margin-right: 1rem;
+        margin-top: 1rem;
+        height: 3rem;
+        width: 8rem;
+
+
+        border: 0;
+        border-radius: 0.5rem;
+
+        color: white;
+        background: black;
+      }
+    }
+  }
+}

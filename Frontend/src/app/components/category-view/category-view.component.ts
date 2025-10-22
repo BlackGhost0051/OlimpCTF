@@ -1,15 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TaskComponent} from '../task/task.component';
 import {ChallengeService} from '../../services/challenge/challenge.service';
 import {Task} from '../../models/task';
 import {Category} from '../../models/category';
+import {TaskViewComponent} from '../task-view/task-view.component';
 
 @Component({
   selector: 'app-category-view',
   imports: [
-    TaskComponent,
-    // TaskComponent
+    TaskViewComponent,
   ],
   templateUrl: './category-view.component.html',
   styleUrl: './category-view.component.scss'
@@ -17,7 +16,7 @@ import {Category} from '../../models/category';
 export class CategoryViewComponent implements OnInit{
   category!: Category;
   clickedTask!: Task;
-  showTask = false;
+  showTaskView = false;
 
   tasks: Task[] = [];
 
@@ -54,9 +53,9 @@ export class CategoryViewComponent implements OnInit{
 
   onTaskClick(task: Task){
     this.clickedTask = task;
-    this.showTask = true;
+    this.showTaskView = true;
   }
   onTaskClose(){
-    this.showTask = false;
+    this.showTaskView = false;
   }
 }
