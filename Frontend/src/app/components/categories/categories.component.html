@@ -1,10 +1,7 @@
 <div class="categories-container">
 
   @for(category of categories; track category.id){
-
-    <a [routerLink]="['/category/', category.nicename]" class="category-container">
-      <div class="category-name">{{category.name}}</div>
-    </a>
+    <app-category [category]="category"></app-category>
   }
 </div>
 

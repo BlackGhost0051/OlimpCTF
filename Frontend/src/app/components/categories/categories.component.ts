@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import { Router,RouterLink } from '@angular/router';
 import {ChallengeService} from '../../services/challenge/challenge.service';
+import {CategoryComponent} from '../category/category.component';
 
 @Component({
   selector: 'app-categories',
-  imports: [ RouterLink ],
+  imports: [ CategoryComponent ],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
@@ -17,7 +17,6 @@ export class CategoriesComponent implements OnInit{
   ngOnInit() {
      this.challengeService.getCategories().subscribe((response: any) => {
        this.categories = response.categories;
-       console.log(response.categories);
     });
   }
 }
