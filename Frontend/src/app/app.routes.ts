@@ -15,17 +15,16 @@ import {CategoryViewComponent} from './components/category-view/category-view.co
 
 
 export const routes: Routes = [
-  { path: '', component: MainComponent },
+  { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'welcome', component: WelcomeComponent },
   { path: 'dashboard', component: DashboardComponent },
 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
+
+  { path: 'profile/:login', component: ProfileComponent, canActivate: [authGuard] },
   { path: 'categories', component: CategoriesComponent, canActivate: [authGuard] },
-
   { path: 'category/:id', component: CategoryViewComponent, canActivate: [authGuard] },
-
   { path: 'admin', component: AdminComponent, canActivate: [adminGuard]}
 ];
