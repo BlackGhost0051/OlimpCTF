@@ -1,3 +1,9 @@
-<div class="task-container">
+<div class="task-container" (click)="onTaskClick()" [class.completed]="task.completed">
 
+  <div class="task-icon"><i>{{ task.icon }}</i></div>
+
+  <div class="task-info">
+    <div class="task-title">{{ task.title }}</div>
+    <div class="task-description">{{ task.description }} pts</div>
+  </div>
 </div>
