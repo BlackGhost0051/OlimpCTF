@@ -4,11 +4,13 @@ import {ChallengeService} from '../../services/challenge/challenge.service';
 import {Task} from '../../models/task';
 import {Category} from '../../models/category';
 import {TaskViewComponent} from '../task-view/task-view.component';
+import {TaskComponent} from '../task/task.component';
 
 @Component({
   selector: 'app-category-view',
   imports: [
     TaskViewComponent,
+    TaskComponent,
   ],
   templateUrl: './category-view.component.html',
   styleUrl: './category-view.component.scss'

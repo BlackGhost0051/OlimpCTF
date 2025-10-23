@@ -13,16 +13,7 @@
     }
 
     @for(task of tasks; track task.id){
-      <div class="task-item" (click)="onTaskClick(task)" [class.completed]="task.completed">
-
-        <div class="task-icon"><i>{{ task.icon }}</i></div>
-
-        <div class="task-info">
-          <div class="task-title">{{ task.title }}</div>
-          <div class="task-description">{{ task.description }} pts</div>
-        </div>
-
-      </div>
+      <app-task [task]="task" (taskClick)="onTaskClick($event)"></app-task>
     }
   </div>
 
