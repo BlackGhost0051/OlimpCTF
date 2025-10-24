@@ -16,6 +16,8 @@ export class ProfileComponent implements OnInit, AfterViewInit{
   userProfile?: UserProfile;
   loading: boolean = true;
   error?: string;
+  targetLogin?: string;
+  isOwnProfile: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,22 +26,49 @@ export class ProfileComponent implements OnInit, AfterViewInit{
   ) {}
 
   ngOnInit() {
-    this.loadUserProfile();
+    this.route.params.subscribe(params => {
+      this.targetLogin = params['login'];
+      this.loadUserProfile();
+    });
   }
 
   ngAfterViewInit() {
   }
 
   private loadUserProfile() {
-    this.userService.getUserProfile().subscribe({
+    this.loading = true;
+    this.error = undefined;
+
+    this.userService.getUserProfile(this.targetLogin).subscribe({
       next: (profile) => {
         this.userProfile = profile;
+        this.isOwnProfile = !this.targetLogin;
         this.loading = false;
       },
       error: (err) => {
-        this.error = 'Failed to load profile';
+        this.error = this.targetLogin
+          ? `Failed to load profile for user ${this.targetLogin}`
+          : 'Failed to load profile';
         this.loading = false;
         console.error('Error loading profile:', err);
+      }
+    });
+  }
+
+  togglePrivacy() {
+    if (!this.userProfile || !this.isOwnProfile) return;
+
+    const newPrivacySetting = !this.userProfile.isPrivate;
+
+    this.userService.updatePrivacy(newPrivacySetting).subscribe({
+      next: () => {
+        if (this.userProfile) {
+          this.userProfile.isPrivate = newPrivacySetting;
+        }
+      },
+      error: (err) => {
+        console.error('Error updating privacy settings:', err);
+        alert('Failed to update privacy settings');
       }
     });
   }

@@ -94,6 +94,11 @@ class DatabaseService{
         await this.query(query, [newHashedPassword, login]);
     }
 
+    public async updateUserPrivacy(login: string, isPrivate: boolean): Promise<void> {
+        const query = `UPDATE users SET isPrivate = $1 WHERE login = $2`;
+        await this.query(query, [isPrivate, login]);
+    }
+
     public async isAdmin(login: string): Promise<boolean> {
         const query = `SELECT isAdmin FROM users WHERE login = $1`;
         const result = await this.query<{ isadmin: boolean }>(query, [login]);

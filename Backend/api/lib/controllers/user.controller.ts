@@ -23,8 +23,10 @@ class UserController implements Controller{
         this.router.post(`${this.path}/login`, this.login.bind(this));
         this.router.post(`${this.path}/register`, this.register.bind(this));
         this.router.get(`${this.path}/profile`, JwtMiddleware, this.profile.bind(this));
+        this.router.get(`${this.path}/profile/:login`, JwtMiddleware, this.getUserProfile.bind(this));
 
         this.router.patch(`${this.path}/change_password`, JwtMiddleware, this.change_password.bind(this));
+        this.router.patch(`${this.path}/privacy`, JwtMiddleware, this.updatePrivacy.bind(this));
     }
 
     private async login(request: Request, response: Response){
@@ -102,9 +104,47 @@ class UserController implements Controller{
                 return response.status(401).json({ error: "Unauthorized" });
             }
 
-            const userInfo = await this.userService.getProfile(user.login);
+            const userInfo = await this.userService.getProfile(user.login, user.login);
 
             return response.status(200).json(userInfo);
+        } catch (error){
+            return response.status(400).json({ error: error.message });
+        }
+    }
+
+    private async getUserProfile(request: Request, response: Response){
+        try{
+            const { login } = request.params;
+            const requestingUser = (request as any).user;
+
+            if (!login) {
+                return response.status(400).json({ error: "Login is required" });
+            }
+
+            const userInfo = await this.userService.getProfile(login, requestingUser?.login);
+
+            return response.status(200).json(userInfo);
+        } catch (error){
+            return response.status(404).json({ error: error.message });
+        }
+    }
+
+    private async updatePrivacy(request: Request, response: Response){
+        try{
+            const user = (request as any).user;
+            const { isPrivate } = request.body;
+
+            if (!user || !user.login) {
+                return response.status(401).json({ error: "Unauthorized" });
+            }
+
+            if (typeof isPrivate !== 'boolean') {
+                return response.status(400).json({ error: "isPrivate must be a boolean" });
+            }
+
+            await this.userService.updatePrivacy(user.login, isPrivate);
+
+            return response.status(200).json({ message: "Privacy settings updated successfully" });
         } catch (error){
             return response.status(400).json({ error: error.message });
         }

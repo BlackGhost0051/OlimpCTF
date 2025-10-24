@@ -34,11 +34,16 @@ class UserService{
         };
     }
 
-    async getProfile(identifier: string){
+    async getProfile(identifier: string, requestingUserLogin?: string){
         const user = await this.databaseService.getUser(identifier);
 
         if (!user) {
             throw new Error("User not found");
+        }
+
+        // Check if profile is private and if the requesting user is not the profile owner
+        if (user.isprivate && requestingUserLogin !== user.login) {
+            throw new Error("This profile is private");
         }
 
         return {
@@ -49,6 +54,7 @@ class UserService{
             email_verified: user.email_verified,
             created_at: user.created_at,
             bio: user.bio,
+            isPrivate: user.isprivate,
         };
     }
 
@@ -100,6 +106,15 @@ class UserService{
 
         const hashedPassword = await this.passwordService.hashPassword(new_password);
         await this.databaseService.updateUserPassword(user.login, hashedPassword);
+    }
+
+    async updatePrivacy(login: string, isPrivate: boolean){
+        const user = await this.databaseService.getUser(login);
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        await this.databaseService.updateUserPrivacy(login, isPrivate);
     }
 }
 

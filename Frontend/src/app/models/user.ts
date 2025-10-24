@@ -6,4 +6,5 @@ export interface UserProfile {
   email_verified: boolean;
   created_at: string;
   bio: string;
+  isPrivate: boolean;
 }

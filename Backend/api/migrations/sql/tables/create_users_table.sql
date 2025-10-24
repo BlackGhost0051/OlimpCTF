@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(150) NOT NULL UNIQUE,
     email_verified BOOLEAN DEFAULT FALSE,
     isAdmin BOOLEAN DEFAULT FALSE,
+    isPrivate BOOLEAN DEFAULT FALSE,
     bio TEXT,
     created_at TIMESTAMP DEFAULT NOW()
 );
