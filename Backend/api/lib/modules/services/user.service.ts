@@ -34,6 +34,24 @@ class UserService{
         };
     }
 
+    async getProfile(identifier: string){
+        const user = await this.databaseService.getUser(identifier);
+
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        return {
+            name: user.name,
+            lastname: user.lastname,
+            login: user.login,
+            email: user.email,
+            email_verified: user.email_verified,
+            created_at: user.created_at,
+            bio: user.bio,
+        };
+    }
+
     async login(login: string, password: string ){
         const user = await this.databaseService.getUser(login);
 

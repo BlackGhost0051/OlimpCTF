@@ -1,23 +1,33 @@
 <div class="profile-container">
+  <div *ngIf="loading" class="loading">Loading profile...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
 
-  <div class="profile-info-container">
-    <div class="profile-icon">ICON</div>
+  <div *ngIf="!loading && !error && userProfile" class="profile-content">
+    <div class="profile-info-container">
+      <div class="profile-icon">ICON</div>
 
-    <div class="profile-info">
-      <div class="profile-name">Test</div>
-      <div class="profile-rank"><div class="box-icon"><i class="icon-rank"></i></div>test</div>
-      <div class="profile-description">test</div>
+      <div class="profile-info">
+        <div class="profile-name">{{ userProfile.name }} {{ userProfile.lastname }}</div>
+        <div class="profile-username">@{{ userProfile.login }}</div>
+        <div class="profile-email">
+          {{ userProfile.email }}
+          <span *ngIf="userProfile.email_verified" class="verified">Verified</span>
+        </div>
+        <div class="profile-rank"><div class="box-icon"><i class="icon-rank"></i></div>100-th</div>
+        <div class="profile-description">{{ userProfile.bio || 'No bio available' }}</div>
+        <div class="profile-joined">Member since {{ userProfile.created_at | date:'mediumDate' }}</div>
+      </div>
+
     </div>
 
-  </div>
+    <div class="details-container">
+      <div class="statistics-container">
 
-  <div class="details-container">
-    <div class="statistics-container">
+      </div>
 
-    </div>
-
-    <div class="skills-container">
-      <h2>Skills</h2>
+      <div class="skills-container">
+        <h2>Skills</h2>
+      </div>
     </div>
   </div>
 </div>

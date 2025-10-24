@@ -22,6 +22,7 @@ class UserController implements Controller{
     private initializeRoutes(){
         this.router.post(`${this.path}/login`, this.login.bind(this));
         this.router.post(`${this.path}/register`, this.register.bind(this));
+        this.router.get(`${this.path}/profile`, JwtMiddleware, this.profile.bind(this));
 
         this.router.patch(`${this.path}/change_password`, JwtMiddleware, this.change_password.bind(this));
     }
@@ -88,6 +89,22 @@ class UserController implements Controller{
             await this.userService.change_password(user.login, password, new_password);
 
             return response.status(200).json({ message: "Password changed successfully" });
+        } catch (error){
+            return response.status(400).json({ error: error.message });
+        }
+    }
+
+    private async profile(request: Request, response: Response){
+        try{
+            const user = (request as any).user;
+
+            if (!user || !user.login) {
+                return response.status(401).json({ error: "Unauthorized" });
+            }
+
+            const userInfo = await this.userService.getProfile(user.login);
+
+            return response.status(200).json(userInfo);
         } catch (error){
             return response.status(400).json({ error: error.message });
         }

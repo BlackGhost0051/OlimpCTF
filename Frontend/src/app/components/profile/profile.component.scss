@@ -1,21 +1,70 @@
+@use 'colors' as colors;
+
 .profile-container{
+  color: colors.$text_primary;
 
-  .profile-info-container{
-    border-radius: 1rem;
-    border: 1px solid #393939;
-
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-
-    display: grid;
-
-    grid-template-columns: 1fr 5fr;
-
-    .profile-rank{
-      border-radius: 1rem;
-      background: #393939;
-
-
-    }
+  .loading, .error {
+    padding: 20px;
+    text-align: center;
   }
 
+  .error {
+    color: #ff4444;
+  }
+
+  .profile-content {
+    .profile-info-container{
+
+      .profile-icon{
+
+      }
+
+      .profile-info{
+
+        .profile-name{
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+
+        .profile-username{
+          color: colors.$text_secondary;
+          margin: 0.5rem 0;
+        }
+
+        .profile-email{
+          margin: 0.5rem 0;
+          font-size: 0.9rem;
+
+          .verified {
+            color: #4caf50;
+            margin-left: 0.5rem;
+          }
+        }
+
+        .profile-rank{
+
+        }
+
+        .profile-description{
+          margin: 1rem 0;
+          line-height: 1.6;
+        }
+
+        .profile-joined {
+          font-size: 0.85rem;
+          color: colors.$text_secondary;
+          margin-top: 1rem;
+        }
+      }
+    }
+
+    .details-container{
+      .statistics-container{
+
+      }
+      .skills-container{
+
+      }
+    }
+  }
 }
