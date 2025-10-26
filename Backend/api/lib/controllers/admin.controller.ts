@@ -68,6 +68,16 @@ class AdminController implements Controller{
             });
         }
 
+        if (task.difficulty !== "easy" &&
+            task.difficulty !== "medium" &&
+            task.difficulty !== "hard"
+        ){
+            return response.status(400).json({
+                status: false,
+                message: "Difficulty must be easy, medium or hard."
+            });
+        }
+
         try{
             await this.challengeService.addTask(task, flag);
             return response.status(200).json({ status: true, message: "Task added." });

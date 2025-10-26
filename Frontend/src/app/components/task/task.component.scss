@@ -30,11 +30,20 @@
 
     .task-header-box{
       width: 70%;
-      .task-description{
-
-      }
       .task-title{
 
+      }
+
+      .task-difficulty{
+        .easy{
+          color: colors.$task_text_easy;
+        }
+        .medium{
+          color: colors.$task_text_medium;
+        }
+        .hard{
+          color: colors.$task_text_hard;
+        }
       }
     }
 

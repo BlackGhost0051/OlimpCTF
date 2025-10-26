@@ -8,8 +8,11 @@
       <div class="task-title">{{ task.title }}</div>
       <div
         class="task-difficulty"
-        [class]="task.difficulty"
-      >Difficulty: {{ task.difficulty }}</div>
+      >Difficulty:
+        <span [class]="task.difficulty">
+          {{ task.difficulty }}
+        </span>
+      </div>
     </div>
   </div>
 
