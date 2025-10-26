@@ -3,6 +3,7 @@
 
 .task-container{
   display: flex;
+  flex-direction: column;
   cursor: pointer;
   height: 10rem;
   width: 20rem;
@@ -12,33 +13,66 @@
   border-radius: 0.5rem;
   box-shadow: inset 0 0 0 2px colors.$primary;
 
-  &.completed{
-    opacity: 0.5;
-    cursor: auto;
-    pointer-events: none;
-  }
-  .task-icon{
-    width: 40%;
-  }
 
-  .task-info{
-    width: 60%;
+  color: colors.$text_primary;
 
+  .task-header{
+    margin: 1rem;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
 
-    gap: 1rem;
+    .task-icon{
+      height: 2rem;
+      width: 2rem;
 
-    .task-title{
-      color: colors.$text_primary;
+      background: red;
     }
-    .task-description{
-      color: colors.$text_secondary;
+
+    .task-header-box{
+      width: 70%;
+      .task-description{
+
+      }
+      .task-title{
+
+      }
     }
+
   }
 
-  .completion-badge{
 
-  }
+
+
+
+
+
+  //&.completed{
+  //  opacity: 0.5;
+  //  cursor: auto;
+  //  pointer-events: none;
+  //}
+  //.task-icon{
+  //  width: 40%;
+  //}
+  //
+  //.task-info{
+  //  width: 60%;
+  //
+  //  display: flex;
+  //  flex-direction: column;
+  //  justify-content: center;
+  //
+  //  gap: 1rem;
+  //
+  //  .task-title{
+  //    color: colors.$text_primary;
+  //  }
+  //  .task-description{
+  //    color: colors.$text_secondary;
+  //  }
+  //}
+  //
+  //.completion-badge{
+  //
+  //}
 }

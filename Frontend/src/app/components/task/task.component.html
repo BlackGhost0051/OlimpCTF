@@ -1,9 +1,22 @@
 <div class="task-container" (click)="onTaskClick()" [class.completed]="task.completed">
 
-  <div class="task-icon"><i>{{ task.icon }}</i></div>
 
-  <div class="task-info">
-    <div class="task-title">{{ task.title }}</div>
-    <div class="task-description">{{ task.description }} pts</div>
+  <div class="task-header">
+    <div class="task-icon"><i></i></div>
+
+    <div class="task-header-box">
+      <div class="task-title">{{ task.title }}</div>
+      <div
+        class="task-difficulty"
+        [class]="task.difficulty"
+      >Difficulty: {{ task.difficulty }}</div>
+    </div>
+  </div>
+
+  <div class="task-main">
+    <div class="task-points">Task points: {{ task.points }}</div>
+  </div>
+  <div class="task-footer">
+    <div class="task-description">{{ task.description }}</div>
   </div>
 </div>
