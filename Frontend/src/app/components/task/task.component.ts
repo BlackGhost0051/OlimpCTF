@@ -1,9 +1,12 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Task} from '../../models/task';
+import {TitleCasePipe} from '@angular/common';
 
 @Component({
   selector: 'app-task',
-  imports: [],
+  imports: [
+    TitleCasePipe
+  ],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss'
 })
