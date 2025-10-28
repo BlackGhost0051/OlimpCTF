@@ -1,0 +1,42 @@
+@use '../colors' as colors;
+
+.btn {
+
+  background: colors.$background_primary;
+  color: colors.$text_primary;
+  border: 1px solid colors.$text_primary;
+
+  cursor: pointer;
+
+  padding: 0.5rem 1rem;
+  height: 3rem;
+
+  min-width: 8rem;
+  border-radius: 0.5rem;
+
+  font-size: 1rem;
+  font-weight: 500;
+
+  transition: all 0.2s ease;
+
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-sizing: border-box;
+
+
+  &:hover{
+    opacity: 0.85;
+  }
+
+  &:active{
+    background: rgba(colors.$primary, 0.15);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

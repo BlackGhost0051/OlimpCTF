@@ -17,7 +17,7 @@
       <div class="task-view-description">{{ task.description }}</div>
 
       <div class="hints-container">
-        <button class="hints-button" (click)="noHintsClick()">Hints ???</button>
+        <button class="hints-button btn" (click)="noHintsClick()">Hints ???</button>
         <div class="hints">
           @if(showHints){
             @for(hint of task.hints; track hint){
@@ -31,7 +31,7 @@
 
     <div class="submit-flag-container">
       <input type="text" [(ngModel)]="flagInput">
-      <input type="submit" (click)="verifyFlag(task.id)">
+      <button class="btn" (click)="verifyFlag(task.id)">Submit flag!</button>
     </div>
   </div>
 </div>
