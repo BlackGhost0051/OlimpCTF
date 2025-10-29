@@ -6,6 +6,12 @@ import ChallengeService from "../modules/services/challenge.service";
 import UserService from "../modules/services/user.service";
 import { Task } from "../modules/models/task.model";
 
+/**
+ * @swagger
+ * tags:
+ *   name: Admin
+ *   description: Admin management endpoints
+ */
 class AdminController implements Controller{
     public path: string =  '/api/admin';
     public router: Router = Router();
@@ -23,13 +29,163 @@ class AdminController implements Controller{
     }
 
     private initializeRoutes(){
+        /**
+         * @swagger
+         * /api/admin:
+         *   post:
+         *     summary: Check if user is admin
+         *     tags: [Admin]
+         *     security:
+         *       - bearerAuth: []
+         *     responses:
+         *       200:
+         *         description: User is admin
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: object
+         *               properties:
+         *                 status:
+         *                   type: boolean
+         *       401:
+         *         description: Unauthorized
+         */
         // TODO: after test need add Middleware
         this.router.post(`${this.path}`, AdminMiddleware ,this.isAdmin.bind(this));
 
+        /**
+         * @swagger
+         * /api/admin/task:
+         *   post:
+         *     summary: Add a new challenge task
+         *     tags: [Admin]
+         *     security:
+         *       - bearerAuth: []
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             required:
+         *               - task
+         *               - flag
+         *             properties:
+         *               task:
+         *                 type: object
+         *                 required:
+         *                   - title
+         *                   - category
+         *                   - difficulty
+         *                   - points
+         *                   - description
+         *                 properties:
+         *                   title:
+         *                     type: string
+         *                   category:
+         *                     type: string
+         *                   icon:
+         *                     type: string
+         *                   difficulty:
+         *                     type: string
+         *                     enum: [easy, medium, hard]
+         *                   points:
+         *                     type: number
+         *                   description:
+         *                     type: string
+         *               flag:
+         *                 type: string
+         *                 description: The flag for the task
+         *     responses:
+         *       200:
+         *         description: Task added successfully
+         *       400:
+         *         description: Invalid input
+         *       500:
+         *         description: Server error
+         */
         this.router.post(`${this.path}/task`, this.addTask.bind(this));
+
+        /**
+         * @swagger
+         * /api/admin/task:
+         *   delete:
+         *     summary: Delete a challenge task
+         *     tags: [Admin]
+         *     security:
+         *       - bearerAuth: []
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             required:
+         *               - task_id
+         *             properties:
+         *               task_id:
+         *                 type: string
+         *                 description: Task ID to delete
+         *     responses:
+         *       200:
+         *         description: Task deleted successfully
+         *       400:
+         *         description: Missing task_id
+         *       500:
+         *         description: Server error
+         */
         this.router.delete(`${this.path}/task`, AdminMiddleware , this.deleteTask.bind(this));
 
+        /**
+         * @swagger
+         * /api/admin/users:
+         *   get:
+         *     summary: Get all users
+         *     tags: [Admin]
+         *     security:
+         *       - bearerAuth: []
+         *     responses:
+         *       200:
+         *         description: List of all users
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: object
+         *               properties:
+         *                 status:
+         *                   type: boolean
+         *                 users:
+         *                   type: array
+         *                   items:
+         *                     type: object
+         *                 message:
+         *                   type: string
+         *       500:
+         *         description: Server error
+         */
         this.router.get(`${this.path}/users`, this.getUsers.bind(this));
+
+        /**
+         * @swagger
+         * /api/admin/logs:
+         *   get:
+         *     summary: Get system logs
+         *     tags: [Admin]
+         *     security:
+         *       - bearerAuth: []
+         *     responses:
+         *       200:
+         *         description: System logs
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: object
+         *               properties:
+         *                 status:
+         *                   type: boolean
+         *       500:
+         *         description: Server error
+         */
         this.router.get(`${this.path}/logs`, AdminMiddleware , this.getLogs.bind(this));
     }
 

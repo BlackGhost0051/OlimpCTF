@@ -4,7 +4,12 @@ import UserService from "../modules/services/user.service";
 import JwtService from "../modules/services/jwt.service";
 import JwtMiddleware from "../middlewares/jwt.middleware";
 
-
+/**
+ * @swagger
+ * tags:
+ *   name: User
+ *   description: User authentication and profile management
+ */
 class UserController implements Controller{
     public path: string = '/api/user';
     public router: Router = Router();
@@ -20,12 +25,196 @@ class UserController implements Controller{
     }
 
     private initializeRoutes(){
+        /**
+         * @swagger
+         * /api/user/login:
+         *   post:
+         *     summary: User login
+         *     tags: [User]
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             required:
+         *               - login
+         *               - password
+         *             properties:
+         *               login:
+         *                 type: string
+         *                 description: Username
+         *               password:
+         *                 type: string
+         *                 format: password
+         *                 description: User password
+         *     responses:
+         *       200:
+         *         description: Login successful
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: object
+         *               properties:
+         *                 token:
+         *                   type: string
+         *                 message:
+         *                   type: string
+         *       400:
+         *         description: Missing credentials
+         *       401:
+         *         description: Invalid credentials
+         */
         this.router.post(`${this.path}/login`, this.login.bind(this));
+
+        /**
+         * @swagger
+         * /api/user/register:
+         *   post:
+         *     summary: Register a new user
+         *     tags: [User]
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             required:
+         *               - login
+         *               - password
+         *               - email
+         *             properties:
+         *               login:
+         *                 type: string
+         *                 description: Username
+         *               password:
+         *                 type: string
+         *                 format: password
+         *                 description: User password
+         *               email:
+         *                 type: string
+         *                 format: email
+         *                 description: User email
+         *     responses:
+         *       201:
+         *         description: User registered successfully
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: object
+         *               properties:
+         *                 token:
+         *                   type: string
+         *       400:
+         *         description: Invalid input or user already exists
+         */
         this.router.post(`${this.path}/register`, this.register.bind(this));
+
+        /**
+         * @swagger
+         * /api/user/profile:
+         *   get:
+         *     summary: Get current user profile
+         *     tags: [User]
+         *     security:
+         *       - bearerAuth: []
+         *     responses:
+         *       200:
+         *         description: User profile information
+         *       401:
+         *         description: Unauthorized
+         */
         this.router.get(`${this.path}/profile`, JwtMiddleware, this.profile.bind(this));
+
+        /**
+         * @swagger
+         * /api/user/profile/{login}:
+         *   get:
+         *     summary: Get user profile by login
+         *     tags: [User]
+         *     security:
+         *       - bearerAuth: []
+         *     parameters:
+         *       - in: path
+         *         name: login
+         *         required: true
+         *         schema:
+         *           type: string
+         *         description: Username to fetch
+         *     responses:
+         *       200:
+         *         description: User profile information
+         *       400:
+         *         description: Login is required
+         *       404:
+         *         description: User not found
+         */
         this.router.get(`${this.path}/profile/:login`, JwtMiddleware, this.getUserProfile.bind(this));
 
+        /**
+         * @swagger
+         * /api/user/change_password:
+         *   patch:
+         *     summary: Change user password
+         *     tags: [User]
+         *     security:
+         *       - bearerAuth: []
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             required:
+         *               - password
+         *               - new_password
+         *             properties:
+         *               password:
+         *                 type: string
+         *                 format: password
+         *                 description: Current password
+         *               new_password:
+         *                 type: string
+         *                 format: password
+         *                 description: New password
+         *     responses:
+         *       200:
+         *         description: Password changed successfully
+         *       400:
+         *         description: Invalid input
+         *       401:
+         *         description: Unauthorized
+         */
         this.router.patch(`${this.path}/change_password`, JwtMiddleware, this.change_password.bind(this));
+
+        /**
+         * @swagger
+         * /api/user/privacy:
+         *   patch:
+         *     summary: Update user privacy settings
+         *     tags: [User]
+         *     security:
+         *       - bearerAuth: []
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             required:
+         *               - isPrivate
+         *             properties:
+         *               isPrivate:
+         *                 type: boolean
+         *                 description: Privacy setting
+         *     responses:
+         *       200:
+         *         description: Privacy settings updated
+         *       400:
+         *         description: Invalid input
+         *       401:
+         *         description: Unauthorized
+         */
         this.router.patch(`${this.path}/privacy`, JwtMiddleware, this.updatePrivacy.bind(this));
     }
 

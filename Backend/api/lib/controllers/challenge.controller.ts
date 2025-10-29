@@ -5,6 +5,12 @@ import ChallengeService from "../modules/services/challenge.service";
 import JwtMiddleware from "../middlewares/jwt.middleware";
 import {Task} from "../modules/models/task.model";
 
+/**
+ * @swagger
+ * tags:
+ *   name: Challenge
+ *   description: Challenge management API
+ */
 class ChallengeController implements Controller{
     public path: string = '/api/challenge';
     public router: Router = Router();
@@ -18,11 +24,160 @@ class ChallengeController implements Controller{
     }
 
     private initializeRoutes(){
+        /**
+         * @swagger
+         * /api/challenge/verify_flag:
+         *   post:
+         *     summary: Verify a challenge flag
+         *     tags: [Challenge]
+         *     security:
+         *       - bearerAuth: []
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             required:
+         *               - flag
+         *               - task_id
+         *             properties:
+         *               flag:
+         *                 type: string
+         *                 description: The flag to verify
+         *               task_id:
+         *                 type: string
+         *                 description: The task ID
+         *     responses:
+         *       200:
+         *         description: Flag verification result
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: object
+         *               properties:
+         *                 status:
+         *                   type: boolean
+         *                 message:
+         *                   type: string
+         *       400:
+         *         description: Missing required fields
+         *       500:
+         *         description: Server error
+         */
         this.router.post(`${this.path}/verify_flag`, JwtMiddleware , this.verifyFlag.bind(this));
+
+        /**
+         * @swagger
+         * /api/challenge/category_tasks:
+         *   post:
+         *     summary: Get tasks for a specific category
+         *     tags: [Challenge]
+         *     security:
+         *       - bearerAuth: []
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             required:
+         *               - category
+         *             properties:
+         *               category:
+         *                 type: string
+         *                 description: Category name
+         *     responses:
+         *       200:
+         *         description: List of tasks in the category
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: object
+         *               properties:
+         *                 status:
+         *                   type: boolean
+         *                 tasks:
+         *                   type: array
+         *                   items:
+         *                     type: object
+         *                 message:
+         *                   type: string
+         *       404:
+         *         description: Category not found
+         *       500:
+         *         description: Server error
+         */
         this.router.post(`${this.path}/category_tasks`, JwtMiddleware , this.getCategoryTasks.bind(this));
+
+        /**
+         * @swagger
+         * /api/challenge/categories:
+         *   post:
+         *     summary: Get all challenge categories
+         *     tags: [Challenge]
+         *     responses:
+         *       200:
+         *         description: List of all categories
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: object
+         *               properties:
+         *                 status:
+         *                   type: boolean
+         *                 categories:
+         *                   type: array
+         *                   items:
+         *                     type: object
+         *                 message:
+         *                   type: string
+         *       500:
+         *         description: Server error
+         */
         this.router.post(`${this.path}/categories`, this.getCategories.bind(this));
+
+        /**
+         * @swagger
+         * /api/challenge/category:
+         *   post:
+         *     summary: Get information about a specific category
+         *     tags: [Challenge]
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             required:
+         *               - nicename
+         *             properties:
+         *               nicename:
+         *                 type: string
+         *                 description: Category nicename
+         *     responses:
+         *       200:
+         *         description: Category information
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: object
+         *               properties:
+         *                 status:
+         *                   type: boolean
+         *                 category:
+         *                   type: object
+         *                 message:
+         *                   type: string
+         *       400:
+         *         description: Missing nicename
+         *       404:
+         *         description: Category not found
+         *       500:
+         *         description: Server error
+         */
         this.router.post(`${this.path}/category`, this.getCategory.bind(this));
-        
+
         // TODO: verify maybe dont need ???
         // this.router.post(`${this.path}/task/:id`, JwtMiddleware , this.getTaskInfo.bind(this));
     }
