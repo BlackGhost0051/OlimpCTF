@@ -59,6 +59,20 @@ services:
     networks:
       - app-network
 
+  admin-panel:
+    build:
+      context: ./AdminPanel
+    container_name: admin-panel
+    ports:
+      - "4201:4200"
+    volumes:
+      - ./AdminPanel:/app
+      - admin-panel-node-modules:/app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
   backend-db:
     image: postgres:15
     container_name: backend-db
@@ -111,6 +125,7 @@ volumes:
   backend-db-data:
   task-runner-db-data:
   frontend-node-modules:
+  admin-panel-node-modules:
   backend-node-modules:
   task-runner-node-modules:
   pgadmin-data:
