@@ -3,7 +3,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,
