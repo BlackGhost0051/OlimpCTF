@@ -32,7 +32,7 @@ if [ -f "Frontend/package-lock.json" ]; then
     rm -f Frontend/package-lock.json
 fi
 
-if [ -f "AdminPanel/node_modules" ]; then
+if [ -d "AdminPanel/node_modules" ]; then
     echo "Removing AdminPanel/node_modules..."
     rm -rf AdminPanel/node_modules
 fi
