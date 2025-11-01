@@ -4,10 +4,8 @@ WORKDIR /app
 
 COPY package*.json ./
 
-CMD npm install
-
 COPY . .
 
 EXPOSE 4200
 
-CMD ["npx", "ng", "serve", "--host", "0.0.0.0"]
+CMD npm install && npx ng serve --host 0.0.0.0
