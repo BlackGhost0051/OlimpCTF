@@ -37,6 +37,16 @@ To run the frontend:
   ng serve
 ```
 
+## AdminPanel
+
+**Framework:** Angular
+
+To run the admin panel:
+```bash
+  cd AdminPanel
+  ng serve
+```
+
 ## Backend
 
 Server for managing users, tasks, categories, and logs.
