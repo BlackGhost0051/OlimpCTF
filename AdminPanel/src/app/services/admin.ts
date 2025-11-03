@@ -16,6 +16,47 @@ export class AdminService {
 
   }
 
+  // TODO: verify
+  getUsers() {
+    return this.http.get(this.url + '/users').subscribe({
+      next: response => {
+        console.log(response);
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+
+  // TODO: verify
+  addTask(task: any, flag: string, zipFile: File | null = null){
+    return this.http.post(this.url + '/task', {task:task, flag:flag});
+  }
+
+  // TODO: verify
+  modTask(){
+    return this.http.patch(this.url + '/task', {}).subscribe({
+      next: response => {
+        console.log(response);
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+
+  // TODO: verify
+  deleteTask(){
+    return this.http.delete(this.url + '/task').subscribe({
+      next: response => {
+        console.log(response);
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+  }
+
   login(login_info: any){
     const localStorage = this.document.defaultView?.localStorage;
     return this.http.post(this.url + '/user/login', {
