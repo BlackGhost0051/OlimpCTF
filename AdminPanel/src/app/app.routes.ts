@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { environment } from '../environments/environmen'
 
 import {Login} from './components/login/login';
 import {AdminPanel} from './components/admin-panel/admin-panel';
@@ -9,7 +10,7 @@ import {adminGuard} from './services/admin-guard';
 
 export const routes: Routes = [
   { path: '', component: FakeMaintenance },
-  { path: 'auth_system_MB4IA61PEE9', component: Login },
-  { path: 'admin_console_MB4IA61PEE9', component: AdminPanel, canActivate: [adminGuard]},
+  { path: environment.routes.auth, component: Login },
+  { path: environment.routes.admin, component: AdminPanel, canActivate: [adminGuard]},
   { path: '**', component: FakeMaintenance },
 ];
