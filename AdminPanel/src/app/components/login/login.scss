@@ -1,0 +1,37 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+}
+
+.login-card {
+  padding: 1rem 0;
+  width: 100%;
+  max-width: 25rem;
+}
+
+.form-field {
+  margin-bottom: 2rem;
+
+  ::ng-deep {
+    p-password {
+      width: 100%;
+
+      .p-password {
+        width: 100%;
+      }
+
+      .p-inputtext {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.form-actions {
+  margin-top: 1.5rem;
+}

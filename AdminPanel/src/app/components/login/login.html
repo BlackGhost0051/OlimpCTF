@@ -1,1 +1,39 @@
-<p>login works!</p>
+<div class="login-container">
+  <p-card class="login-card">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-field">
+        <p-floatlabel>
+          <input
+            pInputText
+            id="username"
+            formControlName="username"
+            [style]="{ width: '100%' }"
+          />
+          <label for="username">Username</label>
+        </p-floatlabel>
+      </div>
+
+      <div class="form-field">
+        <p-floatlabel>
+          <p-password
+            id="password"
+            formControlName="password"
+            [toggleMask]="true"
+            [feedback]="false"
+          ></p-password>
+          <label for="password">Password</label>
+        </p-floatlabel>
+      </div>
+
+      <div class="form-actions">
+        <p-button
+          type="submit"
+          label="Login"
+          icon="pi pi-sign-in"
+          [style]="{ width: '100%' }"
+          [disabled]="!loginForm.valid"
+        ></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>
