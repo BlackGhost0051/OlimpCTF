@@ -5,7 +5,6 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {CategoriesComponent} from './components/categories/categories.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
-import {MainComponent} from './components/main/main.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 
 
