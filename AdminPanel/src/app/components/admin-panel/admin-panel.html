@@ -1,1 +1,29 @@
-<p>admin-panel works!</p>
+<div class="admin-container">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Panel</h2>
+    </div>
+
+    <div class="sidebar-nav">
+      <p-menu [model]="menuItems" [style]="{'width':'100%', 'border':'none'}"></p-menu>
+    </div>
+
+    <div class="sidebar-footer">
+      <p-button label="Logout" severity="danger" (onClick)="logout()" [style]="{'width':'100%'}"></p-button>
+    </div>
+  </aside>
+
+  <main class="content">
+    @if(currentView === 'dashboard'){
+      <app-dashboard-view></app-dashboard-view>
+    } @else if (currentView === 'users'){
+      <app-users-view></app-users-view>
+    } @else if (currentView === 'tasks'){
+      <app-tasks-view></app-tasks-view>
+    } @else if (currentView === 'categories'){
+      <app-categories-view></app-categories-view>
+    } @else if (currentView === 'logs'){
+      <app-logs-view></app-logs-view>
+    }
+  </main>
+</div>
