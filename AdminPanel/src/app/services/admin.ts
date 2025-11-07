@@ -9,7 +9,7 @@ import {Token} from '../models/token';
 })
 export class AdminService {
 
-  private url = environment.apiUrl + 'admin';
+  private url = environment.apiUrl + '/admin';
 
   constructor(private http: HttpClient,
               @Inject(DOCUMENT) private document: Document) {
@@ -59,7 +59,7 @@ export class AdminService {
 
   login(login_info: any){
     const localStorage = this.document.defaultView?.localStorage;
-    return this.http.post(this.url + '/user/login', {
+    return this.http.post(this.url + '/login', {
       login: login_info.login,
       password: login_info.password
     }).pipe(
@@ -71,6 +71,15 @@ export class AdminService {
         return false;
       })
     );
+  }
+
+  logout(){
+    this.document.defaultView?.localStorage?.removeItem('token');
+  }
+
+  getToken() {
+    const localStorage = this.document.defaultView?.localStorage;
+    return localStorage?.getItem('token');
   }
 
   isAdmin(): Observable<boolean> {

@@ -25,6 +25,10 @@
         </p-floatlabel>
       </div>
 
+      @if(errorMessage){
+        <div class="error-message">{{ errorMessage }}</div>
+      }
+
       <div class="form-actions">
         <p-button
           type="submit"

@@ -5,6 +5,7 @@ import AdminMiddleware from "../middlewares/admin.middleware";
 import ChallengeService from "../modules/services/challenge.service";
 import UserService from "../modules/services/user.service";
 import { Task } from "../modules/models/task.model";
+import JwtService from "../modules/services/jwt.service";
 
 /**
  * @swagger
@@ -19,16 +20,60 @@ class AdminController implements Controller{
     private challengeService: ChallengeService;
     private adminService: AdminService;
     private userService: UserService;
+    private jwtService: JwtService;
 
     constructor() {
         this.challengeService = new ChallengeService();
         this.adminService = new AdminService();
         this.userService = new UserService();
+        this.jwtService = new JwtService();
 
         this.initializeRoutes();
     }
 
     private initializeRoutes(){
+        /**
+         * @swagger
+         * /api/admin/login:
+         *   post:
+         *     summary: Admin login
+         *     tags: [Admin]
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             required:
+         *               - login
+         *               - password
+         *             properties:
+         *               login:
+         *                 type: string
+         *                 description: Admin username
+         *               password:
+         *                 type: string
+         *                 format: password
+         *                 description: Admin password
+         *     responses:
+         *       200:
+         *         description: Login successful
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: object
+         *               properties:
+         *                 token:
+         *                   type: string
+         *                 message:
+         *                   type: string
+         *       400:
+         *         description: Missing credentials
+         *       401:
+         *         description: Invalid credentials or not an admin
+         */
+        this.router.post(`${this.path}/login`, this.login.bind(this));
+
         /**
          * @swagger
          * /api/admin:
@@ -273,6 +318,24 @@ class AdminController implements Controller{
 
     private async isAdmin(request: Request, response: Response) {
         return response.status(200).json({ status: true });
+    }
+
+    private async login(request: Request, response: Response) {
+        const { login, password } = request.body;
+
+        if(!login || !password){
+            return response.status(400).json({ error: "Login and password are required." });
+        }
+
+        try{
+            const user = await this.adminService.login(login, password);
+
+            const token = this.jwtService.generateToken(user.login);
+
+            return response.status(200).json({ token: token, message: "Admin is logged." });
+        } catch (error){
+            return response.status(401).json({ message: error.message });
+        }
     }
 }
 
