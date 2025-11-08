@@ -3,6 +3,7 @@ import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-users-view',
+  standalone: true,
   imports: [CardModule],
   templateUrl: './users-view.html',
   styleUrl: './users-view.scss',
