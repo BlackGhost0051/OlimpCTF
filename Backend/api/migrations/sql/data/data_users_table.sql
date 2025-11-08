@@ -1,6 +1,6 @@
 -- test:test1234
 INSERT INTO users (name, lastname, login, password, last_login, email, email_verified, isAdmin, isPrivate, bio, created_at) VALUES
-('test', 'test', 'test', '$2b$10$1AjTDy3D5eNPVNEkf4Luu.7SSUCO8bAEM15xn51EhLRmNjqfFK2Oy', NOW(), 'test@test.com', TRUE, FALSE, FALSE, 'Bio of Alice', NOW()),
+('test', 'test', 'test', '$2b$10$1AjTDy3D5eNPVNEkf4Luu.7SSUCO8bAEM15xn51EhLRmNjqfFK2Oy', NOW(), 'test@test.com', TRUE, TRUE, FALSE, 'Bio of Alice', NOW()),
 ('Alice', 'Smith', 'alice.smith', 'password123', NOW(), 'alice.smith@example.com', TRUE, FALSE, FALSE, 'Bio of Alice', NOW()),
 ('Bob', 'Johnson', 'bob.johnson', 'password123', NOW(), 'bob.johnson@example.com', TRUE, FALSE, TRUE, 'Bio of Bob', NOW()),
 ('Carol', 'Williams', 'carol.williams', 'password123', NOW(), 'carol.williams@example.com', TRUE, FALSE, FALSE, 'Bio of Carol', NOW()),
