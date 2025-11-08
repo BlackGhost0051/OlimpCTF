@@ -66,8 +66,10 @@ services:
     ports:
       - "4201:4200"
     volumes:
-      - ./AdminPanel:/app
-      - admin-panel-node-modules:/app/node_modules
+      - type: bind
+        source: ./AdminPanel
+        target: /app
+      - /app/node_modules
     depends_on:
       - backend
     networks:
@@ -125,7 +127,6 @@ volumes:
   backend-db-data:
   task-runner-db-data:
   frontend-node-modules:
-  admin-panel-node-modules:
   backend-node-modules:
   task-runner-node-modules:
   pgadmin-data:
