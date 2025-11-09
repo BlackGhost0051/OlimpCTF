@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @use 'colors' as colors;
+@use 'styles/variables';
 @use 'styles/components/button';
 
 *{
