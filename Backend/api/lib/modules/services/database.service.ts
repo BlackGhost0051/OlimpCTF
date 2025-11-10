@@ -99,6 +99,11 @@ class DatabaseService{
         await this.query(query, [isPrivate, login]);
     }
 
+    public async updateUserIcon(login: string, icon: string): Promise<void> {
+        const query = `UPDATE users SET icon = $1 WHERE login = $2`;
+        await this.query(query, [icon, login]);
+    }
+
     public async isAdmin(login: string): Promise<boolean> {
         const query = `SELECT isAdmin FROM users WHERE login = $1`;
         const result = await this.query<{ isadmin: boolean }>(query, [login]);

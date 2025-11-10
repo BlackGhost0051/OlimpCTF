@@ -30,7 +30,7 @@ class App {
     private initializeMiddlewares(): void{
         this.app.use(loggerMiddleware);
         this.app.use(cors());
-        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.json({ limit: '7mb' }));
         this.connectSwagger();
     }
 

@@ -10,5 +10,6 @@ CREATE TABLE IF NOT EXISTS users (
     isAdmin BOOLEAN DEFAULT FALSE,
     isPrivate BOOLEAN DEFAULT FALSE,
     bio TEXT,
+    icon TEXT,
     created_at TIMESTAMP DEFAULT NOW()
 );

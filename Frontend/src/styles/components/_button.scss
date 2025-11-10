@@ -27,12 +27,18 @@
   box-sizing: border-box;
 
 
+  &.red{
+    background: colors.$background_primary;
+    color: colors.$text_error;
+    border: 1px solid colors.$text_error;
+  }
+
   &:hover{
     opacity: 0.85;
   }
 
   &:active{
-    background: rgba(colors.$primary, 0.15);
+    transform: scale(0.98);
   }
 
   &:disabled {

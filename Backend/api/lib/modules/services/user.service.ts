@@ -54,6 +54,7 @@ class UserService{
             email_verified: user.email_verified,
             created_at: user.created_at,
             bio: user.bio,
+            icon: user.icon,
             isPrivate: user.isprivate,
         };
     }
@@ -115,6 +116,24 @@ class UserService{
         }
 
         await this.databaseService.updateUserPrivacy(login, isPrivate);
+    }
+
+    async updateIcon(login: string, iconBase64: string){
+        const user = await this.databaseService.getUser(login);
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        if (!iconBase64 || !iconBase64.startsWith('data:image/')) {
+            throw new Error("Invalid image format. Must be a base64 encoded image.");
+        }
+
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        if (iconBase64.length > maxSize) {
+            throw new Error("Image too large. Maximum size is 5MB.");
+        }
+
+        await this.databaseService.updateUserIcon(login, iconBase64);
     }
 }
 

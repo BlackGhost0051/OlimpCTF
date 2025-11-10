@@ -72,4 +72,8 @@ export class ProfileComponent implements OnInit, AfterViewInit{
       }
     });
   }
+
+  goToEditProfile() {
+    this.router.navigate(['/profile-edit']);
+  }
 }

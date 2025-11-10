@@ -216,6 +216,36 @@ class UserController implements Controller{
          *         description: Unauthorized
          */
         this.router.patch(`${this.path}/privacy`, JwtMiddleware, this.updatePrivacy.bind(this));
+
+        /**
+         * @swagger
+         * /api/user/icon:
+         *   patch:
+         *     summary: Update user profile icon
+         *     tags: [User]
+         *     security:
+         *       - bearerAuth: []
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             required:
+         *               - icon
+         *             properties:
+         *               icon:
+         *                 type: string
+         *                 description: Base64 encoded image (data:image/png;base64,...)
+         *     responses:
+         *       200:
+         *         description: Icon updated successfully
+         *       400:
+         *         description: Invalid input
+         *       401:
+         *         description: Unauthorized
+         */
+        this.router.patch(`${this.path}/icon`, JwtMiddleware, this.updateIcon.bind(this));
     }
 
     private async login(request: Request, response: Response){
@@ -334,6 +364,27 @@ class UserController implements Controller{
             await this.userService.updatePrivacy(user.login, isPrivate);
 
             return response.status(200).json({ message: "Privacy settings updated successfully" });
+        } catch (error){
+            return response.status(400).json({ error: error.message });
+        }
+    }
+
+    private async updateIcon(request: Request, response: Response){
+        try{
+            const user = (request as any).user;
+            const { icon } = request.body;
+
+            if (!user || !user.login) {
+                return response.status(401).json({ error: "Unauthorized" });
+            }
+
+            if (!icon || typeof icon !== 'string') {
+                return response.status(400).json({ error: "Icon is required." });
+            }
+
+            await this.userService.updateIcon(user.login, icon);
+
+            return response.status(200).json({ message: "Icon updated successfully" });
         } catch (error){
             return response.status(400).json({ error: error.message });
         }

@@ -27,4 +27,8 @@ export class UserService {
   updatePrivacy(isPrivate: boolean): Observable<any> {
     return this.http.patch(`${this.url}/user/privacy`, { isPrivate });
   }
+
+  uploadIcon(iconBase64: string): Observable<any> {
+    return this.http.patch(`${this.url}/user/icon`, { icon: iconBase64 });
+  }
 }

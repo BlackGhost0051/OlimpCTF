@@ -1,0 +1,86 @@
+@use 'colors' as colors;
+
+.profile-edit-container {
+  padding: 1.5rem;
+  color: colors.$text_primary;
+
+
+  .icon-upload-container {
+
+    border: 1px solid colors.$primary;
+    border-radius: 1rem;
+
+    .preview-container {
+      display: flex;
+      justify-content: center;
+      margin: 1.5rem;
+
+      .icon-preview {
+        width: 18rem;
+        height: 18rem;
+        border-radius: 50%;
+        overflow: hidden;
+
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: colors.$background_secondary;
+
+        border: 2px dashed colors.$primary;
+
+        &.previewUrl{
+          border: 2px solid colors.$primary;
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        span {
+          color: colors.$text_secondary;
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    .upload-controls {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .messages {
+      margin-top: 1rem;
+      text-align: center;
+
+      p {
+        margin: 1rem;
+        padding: 1rem;
+        border-radius: 1rem;
+      }
+
+      .error {
+        background-color: rgba(colors.$text_error, 0.1);
+        color: colors.$text_error;
+      }
+
+      .success {
+        background-color: rgba(colors.$text_success, 0.1);
+        color: colors.$text_success;
+      }
+    }
+
+    .upload-info {
+      text-align: center;
+
+      small {
+        color: colors.$text_secondary;
+        font-size: 0.85rem;
+      }
+    }
+  }
+}

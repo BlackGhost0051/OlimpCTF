@@ -1,6 +1,60 @@
 <div class="profile-edit-container">
   <h2>Profile image</h2>
 
+  <div class="icon-upload-container">
+    <div class="preview-container">
+      <div class="icon-preview" [class.previewUrl]="previewUrl">
+        @if(previewUrl){
+            <img [src]="previewUrl" alt="Icon preview">
+        } @else {
+          <span>No image selected</span>
+        }
+      </div>
+    </div>
+
+    <div class="upload-controls">
+      <input
+        type="file"
+        #fileInput
+        (change)="onFileSelected($event)"
+        accept="image/*"
+        style="display: none">
+
+      <button (click)="fileInput.click()" class="btn">
+        Select Image
+      </button>
+
+      <button
+        (click)="uploadIcon()"
+        [disabled]="!previewUrl || uploading"
+        class="btn">
+        {{ uploading ? 'Uploading...' : 'Upload Icon' }}
+      </button>
+
+      @if(previewUrl){
+        <button
+          (click)="clearSelection()"
+          class="btn red">
+          Clear
+        </button>
+      }
+    </div>
+
+    <div class="messages">
+      @if (uploadError){
+        <p class="error">{{ uploadError }}</p>
+      } @else if (uploadSuccess){
+        <p class="success" >{{ uploadSuccess }}</p>
+      }
+
+
+    </div>
+
+    <div class="upload-info">
+      <small>Supported formats: PNG, JPG, GIF | Max size: 5MB</small>
+    </div>
+  </div>
+
   <h2>Name</h2>
 
   <h2>Lastname</h2>
