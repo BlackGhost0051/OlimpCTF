@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import {HomeComponent} from './components/home/home.component';
 import {WelcomeComponent} from './components/welcome/welcome.component';
 import {ProfileComponent} from './components/profile/profile.component';
+import {ProfileEditComponent} from './components/profile-edit/profile-edit.component';
 import {CategoriesComponent} from './components/categories/categories.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
@@ -23,6 +24,7 @@ export const routes: Routes = [
 
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
   { path: 'profile/:login', component: ProfileComponent, canActivate: [authGuard] },
+  { path: 'profile-edit', component: ProfileEditComponent, canActivate: [authGuard] },
   { path: 'categories', component: CategoriesComponent, canActivate: [authGuard] },
   { path: 'category/:id', component: CategoryViewComponent, canActivate: [authGuard] },
 ];
