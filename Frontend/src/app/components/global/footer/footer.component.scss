@@ -1,7 +1,7 @@
 @use 'colors' as colors;
 
 .footer-container{
-  background: colors.$footer_background;
+  background: colors.$background_secondary;
 
   .links-box{
     padding: 2rem;
@@ -14,7 +14,7 @@
       flex-direction: column;
 
       .title{
-        color: colors.$footer_title;
+        color: colors.$text_secondary;
 
         .box-icon{
           i{
@@ -25,15 +25,15 @@
       .subtitle{
         padding-top: 1rem;
         width: 80%;
-        color: colors.$footer_text;
+        color: colors.$text_tertiary;
       }
 
       .link{
         text-decoration: none;
-        color: colors.$footer_text;
+        color: colors.$text_tertiary;
 
         &:hover{
-          color: colors.$footer_title;
+          color: colors.$text_secondary;
         }
       }
     }
@@ -41,7 +41,7 @@
 
   .copyright{
     text-align: center;
-    color: colors.$footer_text;
+    color: colors.$text_tertiary;
 
     padding: 2rem;
   }
