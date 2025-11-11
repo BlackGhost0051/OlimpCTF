@@ -11,10 +11,12 @@
   margin: 1rem;
   padding: 1rem;
   border-radius: 0.5rem;
-  box-shadow: inset 0 0 0 2px colors.$primary;
+  background: colors.$background_secondary;
 
+  &:hover{
+    box-shadow: inset 0 0 0 1px colors.$primary;
+  }
 
-  color: colors.$text_primary;
 
   .task-header{
     margin: 1rem;
@@ -31,7 +33,7 @@
     .task-header-box{
       width: 70%;
       .task-title{
-
+        color: colors.$text_primary;
       }
 
       .task-difficulty{
@@ -45,6 +47,18 @@
           color: colors.$task_text_hard;
         }
       }
+    }
+  }
+
+  .task-main{
+    .task-points{
+      color: colors.$text_secondary;
+    }
+  }
+
+  .task-footer{
+    .task-description{
+      color: colors.$text_secondary;
     }
   }
 }

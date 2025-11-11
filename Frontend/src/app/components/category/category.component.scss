@@ -13,14 +13,15 @@
 
   border-radius: 1rem;
 
-  background: colors.$background_primary;
-
-  border: solid 1px colors.$primary;
-
+  background: colors.$background_secondary;
 
   .category-name{
     color: colors.$text_primary;
     font-size: 2rem;
+  }
+
+  &:hover{
+    box-shadow: inset 0 0 0 1px colors.$primary;
   }
 }
 
