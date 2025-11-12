@@ -1,8 +1,9 @@
-import {Inject, Injectable, DOCUMENT} from '@angular/core';
+import {Inject, Injectable, DOCUMENT, PLATFORM_ID} from '@angular/core';
 import {catchError, map, Observable, of} from 'rxjs';
 import {Token} from '../../models/token';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
+import {isPlatformBrowser} from '@angular/common';
 
 import {JwtHelperService} from "@auth0/angular-jwt";
 
@@ -15,7 +16,11 @@ export class AuthService {
   private url = environment.apiUrl;
   redirectUrl?: string = undefined;
 
-  constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   setRedirectUrl(url: string){
     this.redirectUrl = url;
@@ -59,6 +64,12 @@ export class AuthService {
   }
 
   isLoggedIn(){
+    debugger;
+    // FIX loading from URL
+    if (!isPlatformBrowser(this.platformId)) {
+      return false;
+    }
+
     const localStorage = this.document.defaultView?.localStorage;
     const jwtHelper = new JwtHelperService();
     const token = localStorage?.getItem('token');
