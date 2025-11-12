@@ -66,15 +66,39 @@ class DatabaseService{
         return null;
     }
 
-    public async getUsers(){
-        const query = `SELECT * FROM users;`;
-        const result = await this.pool.query(query);
+    public async getUsers(limit?: number, offset?: number, search?: string){
+        let query = `SELECT id, login, email, email_verified, isadmin, isprivate, created_at FROM users`;
+        const params: any[] = [];
+        let paramIndex = 1;
 
-        if(result.rows.length > 0){
-            return result.rows;
+        if (search && search.trim()) {
+            query += ` WHERE login ILIKE $${paramIndex} OR email ILIKE $${paramIndex}`;
+            params.push(`%${search.trim()}%`);
+            paramIndex++;
         }
 
-        return [];
+        query += ` ORDER BY id ASC`;
+
+        if (limit !== undefined && offset !== undefined) {
+            query += ` LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`;
+            params.push(limit, offset);
+        }
+
+        const result = await this.pool.query(query, params);
+        return result.rows;
+    }
+
+    public async getUsersCount(search?: string): Promise<number> {
+        let query = `SELECT COUNT(*) as count FROM users`;
+        const params: any[] = [];
+
+        if (search && search.trim()) {
+            query += ` WHERE login ILIKE $1 OR email ILIKE $1`;
+            params.push(`%${search.trim()}%`);
+        }
+
+        const result = await this.pool.query(query, params);
+        return parseInt(result.rows[0].count);
     }
 
 
@@ -178,6 +202,12 @@ class DatabaseService{
             WHERE t.category = $2
         `;
         const result = await this.pool.query(query, [userId, category]);
+        return result.rows;
+    }
+
+    async getAllTasks() {
+        const query = `SELECT * FROM tasks ORDER BY created_at DESC`;
+        const result = await this.pool.query(query);
         return result.rows;
     }
 

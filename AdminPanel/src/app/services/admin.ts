@@ -1,8 +1,10 @@
 import {DOCUMENT, Inject, Injectable} from '@angular/core';
 import {environment} from '../../environments/environmen';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError, map, Observable, of} from 'rxjs';
 import {Token} from '../models/token';
+import {UsersResponse} from '../models/user';
+import {Task, TasksResponse, TaskRequest} from '../models/task';
 
 @Injectable({
   providedIn: 'root',
@@ -16,45 +18,48 @@ export class AdminService {
 
   }
 
-  // TODO: verify
-  getUsers() {
-    return this.http.get(this.url + '/users').subscribe({
-      next: response => {
-        console.log(response);
-      },
-      error: error => {
-        console.log(error);
-      }
-    });
+  getUsers(page: number = 1, limit: number = 10, search: string = ''): Observable<UsersResponse> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('limit', limit.toString());
+
+    if (search && search.trim()) {
+      params = params.set('search', search.trim());
+    }
+
+    return this.http.get<UsersResponse>(this.url + '/users', { params }).pipe(
+      catchError(error => {
+        console.error('Error fetching users:', error);
+        throw error;
+      })
+    );
   }
 
-  // TODO: verify
-  addTask(task: any, flag: string, zipFile: File | null = null){
-    return this.http.post(this.url + '/task', {task:task, flag:flag});
+  getAllTasks(): Observable<TasksResponse> {
+    return this.http.get<TasksResponse>(this.url + '/tasks').pipe(
+      catchError(error => {
+        console.error('Error fetching tasks:', error);
+        throw error;
+      })
+    );
   }
 
-  // TODO: verify
-  modTask(){
-    return this.http.patch(this.url + '/task', {}).subscribe({
-      next: response => {
-        console.log(response);
-      },
-      error: error => {
-        console.log(error);
-      }
-    });
+  addTask(task: Task, flag: string): Observable<any> {
+    return this.http.post(this.url + '/task', {task: task, flag: flag}).pipe(
+      catchError(error => {
+        console.error('Error adding task:', error);
+        throw error;
+      })
+    );
   }
 
-  // TODO: verify
-  deleteTask(){
-    return this.http.delete(this.url + '/task').subscribe({
-      next: response => {
-        console.log(response);
-      },
-      error: error => {
-        console.log(error);
-      }
-    });
+  deleteTask(taskId: string): Observable<any> {
+    return this.http.delete(this.url + '/task', { body: { task_id: taskId } }).pipe(
+      catchError(error => {
+        console.error('Error deleting task:', error);
+        throw error;
+      })
+    );
   }
 
   login(login_info: any){

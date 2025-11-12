@@ -11,11 +11,23 @@ class UserService{
         this.passwordService = new PasswordService();
     }
 
-    // TODO: need verify
-    async getUsers(){
-        const users: any[] = await this.databaseService.getUsers();
+    async getUsers(page: number = 1, limit: number = 10, search: string = '') {
+        const offset = (page - 1) * limit;
 
-        return users;
+        const users: any[] = await this.databaseService.getUsers(limit, offset, search);
+        const totalUsers = await this.databaseService.getUsersCount(search);
+
+        const totalPages = Math.ceil(totalUsers / limit);
+
+        return {
+            users,
+            pagination: {
+                currentPage: page,
+                totalPages,
+                totalUsers,
+                limit
+            }
+        };
     }
 
     async getUser(identifier: string) {

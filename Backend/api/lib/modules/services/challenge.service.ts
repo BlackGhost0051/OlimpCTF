@@ -75,6 +75,10 @@ class ChallengeService {
 
         return await this.databaseService.getTasksByCategory(category, user.id);
     }
+
+    async getAllTasks(){
+        return await this.databaseService.getAllTasks();
+    }
 }
 
 export default ChallengeService;

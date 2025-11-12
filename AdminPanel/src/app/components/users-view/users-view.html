@@ -1,6 +1,92 @@
 <div class="users-view">
-  <h1>Users Management</h1>
   <p-card>
-    <p>This section will display and manage all users.</p>
+    <ng-template pTemplate="header">
+      <div class="flex justify-content-between align-items-center">
+        <h2>Users Management</h2>
+        <p-tag [value]="pagination.totalUsers + ' Total Users'" severity="info"></p-tag>
+      </div>
+    </ng-template>
+
+    <div class="mb-3 flex align-items-center gap-2">
+      <input
+        type="text"
+        pInputText
+        placeholder="Search by login or email..."
+        [(ngModel)]="searchTerm"
+        (input)="onSearchChange($event.target.value || '')"
+        class="w-full md:w-20rem"
+      />
+      <p-button
+        *ngIf="searchTerm"
+        label="Clear"
+        [text]="true"
+        (onClick)="clearSearch()">
+      </p-button>
+    </div>
+
+    <p-table
+      [value]="users"
+      [loading]="loading"
+      [paginator]="false"
+      dataKey="id"
+      styleClass="p-datatable-striped">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th>Login</th>
+          <th>Email</th>
+          <th>Email Verified</th>
+          <th>Admin</th>
+          <th>Privacy</th>
+          <th>Created At</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.login }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <p-tag
+              [value]="user.email_verified ? 'Verified' : 'Not Verified'"
+              [severity]="user.email_verified ? 'success' : 'danger'">
+            </p-tag>
+          </td>
+          <td>
+            <p-tag
+              [value]="user.isadmin ? 'Admin' : 'User'"
+              [severity]="getSeverity(user.isadmin)">
+            </p-tag>
+          </td>
+          <td>
+            <p-tag
+              [value]="user.isprivate ? 'Private' : 'Public'"
+              [severity]="getPrivacySeverity(user.isprivate)">
+            </p-tag>
+          </td>
+          <td>{{ user.created_at | date:'short' }}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7" class="text-center">No users found</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <ng-template pTemplate="footer">
+      <p-paginator
+        [rows]="pagination.limit"
+        [totalRecords]="pagination.totalUsers"
+        [first]="(pagination.currentPage - 1) * pagination.limit"
+        [rowsPerPageOptions]="[5, 10, 20, 50]"
+        (onPageChange)="onPageChange($event)"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} users">
+      </p-paginator>
+    </ng-template>
   </p-card>
 </div>

@@ -183,15 +183,65 @@ class AdminController implements Controller{
 
         /**
          * @swagger
-         * /api/admin/users:
+         * /api/admin/tasks:
          *   get:
-         *     summary: Get all users
+         *     summary: Get all challenge tasks
          *     tags: [Admin]
          *     security:
          *       - bearerAuth: []
          *     responses:
          *       200:
-         *         description: List of all users
+         *         description: List of all tasks
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: object
+         *               properties:
+         *                 status:
+         *                   type: boolean
+         *                 tasks:
+         *                   type: array
+         *                   items:
+         *                     type: object
+         *                 message:
+         *                   type: string
+         *       500:
+         *         description: Server error
+         */
+        this.router.get(`${this.path}/tasks`, AdminMiddleware , this.getAllTasks.bind(this));
+
+        /**
+         * @swagger
+         * /api/admin/users:
+         *   get:
+         *     summary: Get paginated list of users
+         *     tags: [Admin]
+         *     security:
+         *       - bearerAuth: []
+         *     parameters:
+         *       - in: query
+         *         name: page
+         *         schema:
+         *           type: integer
+         *           minimum: 1
+         *           default: 1
+         *         description: Page number
+         *       - in: query
+         *         name: limit
+         *         schema:
+         *           type: integer
+         *           minimum: 1
+         *           maximum: 100
+         *           default: 10
+         *         description: Number of users per page
+         *       - in: query
+         *         name: search
+         *         schema:
+         *           type: string
+         *         description: Search term for login or email
+         *     responses:
+         *       200:
+         *         description: Paginated list of users
          *         content:
          *           application/json:
          *             schema:
@@ -203,8 +253,21 @@ class AdminController implements Controller{
          *                   type: array
          *                   items:
          *                     type: object
+         *                 pagination:
+         *                   type: object
+         *                   properties:
+         *                     currentPage:
+         *                       type: integer
+         *                     totalPages:
+         *                       type: integer
+         *                     totalUsers:
+         *                       type: integer
+         *                     limit:
+         *                       type: integer
          *                 message:
          *                   type: string
+         *       400:
+         *         description: Invalid pagination parameters
          *       500:
          *         description: Server error
          */
@@ -302,12 +365,44 @@ class AdminController implements Controller{
         }
     }
 
+    private async getAllTasks(request: Request, response: Response) {
+        try{
+            const tasks = await this.challengeService.getAllTasks();
+            return response.status(200).json({
+                status: true,
+                message: "Tasks retrieved successfully.",
+                tasks: tasks
+            });
+        } catch (error) {
+            return response.status(500).json({ status: false, message: "Internal server error" });
+        }
+    }
+
     private async getUsers(request: Request, response: Response) {
         try{
-            const users = await this.userService.getUsers();
-            return response.status(200).json({ status: true, users:users, message: "Users." });
+            const page = parseInt(request.query.page as string) || 1;
+            const limit = parseInt(request.query.limit as string) || 10;
+            const search = request.query.search as string || '';
+
+            if (page < 1 || limit < 1 || limit > 100) {
+                return response.status(400).json({
+                    status: false,
+                    message: "Invalid pagination parameters. Page must be >= 1, limit must be between 1-100."
+                });
+            }
+
+            const result = await this.userService.getUsers(page, limit, search);
+            return response.status(200).json({
+                status: true,
+                message: "Users retrieved successfully.",
+                limit: result.pagination.limit,
+                currentPage: result.pagination.currentPage,
+                totalUsers: result.pagination.totalUsers,
+                totalPages: result.pagination.totalPages,
+                users: result.users
+            });
         } catch (error){
-            return response.status(500).json({ status: false });
+            return response.status(500).json({ status: false, message: "Internal server error" });
         }
     }
 
