@@ -8,20 +8,49 @@
   align-items: center;
 
   margin: 1rem;
-  height: 12.5rem;
-  width: 25rem;
+  padding: 1rem;
+
+  height: 18rem;
+  width: 35dvw;
 
   border-radius: 1rem;
 
   background: colors.$background_secondary;
 
-  .category-name{
-    color: colors.$text_primary;
-    font-size: 2rem;
-  }
 
   &:hover{
     box-shadow: inset 0 0 0 1px colors.$primary;
+  }
+
+
+  .box-icon{
+    width:  40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .category-icon{
+      height: 10rem;
+      width:  10rem;
+
+      border-radius: 1rem;
+;
+
+      background: red;
+    }
+  }
+
+
+  .category-box{
+    width: 50%;
+    .category-name{
+      color: colors.$text_primary;
+      font-size: 2rem;
+    }
+
+    .category-details{
+      color: colors.$text_secondary;
+    }
   }
 }
 

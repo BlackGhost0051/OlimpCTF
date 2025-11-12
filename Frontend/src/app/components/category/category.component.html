@@ -1,6 +1,21 @@
 @if(category) {
-  <a [routerLink]="['/category/', category.nicename]" class="category-container">
-    <div class="category-name">{{ category.name }}</div>
+  <a
+    [routerLink]="['/category/', category.nicename]"
+    class="category-container"
+  >
+    <div class="box-icon">
+      @if (category.icon){
+
+      <img
+        [src]="category.icon"
+        class="category-icon"
+        alt="">
+      }
+    </div>
+    <div class="category-box">
+      <div class="category-name">{{ category.name }}</div>
+      <div class="category-details">{{ category.details }}</div>
+    </div>
   </a>
 }
 
