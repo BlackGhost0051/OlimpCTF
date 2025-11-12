@@ -64,7 +64,6 @@ export class AuthService {
   }
 
   isLoggedIn(){
-    debugger;
     // FIX loading from URL
     if (!isPlatformBrowser(this.platformId)) {
       return false;
