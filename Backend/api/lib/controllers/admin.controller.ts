@@ -295,6 +295,103 @@ class AdminController implements Controller{
          *         description: Server error
          */
         this.router.get(`${this.path}/logs`, AdminMiddleware , this.getLogs.bind(this));
+
+        /**
+         * @swagger
+         * /api/admin/categories:
+         *   get:
+         *     summary: Get all categories
+         *     tags: [Admin]
+         *     security:
+         *       - bearerAuth: []
+         *     responses:
+         *       200:
+         *         description: List of all categories
+         *       500:
+         *         description: Server error
+         */
+        this.router.get(`${this.path}/categories`, AdminMiddleware, this.getCategories.bind(this));
+
+        /**
+         * @swagger
+         * /api/admin/categories:
+         *   post:
+         *     summary: Create a new category
+         *     tags: [Admin]
+         *     security:
+         *       - bearerAuth: []
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             required:
+         *               - name
+         *               - nicename
+         *             properties:
+         *               name:
+         *                 type: string
+         *               nicename:
+         *                 type: string
+         *               details:
+         *                 type: string
+         *               url:
+         *                 type: string
+         *               icon:
+         *                 type: string
+         *     responses:
+         *       200:
+         *         description: Category created successfully
+         *       400:
+         *         description: Invalid input
+         *       500:
+         *         description: Server error
+         */
+        this.router.post(`${this.path}/categories`, AdminMiddleware, this.createCategory.bind(this));
+
+        /**
+         * @swagger
+         * /api/admin/categories/:id:
+         *   put:
+         *     summary: Update a category
+         *     tags: [Admin]
+         *     security:
+         *       - bearerAuth: []
+         *     parameters:
+         *       - in: path
+         *         name: id
+         *         required: true
+         *         schema:
+         *           type: integer
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             properties:
+         *               name:
+         *                 type: string
+         *               nicename:
+         *                 type: string
+         *               details:
+         *                 type: string
+         *               url:
+         *                 type: string
+         *               icon:
+         *                 type: string
+         *     responses:
+         *       200:
+         *         description: Category updated successfully
+         *       400:
+         *         description: Invalid input
+         *       404:
+         *         description: Category not found
+         *       500:
+         *         description: Server error
+         */
+        this.router.put(`${this.path}/categories/:id`, AdminMiddleware, this.updateCategory.bind(this));
     }
 
 
@@ -430,6 +527,70 @@ class AdminController implements Controller{
             return response.status(200).json({ token: token, message: "Admin is logged." });
         } catch (error){
             return response.status(401).json({ message: error.message });
+        }
+    }
+
+    private async getCategories(request: Request, response: Response) {
+        try {
+            const categories = await this.challengeService.getCategories();
+            return response.status(200).json(categories);
+        } catch (error) {
+            return response.status(500).json({ status: false, message: "Error fetching categories" });
+        }
+    }
+
+    private async createCategory(request: Request, response: Response) {
+        const { name, nicename, details, url, icon } = request.body;
+
+        if (!name || !nicename) {
+            return response.status(400).json({
+                status: false,
+                message: "Name and nicename are required"
+            });
+        }
+
+        try {
+            const category = await this.challengeService.createCategory(
+                name,
+                nicename,
+                details || '',
+                url || '',
+                icon || ''
+            );
+            return response.status(200).json(category);
+        } catch (error) {
+            return response.status(500).json({ status: false, message: "Error creating category" });
+        }
+    }
+
+    private async updateCategory(request: Request, response: Response) {
+        const { id } = request.params;
+        const { name, nicename, details, url, icon } = request.body;
+
+        if (!name || !nicename) {
+            return response.status(400).json({
+                status: false,
+                message: "Name and nicename are required"
+            });
+        }
+
+        try {
+            const category = await this.challengeService.updateCategory(
+                parseInt(id),
+                name,
+                nicename,
+                details || '',
+                url || '',
+                icon || ''
+            );
+
+            if (!category) {
+                return response.status(404).json({ status: false, message: "Category not found" });
+            }
+
+            return response.status(200).json(category);
+        } catch (error) {
+            return response.status(500).json({ status: false, message: "Error updating category" });
         }
     }
 }

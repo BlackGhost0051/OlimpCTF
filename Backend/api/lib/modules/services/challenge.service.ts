@@ -66,6 +66,15 @@ class ChallengeService {
     async getCategories(){
         return await this.databaseService.getCategories();
     }
+
+    async createCategory(name: string, nicename: string, details: string, url: string, icon: string) {
+        return await this.databaseService.createCategory(name, nicename, details, url, icon);
+    }
+
+    async updateCategory(id: number, name: string, nicename: string, details: string, url: string, icon: string) {
+        return await this.databaseService.updateCategory(id, name, nicename, details, url, icon);
+    }
+
     async getCategoryTasks(category: string, login: string){
         const user = await this.databaseService.getUser(login);
 

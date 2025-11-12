@@ -5,6 +5,7 @@ import {catchError, map, Observable, of} from 'rxjs';
 import {Token} from '../models/token';
 import {UsersResponse} from '../models/user';
 import {Task, TasksResponse, TaskRequest} from '../models/task';
+import {Category} from '../models/category';
 
 @Injectable({
   providedIn: 'root',
@@ -92,5 +93,18 @@ export class AdminService {
       map(response => response.status),
       catchError(err => of(false))
     );
+  }
+
+
+  getCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(this.url + '/categories');
+  }
+
+  createCategory(category: Partial<Category>): Observable<Category> {
+    return this.http.post<Category>(this.url + '/categories', category);
+  }
+
+  updateCategory(id: number, category: Partial<Category>): Observable<Category> {
+    return this.http.put<Category>(this.url + '/categories/' + id, category);
   }
 }

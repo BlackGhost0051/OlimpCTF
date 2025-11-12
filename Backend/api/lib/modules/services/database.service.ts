@@ -217,6 +217,27 @@ class DatabaseService{
         return result.rows;
     }
 
+    async createCategory(name: string, nicename: string, details: string, url: string, icon: string) {
+        const query = `
+            INSERT INTO categories (name, nicename, details, url, icon)
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING *
+        `;
+        const result = await this.pool.query(query, [name, nicename, details, url, icon]);
+        return result.rows[0];
+    }
+
+    async updateCategory(id: number, name: string, nicename: string, details: string, url: string, icon: string) {
+        const query = `
+            UPDATE categories
+            SET name = $1, nicename = $2, details = $3, url = $4, icon = $5
+            WHERE id = $6
+            RETURNING *
+        `;
+        const result = await this.pool.query(query, [name, nicename, details, url, icon, id]);
+        return result.rows[0];
+    }
+
     async saveUserTaskCompletion(userId: number, taskId: string): Promise<void> {
         const query = `
             INSERT INTO user_tasks (user_id, task_id, completed, completed_at)

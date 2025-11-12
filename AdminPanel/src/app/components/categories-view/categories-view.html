@@ -1,6 +1,165 @@
 <div class="categories-view">
-  <h1>Categories Management</h1>
   <p-card>
-    <p>This section will display and manage task categories.</p>
+    <ng-template pTemplate="header">
+      <div class="flex justify-content-between align-items-center">
+        <h2>Categories Management</h2>
+        <p-tag [value]="categories.length + ' Total Categories'" severity="info"></p-tag>
+      </div>
+    </ng-template>
+
+    <p-table
+      [value]="categories"
+      [loading]="loading"
+      dataKey="id"
+      styleClass="p-datatable-striped">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th>ID</th>
+          <th>Icon</th>
+          <th>Name</th>
+          <th>Nice Name</th>
+          <th>Details</th>
+          <th>URL</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-category>
+        <tr>
+          <td>{{ category.id }}</td>
+          <td>
+            <div class="category-icon-cell">
+              @if(category.icon) {
+                <img [src]="category.icon" alt="{{ category.name }} icon" class="category-icon-img">
+              } @else {
+                <span class="no-icon">No icon</span>
+              }
+            </div>
+          </td>
+          <td>{{ category.name }}</td>
+          <td>{{ category.nicename }}</td>
+          <td>
+            <span class="category-details">{{ category.details || 'N/A' }}</span>
+          </td>
+          <td>{{ category.url || 'N/A' }}</td>
+          <td>
+            <p-button
+              label="Edit"
+              [rounded]="true"
+              [text]="true"
+
+              (onClick)="editCategory(category)">
+            </p-button>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7" class="text-center">No categories found</td>
+        </tr>
+      </ng-template>
+    </p-table>
   </p-card>
+
+  <!-- Edit -->
+  <p-dialog
+    [(visible)]="displayEditDialog"
+    [style]="{width: '450px'}"
+    header="Edit Category"
+    [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="content">
+      <div class="field">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          pInputText
+          id="name"
+          [(ngModel)]="editedCategory.name"
+          required
+          autofocus />
+      </div>
+
+      <div class="field">
+        <label for="nicename">Nice Name</label>
+        <input
+          type="text"
+          pInputText
+          id="nicename"
+          [(ngModel)]="editedCategory.nicename"
+          required />
+      </div>
+
+      <div class="field">
+        <label for="details">Details</label>
+        <textarea
+          id="details"
+          class="p-inputtext"
+          [(ngModel)]="editedCategory.details"
+          rows="3"
+          cols="20">
+        </textarea>
+      </div>
+
+      <div class="field">
+        <label for="url">URL</label>
+        <input
+          type="text"
+          pInputText
+          id="url"
+          [(ngModel)]="editedCategory.url" />
+      </div>
+
+      <div class="field">
+        <label for="icon">Icon</label>
+
+        <div class="icon-upload-section">
+          @if(iconPreviewUrl) {
+            <div class="icon-preview">
+              <img [src]="iconPreviewUrl" alt="Icon preview">
+            </div>
+          }
+
+          <div class="upload-controls">
+            <input
+              type="file"
+              #iconInput
+              (change)="onIconSelected($event)"
+              accept="image/*,.svg"
+              style="display: none">
+
+            <p-button
+              label="Select Icon"
+              (onClick)="iconInput.click()"
+              styleClass="p-button-sm p-button-outlined">
+            </p-button>
+
+            @if(iconPreviewUrl) {
+              <p-button
+                label="Clear"
+                (onClick)="clearIconSelection()"
+                styleClass="p-button-sm p-button-outlined p-button-danger">
+              </p-button>
+            }
+          </div>
+
+          <small class="upload-info">Supported: PNG, JPG, GIF, SVG | Max: 5MB</small>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <p-button
+        label="Cancel"
+        [text]="true"
+        (onClick)="closeDialog()">
+      </p-button>
+      <p-button
+        label="Save"
+        (onClick)="saveCategory()">
+      </p-button>
+    </ng-template>
+  </p-dialog>
 </div>
