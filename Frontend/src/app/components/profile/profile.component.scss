@@ -14,6 +14,7 @@
 
   .profile-content {
     .profile-info-container{
+      display: flex;
 
       .profile-icon{
         width: 18rem;
@@ -69,6 +70,8 @@
     }
 
     .details-container{
+
+      display: none;
       .statistics-container{
 
       }

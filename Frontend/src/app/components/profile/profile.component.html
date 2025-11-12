@@ -9,27 +9,30 @@
 
   @if (!loading && !error && userProfile){
     <div class="profile-content">
-      <div class="profile-info-container">
-        <div class="profile-icon">
-          @if(userProfile.icon){
-            <img [src]="userProfile.icon" alt="Profile Icon" class="icon-image">
-          } @else {
-            <img [src]="userProfile.icon" alt="Profile Icon" class="icon-image">
-          }
-        </div>
 
-        <div class="profile-info">
-          <div class="profile-name">{{ userProfile.name }} {{ userProfile.lastname }}</div>
-          <div class="profile-username">@{{ userProfile.login }}</div>
-          <div class="profile-email">
-            {{ userProfile.email }}
-            @if (userProfile.email_verified){
-              <span class="verified">Verified</span>
+
+      <div class="profile-info-container">
+        <div class="profile-box">
+          <div class="profile-icon">
+            @if(userProfile.icon){
+              <img [src]="userProfile.icon" alt="Profile Icon" class="icon-image">
+            } @else {
+              <!--            TODO: default icon-->
+              <img [src]="userProfile.icon" alt="Profile Icon" class="icon-image">
             }
           </div>
+
+          <div class="profile-name">{{ userProfile.name }} {{ userProfile.lastname }}</div>
+          <div class="profile-username">@{{ userProfile.login }}</div>
+          <div class="profile-joined">Member since {{ userProfile.created_at | date:'mediumDate' }}</div>
+        </div>
+
+
+
+        <div class="profile-info">
+
           <div class="profile-rank"><div class="box-icon"><i class="icon-rank"></i></div>100-th</div>
           <div class="profile-description">{{ userProfile.bio || 'No bio available' }}</div>
-          <div class="profile-joined">Member since {{ userProfile.created_at | date:'mediumDate' }}</div>
 
 
           @if(isOwnProfile){
