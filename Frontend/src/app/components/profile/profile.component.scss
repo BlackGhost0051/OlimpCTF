@@ -1,83 +1,83 @@
 @use 'colors' as colors;
 
 .profile-container{
-  color: colors.$text_primary;
+  padding: 2rem;
+  display: flex;
 
-  .loading, .error {
-    padding: 20px;
-    text-align: center;
+  //background: #00d5a6;
+
+
+  &.info-message{
+    height: calc(100dvh - var(--navbar-height));
+    width: 100%;
+
+    justify-content: center;
+    align-items: center;
+
+    .loading{
+      color: colors.$text_primary;
+    }
+    .error{
+      color: colors.$text_error;
+    }
   }
 
-  .error {
-    color: #ff4444;
-  }
 
-  .profile-content {
-    .profile-info-container{
-      display: flex;
+  .side-container{
+    padding: 1rem;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    background: colors.$background_secondary;
 
-      .profile-icon{
-        width: 18rem;
-        height: 18rem;
+
+
+    .profile-icon-container{
+      .icon-image{
         border-radius: 50%;
-        overflow: hidden;
-        background-color: colors.$background_primary;
 
-        .icon-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-
-      .profile-info{
-
-        .profile-name{
-          font-size: 1.5rem;
-          font-weight: bold;
-        }
-
-        .profile-username{
-          color: colors.$text_secondary;
-          margin: 0.5rem 0;
-        }
-
-        .profile-email{
-          margin: 0.5rem 0;
-          font-size: 0.9rem;
-
-          .verified {
-            color: #4caf50;
-            margin-left: 0.5rem;
-          }
-        }
-
-        .profile-rank{
-
-        }
-
-        .profile-description{
-          margin: 1rem 0;
-          line-height: 1.6;
-        }
-
-        .profile-joined {
-          font-size: 0.85rem;
-          color: colors.$text_secondary;
-          margin-top: 1rem;
-        }
+        height: 18rem;
+        width: 18rem;
       }
     }
 
-    .details-container{
+    .side-footer-container{
+      padding: 1rem;
 
-      display: none;
-      .statistics-container{
-
+      .profile-name{
+        color: colors.$text_primary;
+        font-size: 1.5rem;
       }
-      .skills-container{
-
+      .profile-username{
+        color: colors.$text_secondary;
       }
+      .profile-joined{
+        color: colors.$text_tertiary;
+      }
+    }
+  }
+
+  .main-container{
+    padding: 1rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    background: colors.$background_secondary;
+
+    width: 100%;
+
+    color: colors.$text_secondary;
+
+
+    .profile-name{
+      font-size: 1.7rem;
+      color: colors.$text_primary;
+    }
+
+    .profile-rank{
+      font-size: 1.5rem;
+    }
+
+    .profile-description{
+      margin: 1rem 0;
     }
   }
 }

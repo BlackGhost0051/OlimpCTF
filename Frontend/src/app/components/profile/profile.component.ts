@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../services/user/user.service';
 import {UserProfile} from '../../models/user';
@@ -12,7 +12,7 @@ import {CommonModule} from '@angular/common';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class ProfileComponent implements OnInit, AfterViewInit{
+export class ProfileComponent implements OnInit{
   userProfile?: UserProfile;
   loading: boolean = true;
   error?: string;
@@ -26,13 +26,11 @@ export class ProfileComponent implements OnInit, AfterViewInit{
   ) {}
 
   ngOnInit() {
+    console.log('ngOnInit - loading:', this.loading, 'error:', this.error);
     this.route.params.subscribe(params => {
       this.targetLogin = params['login'];
       this.loadUserProfile();
     });
-  }
-
-  ngAfterViewInit() {
   }
 
   private loadUserProfile() {
@@ -51,24 +49,6 @@ export class ProfileComponent implements OnInit, AfterViewInit{
           : 'Failed to load profile';
         this.loading = false;
         console.error('Error loading profile:', err);
-      }
-    });
-  }
-
-  togglePrivacy() {
-    if (!this.userProfile || !this.isOwnProfile) return;
-
-    const newPrivacySetting = !this.userProfile.isPrivate;
-
-    this.userService.updatePrivacy(newPrivacySetting).subscribe({
-      next: () => {
-        if (this.userProfile) {
-          this.userProfile.isPrivate = newPrivacySetting;
-        }
-      },
-      error: (err) => {
-        console.error('Error updating privacy settings:', err);
-        alert('Failed to update privacy settings');
       }
     });
   }

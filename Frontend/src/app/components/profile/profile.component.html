@@ -1,72 +1,40 @@
-<div class="profile-container">
+<div class="profile-container" [class.info-message]="loading || error">
 
   @if (loading){
     <div class="loading">Loading profile...</div>
-  } @else if (error){
+  } @else if (error && !loading){
     <div class="error">{{ error }}</div>
-  }
-
-
-  @if (!loading && !error && userProfile){
-    <div class="profile-content">
-
-
-      <div class="profile-info-container">
-        <div class="profile-box">
-          <div class="profile-icon">
-            @if(userProfile.icon){
-              <img [src]="userProfile.icon" alt="Profile Icon" class="icon-image">
-            } @else {
-              <!--            TODO: default icon-->
-              <img [src]="userProfile.icon" alt="Profile Icon" class="icon-image">
-            }
-          </div>
-
-          <div class="profile-name">{{ userProfile.name }} {{ userProfile.lastname }}</div>
-          <div class="profile-username">@{{ userProfile.login }}</div>
-          <div class="profile-joined">Member since {{ userProfile.created_at | date:'mediumDate' }}</div>
-        </div>
+  } @else if (userProfile){
 
 
 
-        <div class="profile-info">
 
-          <div class="profile-rank"><div class="box-icon"><i class="icon-rank"></i></div>100-th</div>
-          <div class="profile-description">{{ userProfile.bio || 'No bio available' }}</div>
-
-
-          @if(isOwnProfile){
-             <button (click)="goToEditProfile()" class="btn">
-                Edit Profile
-              </button>
-
-            <div class="profile-privacy">
-              <label class="privacy-toggle">
-                <input type="checkbox" [checked]="userProfile.isPrivate" (change)="togglePrivacy()">
-                <span>Private Profile</span>
-              </label>
-              <div class="privacy-info">
-                @if(userProfile.isPrivate){
-                  <span >Your profile is private - only you can view it</span>
-                } @else {
-                  <span>Your profile is public - anyone can view it</span>
-                }
-              </div>
-            </div>
-          }
-        </div>
-
+    <div class="side-container">
+      <div class="profile-icon-container">
+        @if(userProfile.icon){<img [src]="userProfile.icon" alt="Profile Icon" class="icon-image">} @else {<img [src]="userProfile.icon" alt="Profile Icon" class="icon-image">}
       </div>
 
-      <div class="details-container">
-        <div class="statistics-container">
-
-        </div>
-
-        <div class="skills-container">
-          <h2>Skills</h2>
-        </div>
+      <div class="side-footer-container">
+        <div class="profile-username">@{{ userProfile.login }}</div>
+        <div class="profile-joined">Member since {{ userProfile.created_at | date:'mediumDate' }}</div>
       </div>
+
+
+      @if(isOwnProfile){
+        <button (click)="goToEditProfile()" class="btn">Edit Profile</button>
+      }
+    </div>
+
+    <div class="main-container">
+      <div class="profile-name">{{ userProfile.name }} {{ userProfile.lastname }}</div>
+
+      <div class="profile-rank"><div class="box-icon"><i class="icon-rank"></i></div>100-th</div>
+      <div class="profile-description">{{ userProfile.bio || 'No bio available' }}</div>
+
+<!--      <h2>Skills</h2>-->
+<!--      <div>DIAGRAM</div>-->
+
+<!--      <div>STATISTIC</div>-->
     </div>
   }
 </div>

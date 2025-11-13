@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user/user.service';
+import { UserProfile } from '../../models/user';
 
 @Component({
   selector: 'app-profile-edit',
@@ -8,14 +9,39 @@ import { UserService } from '../../services/user/user.service';
   templateUrl: './profile-edit.component.html',
   styleUrl: './profile-edit.component.scss'
 })
-export class ProfileEditComponent {
+export class ProfileEditComponent implements OnInit {
   selectedFile: File | null = null;
   previewUrl: string | null = null;
   uploadError: string | null = null;
   uploadSuccess: string | null = null;
   uploading: boolean = false;
 
+  userProfile?: UserProfile;
+  loading: boolean = true;
+  error?: string;
+
   constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.loadUserProfile();
+  }
+
+  private loadUserProfile() {
+    this.loading = true;
+    this.error = undefined;
+
+    this.userService.getUserProfile().subscribe({
+      next: (profile) => {
+        this.userProfile = profile;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Failed to load profile';
+        this.loading = false;
+        console.error('Error loading profile:', err);
+      }
+    });
+  }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -76,5 +102,23 @@ export class ProfileEditComponent {
     this.previewUrl = null;
     this.uploadError = null;
     this.uploadSuccess = null;
+  }
+
+  togglePrivacy(): void {
+    if (!this.userProfile) return;
+
+    const newPrivacySetting = !this.userProfile.isPrivate;
+
+    this.userService.updatePrivacy(newPrivacySetting).subscribe({
+      next: () => {
+        if (this.userProfile) {
+          this.userProfile.isPrivate = newPrivacySetting;
+        }
+      },
+      error: (err) => {
+        console.error('Error updating privacy settings:', err);
+        alert('Failed to update privacy settings');
+      }
+    });
   }
 }

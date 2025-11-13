@@ -1,4 +1,11 @@
 <div class="profile-edit-container">
+
+  @if (loading){
+    <div class="loading">Loading profile...</div>
+  } @else if (error){
+    <div class="error">{{ error }}</div>
+  } @else if (userProfile){
+
   <h2>Profile image</h2>
 
   <div class="icon-upload-container">
@@ -68,4 +75,21 @@
   <h2>Email</h2>
 
   <h2>Password</h2>
+
+  <h2>Privacy Settings</h2>
+  <div class="privacy-container">
+    <label>
+      <input type="checkbox" [checked]="userProfile.isPrivate" (change)="togglePrivacy()">
+      <span>Private Profile</span>
+    </label>
+    <div class="privacy-info">
+      @if(userProfile.isPrivate){
+        <small>Your profile is private - only you can view it</small>
+      } @else {
+        <small>Your profile is public - anyone can view it</small>
+      }
+    </div>
+  </div>
+
+  }
 </div>
