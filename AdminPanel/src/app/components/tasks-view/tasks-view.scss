@@ -1,0 +1,36 @@
+.header-container{
+  padding: 1.25rem;
+}
+
+.tasks-view {
+  ::ng-deep {
+    .p-dialog-content {
+      .field {
+        margin-bottom: 1.5rem;
+
+        label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 600;
+        }
+
+        .flag-constructor {
+          margin-top: 0.75rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+
+          .flag-preview {
+            .flag-text {
+              font-size: 0.875rem;
+
+              strong {
+                color: #4fc3f7;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
