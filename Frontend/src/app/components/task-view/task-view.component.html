@@ -1,37 +1,92 @@
-<div class="back">
-  <div class="task-view-container">
+<div class="back" (click)="onCloseClick()">
+  <div class="task-view-container" (click)="$event.stopPropagation()">
+
     <div class="header">
-      <a (click)="onCloseClick()">Close</a>
-    </div>
-
-    <div class="">
-      <h1>{{ task.title }} | Status</h1>
-      <h2>Points: {{ task.points }}</h2>
-      <h2>Difficulty: {{ task.difficulty }}</h2>
-      <h2>Is active: {{ task.is_active }}</h2>
-      <h2>Created at: {{ task.created_at }}</h2>
-      <h2>Author: {{ task.author }}</h2>
-    </div>
-
-    <div class="main-container">
-      <div class="task-view-description">{{ task.description }}</div>
-
-      <div class="hints-container">
-        <button class="hints-button btn" (click)="noHintsClick()">Hints ???</button>
-        <div class="hints">
-          @if(showHints){
-            @for(hint of task.hints; track hint){
-              <div class="hint">{{ hint }},</div>
-            }
+      <div class="header-left">
+        <div class="task-icon">
+          @if(task.icon){
+            <img [src]="task.icon" alt="Task icon">
+          } @else {
+            <i class="icon-default"></i>
           }
-
         </div>
+        <div class="task-title-section">
+          <h1 class="task-title">{{ task.title }}</h1>
+          <div class="task-meta">
+            <span class="category">{{ task.category }}</span>
+            @if(task.author){
+              <span class="author">by {{ task.author }}</span>
+            }
+          </div>
+        </div>
+      </div>
+      <button class="close-btn" (click)="onCloseClick()">
+        <i class="icon-close">✕</i>
+      </button>
+    </div>
+
+    <div class="info-bar">
+      <div class="info-item">
+        <span class="info-label">Points</span>
+        <span class="info-value points">{{ task.points }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Difficulty</span>
+        <span class="info-value difficulty" [attr.data-difficulty]="task.difficulty.toLowerCase()">
+          {{ task.difficulty }}
+        </span>
+      </div>
+      @if(task.completed){
+        <div class="info-item completed-badge">
+          <i class="icon-check">✓</i>
+          <span>Completed</span>
+        </div>
+      }
+    </div>
+
+    <div class="content-container">
+      <div class="section description-section">
+        <h2 class="section-title">Description</h2>
+        <div class="task-description">{{ task.description }}</div>
+      </div>
+
+      @if(task.hints && task.hints.length > 0){
+        <div class="section hints-section">
+          <button class="hints-toggle btn" (click)="noHintsClick()">
+            <i class="icon-hint">💡</i>
+            <span>{{ showHints ? 'Hide Hints' : 'Show Hints' }} ({{ task.hints.length }})</span>
+          </button>
+
+          @if(showHints){
+            <div class="hints-list">
+              @for(hint of task.hints; track $index){
+                <div class="hint-item">
+                  <span class="hint-number">Hint {{ $index + 1 }}</span>
+                  <span class="hint-text">{{ hint }}</span>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="submit-section">
+      <div class="submit-container">
+        <input
+          type="text"
+          class="flag-input"
+          [(ngModel)]="flagInput"
+          placeholder="Enter flag here..."
+          [disabled]="!!task.completed">
+        <button
+          class="submit-btn btn"
+          (click)="verifyFlag(task.id)"
+          [disabled]="!flagInput || !!task.completed">
+          {{ task.completed ? 'Already Completed' : 'Submit Flag' }}
+        </button>
       </div>
     </div>
 
-    <div class="submit-flag-container">
-      <input type="text" [(ngModel)]="flagInput">
-      <button class="btn" (click)="verifyFlag(task.id)">Submit flag!</button>
-    </div>
   </div>
 </div>
