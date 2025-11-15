@@ -10,6 +10,10 @@
   },
   "author": "Black Ghost",
   "dependencies": {
+    "@types/adm-zip": "0.5.7",
+    "@types/multer": "2.0.0",
+    "adm-zip": "0.5.16",
+    "multer": "2.0.2",
     "cors": "2.8.5",
     "dockerode": "4.0.9",
     "dotenv": "17.2.3",
