@@ -1,8 +1,14 @@
 <div class="category-view-container">
   <div class="category-view-view">
+
     @if(category){
-      <div class="category-view-name">{{ category.name }}</div>
-      <div class="category-view-details">{{ category.details }}</div>
+
+      <a [routerLink]="['/categories']" class="back-link"><</a>
+
+      <div class="category-info">
+        <div class="category-view-name">{{ category.name }}</div>
+        <div class="category-view-details">{{ category.details }}</div>
+      </div>
     }
   </div>
 

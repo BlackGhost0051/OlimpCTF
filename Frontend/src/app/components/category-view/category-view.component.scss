@@ -5,14 +5,28 @@
   .category-view-view{
     padding: 2rem 5rem;
 
-    .category-view-name{
-      font-size: 2rem;
+    display: flex;
+    align-items: center;
+
+    .back-link{
       color: colors.$text_primary;
+      font-size: 2rem;
+      padding: 1rem;
+      margin-right: 1rem;
+      text-decoration: none;
     }
-    .category-view-details{
-      font-size: 1.5rem;
-      color: colors.$text_secondary;
+
+    .category-info{
+      .category-view-name{
+        font-size: 2rem;
+        color: colors.$text_primary;
+      }
+      .category-view-details{
+        font-size: 1.5rem;
+        color: colors.$text_secondary;
+      }
     }
+
   }
 
 

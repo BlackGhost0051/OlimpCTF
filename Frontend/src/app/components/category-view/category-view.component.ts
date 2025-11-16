@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {ChallengeService} from '../../services/challenge/challenge.service';
 import {Task} from '../../models/task';
 import {Category} from '../../models/category';
@@ -11,6 +11,7 @@ import {TaskComponent} from '../task/task.component';
   imports: [
     TaskViewComponent,
     TaskComponent,
+    RouterLink,
   ],
   templateUrl: './category-view.component.html',
   styleUrl: './category-view.component.scss'
