@@ -9,14 +9,10 @@ CREATE TABLE IF NOT EXISTS user_containers (
     started_at TIMESTAMP DEFAULT NOW(),
     expires_at TIMESTAMP NOT NULL,
     url TEXT NOT NULL,
-    UNIQUE(user_id, task_id),
-    CONSTRAINT fk_task
-        FOREIGN KEY(task_id)
-        REFERENCES tasks(id)
-        ON DELETE CASCADE
+    UNIQUE(user_id, task_id)
 );
 
--- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_user_containers_status ON user_containers(status);
 CREATE INDEX IF NOT EXISTS idx_user_containers_expires ON user_containers(expires_at);
 CREATE INDEX IF NOT EXISTS idx_user_containers_user_task ON user_containers(user_id, task_id);
+CREATE INDEX IF NOT EXISTS idx_user_containers_host_port ON user_containers(host_port);

@@ -6,3 +6,5 @@ CREATE TABLE IF NOT EXISTS tasks (
     internal_port INTEGER,
     created_at TIMESTAMP DEFAULT NOW()
 );
+
+CREATE INDEX IF NOT EXISTS idx_tasks_created_at ON tasks(created_at);
