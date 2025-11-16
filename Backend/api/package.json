@@ -11,6 +11,10 @@
   },
   "author": "Black Ghost",
   "dependencies": {
+    "@types/form-data": "2.5.2",
+    "form-data": "4.0.4",
+    "@types/multer": "2.0.0",
+    "multer": "2.0.2",
     "axios": "1.13.1",
     "bcrypt": "6.0.0",
     "cors": "2.8.5",
