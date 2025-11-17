@@ -5,19 +5,18 @@ import Controller from "./interfaces/controller.interface";
 
 import bodyParser from "body-parser";
 import cors from "cors"
-import DockerService from './modules/services/docker.service';
+import CleanupService from './modules/services/cleanup.service';
 
 class App {
     public app: express.Application;
-
+    private cleanupService: CleanupService;
 
     constructor(controllers: Controller[]) {
         this.app = express();
+        this.cleanupService = new CleanupService();
 
         this.initializeMiddlewares();
         this.initializeControllers(controllers);
-
-        this.startTest();
     }
 
     private initializeControllers(controllers: Controller[]): void {
@@ -36,13 +35,9 @@ class App {
     public listen(): void {
         this.app.listen(config.port, () => {
             console.log(`App listening on the port ${config.port}`);
+
+            this.cleanupService.start();
         });
-    }
-
-    private startTest(){
-        const dockerService = new DockerService();
-        dockerService.startExampleWebTask();
-
     }
 }
 export default App;
