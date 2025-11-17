@@ -8,4 +8,6 @@ export const config = {
     db_user: process.env.DB_USER || 'user',
     db_password: process.env.DB_PASSWORD || 'password',
     db_database: process.env.DB_NAME || 'db',
+
+    server_host: process.env.SERVER_HOST || 'localhost',
 };
