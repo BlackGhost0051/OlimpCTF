@@ -141,13 +141,14 @@ class DatabaseService{
 
     async addTask(task: Task) {
         const query = `
-            INSERT INTO tasks (id, category, title, icon, difficulty, points, description)
-            VALUES ($1, $2, $3, $4, $5, $6, $7)
+            INSERT INTO tasks (id, category, title, author, icon, difficulty, points, description)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         `;
         await this.pool.query(query, [
             task.id,
             task.category || null,
             task.title || null,
+            task.author || null,
             task.icon || null,
             task.difficulty || null,
             task.points || null,
