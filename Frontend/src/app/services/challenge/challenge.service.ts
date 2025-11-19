@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Task } from '../../models/task';
 import {environment} from '../../../environments/environment';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,23 @@ export class ChallengeService {
 
   getCategories(){
     return this.http.post(this.url + '/categories', {});
+  }
+
+  startContainer(task_id: string): Observable<any> {
+    return this.http.post(this.url + '/start_container', { task_id: task_id });
+  }
+
+  stopContainer(task_id: string): Observable<any> {
+    return this.http.post(this.url + '/stop_container', { task_id: task_id });
+  }
+
+  checkTaskDetails(task_id: string): Observable<any>{
+    return this.http.get(`${this.url}/task_details/${task_id}`);
+  }
+
+  downloadTaskFile(task_id: string, filename: string): Observable<Blob> {
+    return this.http.get(`${this.url}/download/${task_id}/${filename}`, {
+      responseType: 'blob'
+    });
   }
 }

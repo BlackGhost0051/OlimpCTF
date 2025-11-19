@@ -3,7 +3,7 @@ import { Router, Request, Response } from "express";
 
 import ChallengeService from "../modules/services/challenge.service";
 import JwtMiddleware from "../middlewares/jwt.middleware";
-import {Task} from "../modules/models/task.model";
+import TaskRunnerService from "../modules/services/task.runner.service";
 
 /**
  * @swagger
@@ -16,10 +16,12 @@ class ChallengeController implements Controller{
     public router: Router = Router();
 
     private challengeService: ChallengeService;
+    private taskRunnerService: TaskRunnerService;
 
     constructor() {
         this.challengeService = new ChallengeService();
- 
+        this.taskRunnerService = new TaskRunnerService();
+
         this.initializeRoutes();
     }
 
@@ -178,6 +180,13 @@ class ChallengeController implements Controller{
          */
         this.router.post(`${this.path}/category`, this.getCategory.bind(this));
 
+        this.router.post(`${this.path}/start_container`, JwtMiddleware, this.startContainer.bind(this));
+        this.router.post(`${this.path}/stop_container`, JwtMiddleware, this.stopContainer.bind(this));
+
+        this.router.get(`${this.path}/task_details/:task_id`, JwtMiddleware, this.getTaskDetails.bind(this));
+
+        this.router.get(`${this.path}/download/:task_id/:filename`, JwtMiddleware, this.downloadFile.bind(this));
+
         // TODO: verify maybe dont need ???
         // this.router.post(`${this.path}/task/:id`, JwtMiddleware , this.getTaskInfo.bind(this));
     }
@@ -282,6 +291,97 @@ class ChallengeController implements Controller{
             return response.status(200).json({ status: true, categories, message: "Categories." });
         } catch (error) {
             return response.status(500).json({ status: false, message: "Failed to get categories." });
+        }
+    }
+
+    private async startContainer(request: Request, response: Response){
+        const { task_id } = request.body;
+        const user = (request as any).user;
+
+        if (!task_id) {
+            return response.status(400).json({
+                status: false,
+                message: "Must provide task_id"
+            });
+        }
+
+        try {
+            const result = await this.taskRunnerService.startContainer(user.login, task_id);
+            return response.status(200).json(result);
+        } catch (error: any) {
+            return response.status(500).json({
+                status: false,
+                message: error.message || "Failed to start container"
+            });
+        }
+    }
+
+    private async stopContainer(request: Request, response: Response){
+        const { task_id } = request.body;
+        const user = (request as any).user;
+
+        if (!task_id) {
+            return response.status(400).json({
+                status: false,
+                message: "Must provide task_id"
+            });
+        }
+
+        try {
+            const result = await this.taskRunnerService.stopContainer(user.login, task_id);
+            return response.status(200).json(result);
+        } catch (error: any) {
+            return response.status(500).json({
+                status: false,
+                message: error.message || "Failed to stop container"
+            });
+        }
+    }
+
+
+    private async getTaskDetails(request: Request, response: Response){
+        const { task_id } = request.params;
+        const user = (request as any).user;
+
+        if (!task_id) {
+            return response.status(400).json({
+                status: false,
+                message: "Must provide task_id"
+            });
+        }
+
+        try{
+            const result = await this.taskRunnerService.getTaskDetails(user.login, task_id);
+            return response.status(200).json(result);
+        } catch (error){
+            return response.status(500).json({
+                status: false,
+                message: error.message || "Failed to get task details"
+            });
+        }
+    }
+
+    private async downloadFile(request: Request, response: Response){
+        const { task_id, filename } = request.params;
+
+        if (!task_id || !filename) {
+            return response.status(400).json({
+                status: false,
+                message: "Must provide task_id and filename"
+            });
+        }
+
+        try {
+            const fileBuffer = await this.taskRunnerService.downloadTaskFile(task_id, filename);
+
+            response.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+            response.setHeader('Content-Type', 'application/octet-stream');
+            return response.send(Buffer.from(fileBuffer));
+        } catch (error: any) {
+            return response.status(404).json({
+                status: false,
+                message: error.message || "File not found"
+            });
         }
     }
 }

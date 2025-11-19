@@ -33,6 +33,15 @@ class ChallengeService {
         }
     }
 
+    async addTaskToBackendOnly(task: Task){
+        try{
+            await this.databaseService.addTask(task);
+        } catch (error){
+            console.error(`Failed to add task to Backend ${task.id}:`, error);
+            throw error;
+        }
+    }
+
     async deleteTask(task_id: string){
         try{
             await this.databaseService.deleteTask(task_id);

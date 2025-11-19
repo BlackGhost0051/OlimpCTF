@@ -54,6 +54,20 @@ export class AdminService {
     );
   }
 
+  uploadTaskZip(task: Task, flag: string, zipFile: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('task', JSON.stringify(task));
+    formData.append('flag', flag);
+    formData.append('task_zip', zipFile);
+
+    return this.http.post(this.url + '/upload_task', formData).pipe(
+      catchError(error => {
+        console.error('Error uploading task ZIP:', error);
+        throw error;
+      })
+    );
+  }
+
   deleteTask(taskId: string): Observable<any> {
     return this.http.delete(this.url + '/task', { body: { task_id: taskId } }).pipe(
       catchError(error => {

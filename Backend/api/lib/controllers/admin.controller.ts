@@ -6,6 +6,8 @@ import ChallengeService from "../modules/services/challenge.service";
 import UserService from "../modules/services/user.service";
 import { Task } from "../modules/models/task.model";
 import JwtService from "../modules/services/jwt.service";
+import TaskRunnerService from "../modules/services/task.runner.service";
+import multer from "multer";
 
 /**
  * @swagger
@@ -21,12 +23,20 @@ class AdminController implements Controller{
     private adminService: AdminService;
     private userService: UserService;
     private jwtService: JwtService;
+    private taskRunnerService: TaskRunnerService;
+    private upload: multer.Multer;
 
     constructor() {
         this.challengeService = new ChallengeService();
         this.adminService = new AdminService();
         this.userService = new UserService();
         this.jwtService = new JwtService();
+        this.taskRunnerService = new TaskRunnerService();
+
+        this.upload = multer({
+            storage: multer.memoryStorage(),
+            limits: { fileSize: 100 * 1024 * 1024 } // 100MB max
+        });
 
         this.initializeRoutes();
     }
@@ -149,8 +159,43 @@ class AdminController implements Controller{
          *       500:
          *         description: Server error
          */
-        this.router.post(`${this.path}/task`, this.addTask.bind(this));
+        this.router.post(`${this.path}/task`, AdminMiddleware, this.addTask.bind(this));
 
+        /**
+         * @swagger
+         * /api/admin/upload_task:
+         *   post:
+         *     summary: Upload task with ZIP file (Docker containers/files)
+         *     tags: [Admin]
+         *     security:
+         *       - bearerAuth: []
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         multipart/form-data:
+         *           schema:
+         *             type: object
+         *             required:
+         *               - task_id
+         *               - flag
+         *               - task_zip
+         *             properties:
+         *               task_id:
+         *                 type: string
+         *               flag:
+         *                 type: string
+         *               task_zip:
+         *                 type: string
+         *                 format: binary
+         *     responses:
+         *       200:
+         *         description: Task uploaded successfully
+         *       400:
+         *         description: Invalid input
+         *       500:
+         *         description: Server error
+         */
+        this.router.post(`${this.path}/upload_task`, AdminMiddleware, this.upload.single('task_zip'), this.uploadTask.bind(this));
         /**
          * @swagger
          * /api/admin/task:
@@ -440,10 +485,79 @@ class AdminController implements Controller{
         }
 
         try{
+            const userLogin = (request as any).user?.login;
+            if (userLogin) {
+                const user = await this.userService.getUser(userLogin);
+                if (user) {
+                    task.author = user.id;
+                }
+            }
+
             await this.challengeService.addTask(task, flag);
             return response.status(200).json({ status: true, message: "Task added." });
         } catch (error){
             return response.status(500).json({ status: false });
+        }
+    }
+
+    private async uploadTask(request: Request, response: Response) {
+        const { task, flag } = request.body;
+        const file = request.file;
+
+        if (!task || !flag || !file) {
+            return response.status(400).json({
+                status: false,
+                message: "Missing required fields (task, flag, task_zip)"
+            });
+        }
+
+        try {
+            const taskData = typeof task === 'string' ? JSON.parse(task) : task;
+
+            if (!taskData.title || !taskData.category || !taskData.difficulty ||
+                !taskData.points || !taskData.description) {
+                return response.status(400).json({
+                    status: false,
+                    message: "Task must have title, category, difficulty, points and description."
+                });
+            }
+
+            if (taskData.difficulty !== "easy" &&
+                taskData.difficulty !== "medium" &&
+                taskData.difficulty !== "hard") {
+                return response.status(400).json({
+                    status: false,
+                    message: "Difficulty must be easy, medium or hard."
+                });
+            }
+
+            const { v4: uuidv4 } = require('uuid');
+            taskData.id = uuidv4();
+
+            // Extract user login from JWT token and get user ID
+            const userLogin = (request as any).user?.login;
+            if (userLogin) {
+                const user = await this.userService.getUser(userLogin);
+                if (user) {
+                    taskData.author = user.id;
+                }
+            }
+
+            await this.challengeService.addTaskToBackendOnly(taskData as Task);
+
+            await this.taskRunnerService.uploadTask(taskData.id, flag, file.buffer);
+
+            return response.status(200).json({
+                status: true,
+                message: "Task uploaded successfully",
+                task_id: taskData.id
+            });
+        } catch (error: any) {
+            console.error('Error uploading task:', error);
+            return response.status(500).json({
+                status: false,
+                message: error.message || "Failed to upload task"
+            });
         }
     }
 
