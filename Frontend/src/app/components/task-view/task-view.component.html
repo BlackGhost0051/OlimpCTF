@@ -69,6 +69,49 @@
           }
         </div>
       }
+
+      @if(hasContainer){
+        <div class="section container-section">
+          <h2 class="section-title">Challenge Environment</h2>
+          <div class="container-controls">
+            <button
+              class="btn btn-primary"
+              (click)="startContainer()"
+              [disabled]="containerLoading || containerStatus === 'running'">
+              {{ containerLoading ? 'Starting...' : (containerStatus === 'running' ? 'Container Running' : 'Start Container') }}
+            </button>
+
+            @if(containerStatus === 'running' && containerUrl){
+            <button class="btn btn-danger" (click)="stopContainer()" [disabled]="containerLoading">
+              Stop Container
+            </button>
+
+
+              <div class="container-info">
+                <a [href]="containerUrl" target="_blank" class="container-url">{{ containerUrl }}</a>
+                @if(expiresAt){
+                  <span class="expires-info">Expires at: {{ expiresAt | date:'short' }}</span>
+                }
+
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      @if(taskFiles.length > 0){
+        <div class="section files-section">
+          <h2 class="section-title">Challenge Files</h2>
+          <div class="files-list">
+            @for(file of taskFiles; track file){
+              <div class="file-item">
+                <span class="file-name">{{ file }}</span>
+                <button class="btn btn-small" (click)="downloadFile(file)">Download</button>
+              </div>
+            }
+          </div>
+        </div>
+      }
     </div>
 
     <div class="submit-section">

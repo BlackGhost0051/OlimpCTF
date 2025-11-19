@@ -45,6 +45,9 @@ export class TasksView implements OnInit {
   flagPrefix: string = 'olimpCTF{';
   flagSuffix: string = '}';
 
+  selectedZipFile: File | null = null;
+  uploadMode: 'simple' | 'zip' = 'simple';
+
   constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
@@ -100,6 +103,18 @@ export class TasksView implements OnInit {
       description: ''
     };
     this.flag = '';
+    this.selectedZipFile = null;
+    this.uploadMode = 'simple';
+  }
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file && file.name.endsWith('.zip')) {
+      this.selectedZipFile = file;
+    } else {
+      alert('Please select a valid ZIP file');
+      this.selectedZipFile = null;
+    }
   }
 
   saveTask(): void {
@@ -118,16 +133,33 @@ export class TasksView implements OnInit {
       // });
       this.hideDialog();
     } else {
-      this.adminService.addTask(this.editedTask as Task, completeFlag).subscribe({
-        next: (data) => {
-          console.log('Task created:', data);
-          this.loadTasks();
-          this.hideDialog();
-        },
-        error: (err) => {
-          console.error('Error creating task:', err);
-        }
-      });
+      if (this.uploadMode === 'zip' && this.selectedZipFile) {
+        this.adminService.uploadTaskZip(this.editedTask as Task, completeFlag, this.selectedZipFile).subscribe({
+          next: (data) => {
+            console.log('Task ZIP uploaded:', data);
+            alert('Task uploaded successfully! Task ID: ' + data.task_id);
+            this.loadTasks();
+            this.hideDialog();
+          },
+          error: (err) => {
+            console.error('Error uploading task ZIP:', err);
+            alert('Error uploading task: ' + (err.error?.message || 'Unknown error'));
+          }
+        });
+      } else if (this.uploadMode === 'simple') {
+        this.adminService.addTask(this.editedTask as Task, completeFlag).subscribe({
+          next: (data) => {
+            console.log('Task created:', data);
+            this.loadTasks();
+            this.hideDialog();
+          },
+          error: (err) => {
+            console.error('Error creating task:', err);
+          }
+        });
+      } else {
+        alert('Please select a ZIP file for ZIP upload mode');
+      }
     }
   }
 

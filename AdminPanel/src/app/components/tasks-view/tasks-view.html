@@ -81,6 +81,46 @@
     styleClass="p-fluid">
     <ng-template pTemplate="content">
       <div class="field">
+        <label>Upload Mode</label>
+        <div class="flex gap-3">
+          <label class="flex align-items-center">
+            <input
+              type="radio"
+              name="uploadMode"
+              value="simple"
+              [(ngModel)]="uploadMode"
+              class="mr-2" />
+            Simple Task
+          </label>
+          <label class="flex align-items-center">
+            <input
+              type="radio"
+              name="uploadMode"
+              value="zip"
+              [(ngModel)]="uploadMode"
+              class="mr-2" />
+            ZIP Upload (Docker/Files)
+          </label>
+        </div>
+      </div>
+
+      @if(uploadMode === 'zip') {
+        <div class="field">
+          <label for="zip-file">Task ZIP File</label>
+          <input
+            type="file"
+            id="zip-file"
+            accept=".zip"
+            (change)="onFileSelected($event)"
+            class="p-inputtext" />
+          @if(selectedZipFile) {
+            <small class="text-success">Selected: {{ selectedZipFile.name }}</small>
+          }
+          <small class="text-muted">Task ID will be auto-generated (UUID)</small>
+        </div>
+      }
+
+      <div class="field">
         <label for="title">Title</label>
         <input
           type="text"
