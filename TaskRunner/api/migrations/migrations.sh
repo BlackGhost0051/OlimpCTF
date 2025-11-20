@@ -6,6 +6,12 @@ DB_USER=admin
 DB_PASSWORD=admin_password
 DB_NAME=db
 
+if ! command -v psql >/dev/null 2>&1
+then
+    echo "psql is not installed. Please install PostgreSQL client."
+    exit 1
+fi
+
 echo "Migrations menu:"
 
 
