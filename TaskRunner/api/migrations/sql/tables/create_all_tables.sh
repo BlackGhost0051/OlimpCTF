@@ -10,3 +10,4 @@ DB_NAME=$5
 export PGPASSWORD=$DB_PASSWORD
 
 psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -f "$(pwd)/sql/tables/create_tasks_table.sql"
+psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -f "$(pwd)/sql/tables/create_user_containers_table.sql"
