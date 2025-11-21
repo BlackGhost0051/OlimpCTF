@@ -13,15 +13,22 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  changeName(){}
-
-  changePassword() {}
-
   getUserProfile(login?: string): Observable<UserProfile> {
     if (login) {
       return this.http.get<UserProfile>(`${this.url}/user/profile/${login}`);
     }
     return this.http.get<UserProfile>(`${this.url}/user/profile`);
+  }
+
+  updateProfile(profileData: Partial<UserProfile>): Observable<any> {
+    return this.http.patch(`${this.url}/user/profile`, profileData);
+  }
+
+  updatePassword(currentPassword: string, newPassword: string): Observable<any> {
+    return this.http.patch(`${this.url}/user/password`, {
+      currentPassword,
+      newPassword
+    });
   }
 
   updatePrivacy(isPrivate: boolean): Observable<any> {
