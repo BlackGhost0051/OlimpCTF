@@ -62,19 +62,101 @@
     </div>
   </div>
 
-  <h2>Name</h2>
+  <h2>Profile Information</h2>
 
-  <h2>Lastname</h2>
+  <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="profile-form">
+    <div class="form-section">
+      <label for="name">First Name</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        class="form-input"/>
+    </div>
 
-  <h2>Login</h2>
+    <div class="form-section">
+      <label for="lastname">Last Name</label>
+      <input
+        type="text"
+        id="lastname"
+        formControlName="lastname"
+        class="form-input"/>
+    </div>
 
-  <h2>Description</h2>
+    <div class="form-section">
+      <label for="login">Username</label>
+      <input
+        type="text"
+        id="login"
+        formControlName="login"
+        class="form-input"/>
+    </div>
 
-  <h1>---</h1>
+    <div class="form-section">
+      <label for="bio">Bio / Description</label>
+      <textarea
+        id="bio"
+        formControlName="bio"
+        class="form-input"
+        rows="4"
+        placeholder="Tell us about yourself..."></textarea>
+    </div>
 
-  <h2>Email</h2>
+    <div class="form-section">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        class="form-input"/>
+    </div>
 
-  <h2>Password</h2>
+    <button type="submit" class="btn btn-primary" [disabled]="saving || profileForm.invalid">
+      {{ saving ? 'Saving...' : 'Save Profile' }}
+    </button>
+
+    @if (saveSuccess) {
+      <p class="success-message">{{ saveSuccess }}</p>
+    }
+    @if (saveError) {
+      <p class="error-message">{{ saveError }}</p>
+    }
+  </form>
+
+  <h2>Change Password</h2>
+
+  <form [formGroup]="passwordForm" (ngSubmit)="changePassword()" class="password-form">
+    <div class="form-section">
+      <label for="currentPassword">Current Password</label>
+      <input
+        type="password"
+        id="currentPassword"
+        formControlName="currentPassword"
+        class="form-input"/>
+    </div>
+
+    <div class="form-section">
+      <label for="newPassword">New Password</label>
+      <input
+        type="password"
+        id="newPassword"
+        formControlName="newPassword"
+        class="form-input"/>
+    </div>
+
+    <div class="form-section">
+      <label for="confirmPassword">Confirm New Password</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        formControlName="confirmPassword"
+        class="form-input"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="saving || passwordForm.invalid">
+      {{ saving ? 'Changing...' : 'Change Password' }}
+    </button>
+  </form>
 
   <h2>Privacy Settings</h2>
   <div class="privacy-container">
