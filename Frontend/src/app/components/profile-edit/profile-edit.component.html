@@ -71,7 +71,11 @@
         type="text"
         id="name"
         formControlName="name"
-        class="form-input"/>
+        class="form-input"
+        [class.error]="getFieldError(profileForm, 'name')">
+      @if (getFieldError(profileForm, 'name')) {
+        <span class="error-message">{{ getFieldError(profileForm, 'name') }}</span>
+      }
     </div>
 
     <div class="form-section">
@@ -80,7 +84,11 @@
         type="text"
         id="lastname"
         formControlName="lastname"
-        class="form-input"/>
+        class="form-input"
+        [class.error]="getFieldError(profileForm, 'lastname')">
+      @if (getFieldError(profileForm, 'lastname')) {
+        <span class="error-message">{{ getFieldError(profileForm, 'lastname') }}</span>
+      }
     </div>
 
     <div class="form-section">
@@ -89,7 +97,11 @@
         type="text"
         id="login"
         formControlName="login"
-        class="form-input"/>
+        class="form-input"
+        [class.error]="getFieldError(profileForm, 'login')">
+      @if (getFieldError(profileForm, 'login')) {
+        <span class="error-message">{{ getFieldError(profileForm, 'login') }}</span>
+      }
     </div>
 
     <div class="form-section">
@@ -99,7 +111,12 @@
         formControlName="bio"
         class="form-input"
         rows="4"
-        placeholder="Tell us about yourself..."></textarea>
+        placeholder="Tell us about yourself..."
+        [class.error]="getFieldError(profileForm, 'bio')"></textarea>
+      @if (getFieldError(profileForm, 'bio')) {
+        <span class="error-message">{{ getFieldError(profileForm, 'bio') }}</span>
+      }
+      <small class="char-count">{{ profileForm.get('bio')?.value?.length || 0 }} / 500</small>
     </div>
 
     <div class="form-section">
@@ -108,7 +125,11 @@
         type="email"
         id="email"
         formControlName="email"
-        class="form-input"/>
+        class="form-input"
+        [class.error]="getFieldError(profileForm, 'email')">
+      @if (getFieldError(profileForm, 'email')) {
+        <span class="error-message">{{ getFieldError(profileForm, 'email') }}</span>
+      }
     </div>
 
     <button type="submit" class="btn btn-primary" [disabled]="saving || profileForm.invalid">
@@ -132,7 +153,11 @@
         type="password"
         id="currentPassword"
         formControlName="currentPassword"
-        class="form-input"/>
+        class="form-input"
+        [class.error]="getFieldError(passwordForm, 'currentPassword')">
+      @if (getFieldError(passwordForm, 'currentPassword')) {
+        <span class="error-message">{{ getFieldError(passwordForm, 'currentPassword') }}</span>
+      }
     </div>
 
     <div class="form-section">
@@ -141,7 +166,11 @@
         type="password"
         id="newPassword"
         formControlName="newPassword"
-        class="form-input"/>
+        class="form-input"
+        [class.error]="getFieldError(passwordForm, 'newPassword')">
+      @if (getFieldError(passwordForm, 'newPassword')) {
+        <span class="error-message">{{ getFieldError(passwordForm, 'newPassword') }}</span>
+      }
     </div>
 
     <div class="form-section">
@@ -150,7 +179,14 @@
         type="password"
         id="confirmPassword"
         formControlName="confirmPassword"
-        class="form-input"/>
+        class="form-input"
+        [class.error]="getFieldError(passwordForm, 'confirmPassword') || passwordMismatch">
+      @if (getFieldError(passwordForm, 'confirmPassword')) {
+        <span class="error-message">{{ getFieldError(passwordForm, 'confirmPassword') }}</span>
+      }
+      @if (passwordMismatch) {
+        <span class="error-message">Passwords do not match</span>
+      }
     </div>
 
     <button type="submit" class="btn btn-primary" [disabled]="saving || passwordForm.invalid">
