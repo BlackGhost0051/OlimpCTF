@@ -147,6 +147,42 @@ class UserService{
 
         await this.databaseService.updateUserIcon(login, iconBase64);
     }
+
+    // TODO: VERIFY and TEST
+    async updateProfile(login: string, data: { name?: string, lastname?: string, bio?: string, email?: string }){
+        const user = await this.databaseService.getUser(login);
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        if (data.email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(data.email)) {
+                throw new Error("Invalid email format");
+            }
+
+            if (data.email !== user.email) {
+                const existingUser = await this.databaseService.getUser(data.email);
+                if (existingUser && existingUser.login !== login) {
+                    throw new Error("Email already in use");
+                }
+            }
+        }
+
+        if (data.name !== undefined && data.name.length < 2) {
+            throw new Error("Name must be at least 2 characters");
+        }
+
+        if (data.lastname !== undefined && data.lastname.length < 2) {
+            throw new Error("Lastname must be at least 2 characters");
+        }
+
+        if (data.bio !== undefined && data.bio.length > 500) {
+            throw new Error("Bio must not exceed 500 characters");
+        }
+
+        await this.databaseService.updateUserProfile(login, data);
+    }
 }
 
 export default UserService;
