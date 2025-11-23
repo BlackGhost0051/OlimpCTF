@@ -246,6 +246,44 @@ class UserController implements Controller{
          *         description: Unauthorized
          */
         this.router.patch(`${this.path}/icon`, JwtMiddleware, this.updateIcon.bind(this));
+
+        /**
+         * @swagger
+         * /api/user/profile:
+         *   patch:
+         *     summary: Update user profile information
+         *     tags: [User]
+         *     security:
+         *       - bearerAuth: []
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             properties:
+         *               name:
+         *                 type: string
+         *                 minLength: 2
+         *               lastname:
+         *                 type: string
+         *                 minLength: 2
+         *               bio:
+         *                 type: string
+         *                 maxLength: 500
+         *               email:
+         *                 type: string
+         *                 format: email
+         *     responses:
+         *       200:
+         *         description: Profile updated successfully
+         *       400:
+         *         description: Invalid input
+         *       401:
+         *         description: Unauthorized
+         */
+        // TODO: VERIFY and TEST
+        this.router.patch(`${this.path}/profile`, JwtMiddleware, this.updateProfile.bind(this));
     }
 
     private async login(request: Request, response: Response){
@@ -385,6 +423,34 @@ class UserController implements Controller{
             await this.userService.updateIcon(user.login, icon);
 
             return response.status(200).json({ message: "Icon updated successfully" });
+        } catch (error){
+            return response.status(400).json({ error: error.message });
+        }
+    }
+    // TODO: VERIFY and TEST
+    private async updateProfile(request: Request, response: Response){
+        try{
+            const user = (request as any).user;
+            const { name, lastname, bio, email } = request.body;
+
+            if (!user || !user.login) {
+                return response.status(401).json({ error: "Unauthorized" });
+            }
+
+            const updateData: { name?: string, lastname?: string, bio?: string, email?: string } = {};
+
+            if (name !== undefined) updateData.name = name;
+            if (lastname !== undefined) updateData.lastname = lastname;
+            if (bio !== undefined) updateData.bio = bio;
+            if (email !== undefined) updateData.email = email;
+
+            if (Object.keys(updateData).length === 0) {
+                return response.status(400).json({ error: "No fields to update" });
+            }
+
+            await this.userService.updateProfile(user.login, updateData);
+
+            return response.status(200).json({ message: "Profile updated successfully" });
         } catch (error){
             return response.status(400).json({ error: error.message });
         }
