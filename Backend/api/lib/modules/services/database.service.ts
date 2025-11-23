@@ -128,6 +128,45 @@ class DatabaseService{
         await this.query(query, [icon, login]);
     }
 
+    // TODO: VERIFY and TEST
+    public async updateUserProfile(login: string, data: { name?: string, lastname?: string, bio?: string, email?: string }): Promise<void> {
+        const fields: string[] = [];
+        const values: any[] = [];
+        let paramIndex = 1;
+
+        if (data.name !== undefined) {
+            fields.push(`name = $${paramIndex}`);
+            values.push(data.name);
+            paramIndex++;
+        }
+
+        if (data.lastname !== undefined) {
+            fields.push(`lastname = $${paramIndex}`);
+            values.push(data.lastname);
+            paramIndex++;
+        }
+
+        if (data.bio !== undefined) {
+            fields.push(`bio = $${paramIndex}`);
+            values.push(data.bio);
+            paramIndex++;
+        }
+
+        if (data.email !== undefined) {
+            fields.push(`email = $${paramIndex}`);
+            values.push(data.email);
+            paramIndex++;
+        }
+
+        if (fields.length === 0) {
+            throw new Error("No fields to update");
+        }
+
+        values.push(login);
+        const query = `UPDATE users SET ${fields.join(', ')} WHERE login = $${paramIndex}`;
+        await this.query(query, values);
+    }
+
     public async isAdmin(login: string): Promise<boolean> {
         const query = `SELECT isAdmin FROM users WHERE login = $1`;
         const result = await this.query<{ isadmin: boolean }>(query, [login]);
