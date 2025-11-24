@@ -3,6 +3,8 @@ import path from 'path';
 import {Request} from "express";
 
 class LoggerService {
+    // TODO: logger maybe add Winston library
+
     private logFilePath: string;
 
     constructor(){
