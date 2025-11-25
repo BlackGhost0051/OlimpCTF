@@ -2,6 +2,7 @@ export const config = {
     port: process.env.PORT || 5000,
 
     JWT_SECRET_KEY: "secret-key_1234567890_1234567890_1234567890_1234567890_1234567890_1234567890",
+    ADMIN_JWT_SECRET_KEY: "b63a0c416b311bf6487793f44ca499320fb6f03392338e26137fe9899d02ad49",
 
     db_host: process.env.DB_HOST || 'localhost',
     db_port: parseInt(process.env.DB_PORT || '5432'),
