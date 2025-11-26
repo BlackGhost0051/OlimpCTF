@@ -1,13 +1,14 @@
 import { Request, Response, NextFunction} from "express";
-import JwtService from "../modules/services/jwt.service";
-import DatabaseService from "../modules/services/database.service";
+import AdminJwtService from "../modules/services/admin.jwt.service";
 import AdminService from "../modules/services/admin.service";
 import UserService from "../modules/services/user.service";
 
-const jwtService = new JwtService();
+const adminJwtService = new AdminJwtService();
 const adminService = new AdminService();
 const userService = new UserService();
 
+
+// TODO: need verify
 const verifyToken = async (request: Request, response: Response, next: NextFunction) => {
     let token = request.headers['x-auth-token'] || request.headers['authorization'];
 
@@ -21,7 +22,7 @@ const verifyToken = async (request: Request, response: Response, next: NextFunct
         }
 
         try{
-            const decoded = jwtService.verifyToken(token);
+            const decoded = adminJwtService.verifyToken(token);
             const dbUser = await userService.getUser(decoded.login);
 
             if(!dbUser){
