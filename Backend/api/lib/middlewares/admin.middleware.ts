@@ -9,6 +9,7 @@ const userService = new UserService();
 
 
 // TODO: need verify
+// TODO: verify logic in adminPanel
 const verifyToken = async (request: Request, response: Response, next: NextFunction) => {
     let token = request.headers['x-auth-token'] || request.headers['authorization'];
 
