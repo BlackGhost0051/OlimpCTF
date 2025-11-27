@@ -5,7 +5,7 @@ import AdminMiddleware from "../middlewares/admin.middleware";
 import ChallengeService from "../modules/services/challenge.service";
 import UserService from "../modules/services/user.service";
 import { Task } from "../modules/models/task.model";
-import JwtService from "../modules/services/jwt.service";
+import AdminJwtService from "../modules/services/admin.jwt.service";
 import TaskRunnerService from "../modules/services/task.runner.service";
 import multer from "multer";
 
@@ -22,7 +22,7 @@ class AdminController implements Controller{
     private challengeService: ChallengeService;
     private adminService: AdminService;
     private userService: UserService;
-    private jwtService: JwtService;
+    private adminJwtService: AdminJwtService;
     private taskRunnerService: TaskRunnerService;
     private upload: multer.Multer;
 
@@ -30,7 +30,7 @@ class AdminController implements Controller{
         this.challengeService = new ChallengeService();
         this.adminService = new AdminService();
         this.userService = new UserService();
-        this.jwtService = new JwtService();
+        this.adminJwtService = new AdminJwtService();
         this.taskRunnerService = new TaskRunnerService();
 
         this.upload = multer({
@@ -636,7 +636,7 @@ class AdminController implements Controller{
         try{
             const user = await this.adminService.login(login, password);
 
-            const token = this.jwtService.generateToken(user.login);
+            const token = this.adminJwtService.generateToken(user.login);
 
             return response.status(200).json({ token: token, message: "Admin is logged." });
         } catch (error){
