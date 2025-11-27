@@ -176,6 +176,30 @@
       </div>
 
       <div class="field">
+        <label for="icon">Icon</label>
+        <div class="icon-upload-section">
+          @if(iconPreviewUrl) {
+            <div class="icon-preview">
+              <img [src]="iconPreviewUrl" alt="Icon preview">
+            </div>
+          }
+          <input
+            type="file"
+            #iconInput
+            (change)="onIconSelected($event)"
+            accept="image/*,.svg"
+            style="display: none">
+          <p-button
+            label="Select Icon"
+            (onClick)="iconInput.click()"
+            [outlined]="true"
+            size="small">
+          </p-button>
+          <small class="text-muted">PNG, JPG, GIF, SVG (max 5MB)</small>
+        </div>
+      </div>
+
+      <div class="field">
         <label for="flag">Flag</label>
         <input
           type="text"

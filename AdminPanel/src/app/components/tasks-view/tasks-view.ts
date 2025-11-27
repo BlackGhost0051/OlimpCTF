@@ -38,7 +38,8 @@ export class TasksView implements OnInit {
     category: '',
     difficulty: '',
     points: 0,
-    description: ''
+    description: '',
+    icon: ''
   };
 
   flag: string = '';
@@ -47,6 +48,7 @@ export class TasksView implements OnInit {
 
   selectedZipFile: File | null = null;
   uploadMode: 'simple' | 'zip' = 'simple';
+  iconPreviewUrl: string | null = null;
 
   constructor(private adminService: AdminService) {}
 
@@ -74,6 +76,7 @@ export class TasksView implements OnInit {
     this.selectedTask = task;
     this.editedTask = { ...task };
     this.flag = '';
+    this.iconPreviewUrl = task.icon || null;
     this.editMode = true;
     this.showDialog = true;
   }
@@ -85,9 +88,11 @@ export class TasksView implements OnInit {
       category: '',
       difficulty: '',
       points: 0,
-      description: ''
+      description: '',
+      icon: ''
     };
     this.flag = '';
+    this.iconPreviewUrl = null;
     this.editMode = false;
     this.showDialog = true;
   }
@@ -100,9 +105,11 @@ export class TasksView implements OnInit {
       category: '',
       difficulty: '',
       points: 0,
-      description: ''
+      description: '',
+      icon: ''
     };
     this.flag = '';
+    this.iconPreviewUrl = null;
     this.selectedZipFile = null;
     this.uploadMode = 'simple';
   }
@@ -114,6 +121,29 @@ export class TasksView implements OnInit {
     } else {
       alert('Please select a valid ZIP file');
       this.selectedZipFile = null;
+    }
+  }
+
+  onIconSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        alert('Please select a valid image file (PNG, JPG, GIF, SVG)');
+        return;
+      }
+
+      const maxSize = 5 * 1024 * 1024; // 5MB
+      if (file.size > maxSize) {
+        alert('Image size must be less than 5MB');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.iconPreviewUrl = e.target.result;
+        this.editedTask.icon = e.target.result;
+      };
+      reader.readAsDataURL(file);
     }
   }
 
