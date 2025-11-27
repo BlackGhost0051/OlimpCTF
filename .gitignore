@@ -23,3 +23,13 @@ info.txt
 /my_tasks/
 
 /mds/
+
+
+
+
+
+
+
+
+/Backend/api/migrations/sql/dump/dump*.sql
+/TaskRunner/api/migrations/sql/dump/dump*.sql
