@@ -26,8 +26,23 @@
     .task-icon{
       height: 2rem;
       width: 2rem;
+      border-radius: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: colors.$background_primary;
+      border: 1px solid colors.$primary;
 
-      background: red;
+      img {
+        width: 1.75rem;
+        height: 1.75rem;
+        object-fit: contain;
+      }
+
+      .icon-default {
+        font-size: 1rem;
+        color: colors.$primary;
+      }
     }
 
     .task-header-box{

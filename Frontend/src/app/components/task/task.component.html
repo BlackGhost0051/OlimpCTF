@@ -2,7 +2,13 @@
 
 
   <div class="task-header">
-    <div class="task-icon"><i></i></div>
+    <div class="task-icon">
+      @if(task.icon) {
+        <img [src]="task.icon" alt="Task icon">
+      } @else {
+        <i class="icon-default"></i>
+      }
+    </div>
 
     <div class="task-header-box">
       <div class="task-title">{{ task.title }}</div>
