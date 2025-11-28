@@ -12,7 +12,7 @@
         <input [(ngModel)]="register_info.email" type="text" name="email" placeholder="Email" title="Email" class="input-form">
       </div>
 
-      <button (click)="nextStep()" type="submit" title="Next step" class="submit-btn">Next</button>
+      <button (click)="nextStep()" type="submit" title="Next step" class="submit-btn btn">Next</button>
     } @else {
       <div class="input-container">
         <input [(ngModel)]="register_info.password" type="password" name="password" placeholder="Password" title="Password" class="input-form">
@@ -26,7 +26,7 @@
         <p class="error-message">{{ errorMessage }}</p>
       }
 
-      <button (click)="register()" type="submit" title="Sign in" class="submit-btn">Register</button>
+      <button (click)="register()" type="submit" title="Sign in" class="submit-btn btn">Register</button>
     }
 
 
