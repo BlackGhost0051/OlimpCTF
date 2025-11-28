@@ -5,21 +5,45 @@
 
     @if(firstStep){
       <div class="input-container">
-        <input [(ngModel)]="register_info.login" type="text" name="login" placeholder="Username" title="Username" class="input-form">
+        <input
+          [(ngModel)]="register_info.login"
+          class="input"
+          type="text" name="login"
+          placeholder="Username"
+          title="Username"
+          >
       </div>
 
       <div class="input-container">
-        <input [(ngModel)]="register_info.email" type="text" name="email" placeholder="Email" title="Email" class="input-form">
+        <input
+          [(ngModel)]="register_info.email"
+          class="input"
+          type="text"
+          name="email"
+          placeholder="Email"
+          title="Email">
       </div>
 
       <button (click)="nextStep()" type="submit" title="Next step" class="submit-btn btn">Next</button>
     } @else {
       <div class="input-container">
-        <input [(ngModel)]="register_info.password" type="password" name="password" placeholder="Password" title="Password" class="input-form">
+        <input
+          [(ngModel)]="register_info.password"
+          class="input"
+          type="password"
+          name="password"
+          placeholder="Password"
+          title="Password">
       </div>
 
       <div class="input-container">
-        <input [(ngModel)]="register_info.confirmPassword" type="password" name="password" placeholder="Password" title="Password" class="input-form">
+        <input
+          [(ngModel)]="register_info.confirmPassword"
+          class="input"
+          type="password"
+          name="password"
+          placeholder="Password"
+          title="Password">
       </div>
 
       @if(errorMessage){

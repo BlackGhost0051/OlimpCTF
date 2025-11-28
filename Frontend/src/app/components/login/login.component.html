@@ -3,11 +3,23 @@
     <h2>Login</h2>
 
     <div class="input-container">
-      <input [(ngModel)]="login_info.login" type="text" name="login" placeholder="Login or email" title="Login">
+      <input
+        [(ngModel)]="login_info.login"
+        class="input"
+        type="text"
+        name="login"
+        placeholder="Login or email"
+        title="Login">
     </div>
 
     <div class="input-container">
-      <input [(ngModel)]="login_info.password" type="password" name="password" placeholder="Password" title="Password">
+      <input
+        [(ngModel)]="login_info.password"
+        class="input"
+        type="password"
+        name="password"
+        placeholder="Password"
+        title="Password">
     </div>
 
     @if(errorMessage){
