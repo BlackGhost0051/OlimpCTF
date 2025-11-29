@@ -14,7 +14,21 @@
       <li><a [routerLink]="['/dashboard']">~/dashboard</a></li>
       <li><a [routerLink]="['/categories']">~/categories</a></li>
 
-      <li><<a [routerLink]="['/profile']">~/profile</a></li>
+<!--      <li><a [routerLink]="['/profile']">~/profile</a></li>-->
+
+
+
+      @if (user){
+        <li>
+          <a [routerLink]="['/profile']">{{ user.login}}</a>
+          <a>
+            <i>
+
+            </i>
+          </a>
+        </li>
+      }
+
 
 <!--    TODO: profile it login and icon  -->
 
