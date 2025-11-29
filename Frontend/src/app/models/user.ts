@@ -9,3 +9,8 @@ export interface UserProfile {
   icon: string;
   isPrivate: boolean;
 }
+
+export interface ShortUserProfile{
+  login: string;
+  icon: string;
+}
