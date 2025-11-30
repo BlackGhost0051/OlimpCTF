@@ -66,14 +66,18 @@ export class ProfileEditComponent implements OnInit {
 
     this.userService.getUserProfile().subscribe({
       next: (profile) => {
-        this.userProfile = profile;
-        this.profileForm.patchValue({
-          name: profile.name,
-          lastname: profile.lastname,
-          login: profile.login,
-          bio: profile.bio,
-          email: profile.email
-        });
+        if (profile) {
+          this.userProfile = profile;
+          this.profileForm.patchValue({
+            name: profile.name,
+            lastname: profile.lastname,
+            login: profile.login,
+            bio: profile.bio,
+            email: profile.email
+          });
+        } else {
+          this.error = 'No profile data available';
+        }
         this.loading = false;
       },
       error: (err) => {
