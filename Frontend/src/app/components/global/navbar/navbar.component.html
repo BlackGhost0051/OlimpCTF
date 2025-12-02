@@ -42,9 +42,13 @@
       @if(showProfileMenu){
         <div class="profile-menu-container">
           <ul>
-            <li><a [routerLink]="['/profile']">~/profile</a></li>
-            <li><a [routerLink]="['/profile-edit']">~/edit_profile</a></li>
-            <li><a (click)="onLogoutToggled()" [routerLink]="['/']">~/logout</a></li>
+            <li>
+              <a [routerLink]="['/profile']" (click)="profileMenuToggled()">~/profile</a>
+            </li>
+            <li>
+              <a [routerLink]="['/profile-edit']" (click)="profileMenuToggled()">~/edit_profile</a>
+            </li>
+            <li><a (click)="profileMenuToggled(); onLogoutToggled()" [routerLink]="['/']">~/logout</a></li>
           </ul>
         </div>
       }
