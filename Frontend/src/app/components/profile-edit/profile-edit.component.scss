@@ -2,13 +2,40 @@
 
 .profile-edit-container {
   padding: 1.5rem;
+  max-width: 50rem;
+  margin: 0 auto;
   color: colors.$text_primary;
 
+  h2 {
+    font-size: 1.75rem;
+    margin: 2rem 0 1rem;
+    color: colors.$primary;
+    border-bottom: 2px solid colors.$primary;
+    padding-bottom: 0.5rem;
+  }
+
+  .loading,
+  .error {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+  }
+
+  .error {
+    color: colors.$text_error;
+  }
 
   .icon-upload-container {
-
+    background: colors.$background_secondary;
     border: 1px solid colors.$primary;
     border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(colors.$primary, 0.2);
+    }
 
     .preview-container {
       display: flex;
@@ -20,16 +47,14 @@
         height: 18rem;
         border-radius: 50%;
         overflow: hidden;
-
-
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: colors.$background_secondary;
-
+        background-color: colors.$background_primary;
         border: 2px dashed colors.$primary;
+        transition: all 0.3s ease;
 
-        &.previewUrl{
+        &.previewUrl {
           border: 2px solid colors.$primary;
         }
 
@@ -51,6 +76,7 @@
       gap: 1rem;
       justify-content: center;
       flex-wrap: wrap;
+      margin-bottom: 1rem;
     }
 
     .messages {
@@ -76,10 +102,199 @@
 
     .upload-info {
       text-align: center;
+      padding-bottom: 1rem;
 
       small {
         color: colors.$text_secondary;
         font-size: 0.85rem;
+      }
+    }
+  }
+
+  .profile-form,
+  .password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+
+    background: colors.$background_secondary;
+    box-shadow: 0 0 0 1px colors.$primary;
+    padding: 1rem;
+    border-radius: 0.5rem;
+
+
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      label {
+        font-weight: 600;
+        color: colors.$text_primary;
+        font-size: 1rem;
+      }
+
+      .form-input {
+        padding: 0.75rem 1rem;
+        border: 2px solid colors.$background_secondary;
+        border-radius: 0.5rem;
+        background-color: colors.$background_secondary;
+        color: colors.$text_primary;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: colors.$primary;
+          box-shadow: 0 0 0 3px rgba(colors.$primary, 0.1);
+        }
+
+        &.error {
+          border-color: colors.$text_error;
+        }
+
+        &::placeholder {
+          color: colors.$text_secondary;
+          opacity: 0.6;
+        }
+      }
+
+      textarea.form-input {
+        resize: vertical;
+        min-height: 100px;
+        font-family: inherit;
+      }
+
+      .error-message {
+        color: colors.$text_error;
+        font-size: 0.875rem;
+        animation: shake 0.3s ease;
+      }
+
+      .char-count {
+        color: colors.$text_secondary;
+        font-size: 0.875rem;
+        text-align: right;
+      }
+    }
+
+
+    .success-message {
+      color: colors.$text_success;
+      background-color: rgba(colors.$text_success, 0.1);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .error-message {
+      color: colors.$text_error;
+      background-color: rgba(colors.$text_error, 0.1);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      animation: fadeIn 0.3s ease;
+    }
+  }
+
+  .privacy-container {
+    padding: 1.5rem;
+    border: 1px solid colors.$primary;
+    border-radius: 0.5rem;
+    background-color: colors.$background_secondary;
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(colors.$primary, 0.2);
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      font-weight: 600;
+
+      input[type="checkbox"] {
+        width: 1.5rem;
+        height: 1.5rem;
+        cursor: pointer;
+        accent-color: colors.$primary;
+      }
+
+      span {
+        font-size: 1.1rem;
+      }
+    }
+
+    .privacy-info {
+      margin-top: 0.75rem;
+      padding-left: 2.5rem;
+
+      small {
+        color: colors.$text_secondary;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .icon-upload-container {
+      .preview-container {
+        .icon-preview {
+          width: 14rem;
+          height: 14rem;
+        }
+      }
+    }
+
+    .profile-form,
+    .password-form {
+      .btn-primary {
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .icon-upload-container {
+      .preview-container {
+        .icon-preview {
+          width: 10rem;
+          height: 10rem;
+        }
+      }
+
+      .upload-controls {
+        flex-direction: column;
+
+        .btn {
+          width: 100%;
+        }
       }
     }
   }

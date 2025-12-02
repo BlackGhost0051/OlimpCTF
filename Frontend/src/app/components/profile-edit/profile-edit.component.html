@@ -6,9 +6,9 @@
     <div class="error">{{ error }}</div>
   } @else if (userProfile){
 
-  <h2>Profile image</h2>
 
   <div class="icon-upload-container">
+    <h2>Profile image</h2>
     <div class="preview-container">
       <div class="icon-preview" [class.previewUrl]="previewUrl">
         @if(previewUrl){
@@ -62,9 +62,10 @@
     </div>
   </div>
 
-  <h2>Profile Information</h2>
+
 
   <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="profile-form">
+    <h2>Profile Information</h2>
     <div class="form-section">
       <label for="name">First Name</label>
       <input
@@ -144,9 +145,11 @@
     }
   </form>
 
-  <h2>Change Password</h2>
+
+<!--  TODO: use global input correct classes  -->
 
   <form [formGroup]="passwordForm" (ngSubmit)="changePassword()" class="password-form">
+    <h2>Change Password</h2>
     <div class="form-section">
       <label for="currentPassword">Current Password</label>
       <input
