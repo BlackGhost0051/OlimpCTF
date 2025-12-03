@@ -85,17 +85,18 @@
             <button class="btn btn-danger" (click)="stopContainer()" [disabled]="containerLoading">
               Stop Container
             </button>
-
-
-              <div class="container-info">
-                <a [href]="containerUrl" target="_blank" class="container-url">{{ containerUrl }}</a>
-                @if(expiresAt){
-                  <span class="expires-info">Expires at: {{ expiresAt | date:'short' }}</span>
-                }
-
-              </div>
             }
           </div>
+
+          @if(containerStatus === 'running' && containerUrl){
+            <div class="container-info">
+              <a [href]="containerUrl" target="_blank" class="container-url">Link <- </a>
+              @if(expiresAt){
+                <span class="expires-info">Expires at: {{ expiresAt | date:'short' }}</span>
+              }
+
+            </div>
+          }
         </div>
       }
 

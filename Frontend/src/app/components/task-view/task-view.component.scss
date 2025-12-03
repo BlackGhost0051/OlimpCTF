@@ -208,6 +208,24 @@
           text-transform: uppercase;
           letter-spacing: 0.05em;
         }
+
+        .container-controls{
+          display: flex;
+          gap: 1rem;
+        }
+        .container-info{
+          margin-top: 1rem;
+
+          .container-url{
+            text-decoration: none;
+            color: colors.$text_primary;
+            font-size: 1.5rem;
+          }
+
+          .expires-info{
+            margin-left: 1rem;
+          }
+        }
       }
 
       .description-section {
