@@ -209,6 +209,14 @@
           letter-spacing: 0.05em;
         }
 
+        .files-list{
+          .file-item{
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+          }
+        }
+
         .container-controls{
           display: flex;
           gap: 1rem;
