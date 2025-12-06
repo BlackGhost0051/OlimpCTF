@@ -1,5 +1,5 @@
 import {Inject, Injectable, DOCUMENT, PLATFORM_ID} from '@angular/core';
-import {catchError, map, Observable, of} from 'rxjs';
+import { map, BehaviorSubject} from 'rxjs';
 import {Token} from '../../models/token';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
@@ -15,6 +15,8 @@ export class AuthService {
 
   private url = environment.apiUrl;
   redirectUrl?: string = undefined;
+  private authStateSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
+  public authState$ = this.authStateSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -43,6 +45,7 @@ export class AuthService {
       map((result: Token | any) => {
         if (result && result.token) {
           localStorage?.setItem('token', result.token);
+          this.authStateSubject.next(true);
           return true;
         }
         return false;
@@ -56,6 +59,7 @@ export class AuthService {
 
   logout(){
     this.document.defaultView?.localStorage?.removeItem('token');
+    this.authStateSubject.next(false);
   }
 
   getToken() {
