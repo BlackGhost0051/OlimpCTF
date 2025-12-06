@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {ShortUserProfile} from '../../../models/user';
 import {UserService} from '../../../services/user/user.service';
+import {AuthService} from '../../../services/auth/auth.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -11,16 +13,29 @@ import {UserService} from '../../../services/user/user.service';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit, OnDestroy{
 
   showProfileMenu: boolean = false;
   user: ShortUserProfile | undefined = undefined;
+  private authSubscription?: Subscription;
 
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.loadUserInfo();
+    this.authSubscription = this.authService.authState$.subscribe(() => {
+      this.loadUserInfo();
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
   }
 
   profileMenuToggled(): void {
@@ -36,6 +51,8 @@ export class NavbarComponent implements OnInit{
             login: profile.login,
             icon: profile.icon,
           };
+        } else {
+          this.user = undefined;
         }
       },
       error: () => {
@@ -48,6 +65,5 @@ export class NavbarComponent implements OnInit{
 
   onLogoutToggled(): void{
     this.userService.logout();
-    this.loadUserInfo();
   }
 }
