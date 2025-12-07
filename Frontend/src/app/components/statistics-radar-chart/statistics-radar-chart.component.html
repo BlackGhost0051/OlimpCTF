@@ -1,0 +1,50 @@
+<div class="statistics-container">
+  @if (hasStatistics) {
+    <div class="statistics-header">
+      <h2>Skills & Statistics</h2>
+      <div class="summary-stats">
+        <div class="stat-item">
+          <span class="stat-label">Total Points:</span>
+          <span class="stat-value">{{ totalPoints | number }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Completed Tasks:</span>
+          <span class="stat-value">{{ totalCompletedTasks | number }}/{{ totalTasks | number }}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Overall Progress:</span>
+          <span class="stat-value">{{ overallCompletionPercentage | number:'1.1-1' }}%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <canvas #radarCanvas></canvas>
+    </div>
+
+    <div class="statistics-details">
+      <h3>Category Breakdown</h3>
+      <div class="category-list">
+        @for (stat of statistics; track stat.category) {
+          <div class="category-item">
+            <div class="category-name">{{ stat.category }}</div>
+            <div class="category-stats">
+              <span class="tasks">{{ +stat.completed_tasks | number }}/{{ +stat.total_tasks | number }} tasks</span>
+              <span class="points">{{ +stat.total_points | number }} pts</span>
+            </div>
+            <div class="progress-bar">
+              <div
+                class="progress-fill"
+                [style.width.%]="(+stat.total_tasks) > 0 ? ((+stat.completed_tasks) / (+stat.total_tasks)) * 100 : 0">
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="no-statistics">
+      <p>No statistics available yet. Start completing tasks to see your progress!</p>
+    </div>
+  }
+</div>

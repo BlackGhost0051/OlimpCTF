@@ -303,6 +303,25 @@ class DatabaseService{
 
         return false;
     }
+
+    async getUserStatistics(login: string){
+        const query = `
+           SELECT
+               c.name as category,
+               COUNT(DISTINCT t.id) as total_tasks,
+               COUNT(DISTINCT CASE WHEN ut.completed = true THEN t.id END) as completed_tasks,
+               COALESCE(SUM(CASE WHEN ut.completed = true THEN t.points ELSE 0 END), 0) as total_points
+           FROM categories c
+           LEFT JOIN tasks t ON t.category = c.nicename
+           LEFT JOIN users u ON u.login = $1
+           LEFT JOIN user_tasks ut ON ut.task_id = t.id AND ut.user_id = u.id
+           GROUP BY c.id, c.name
+           ORDER BY c.name
+       `;
+
+        const result = await this.query(query, [login])
+        return result.rows;
+    }
 }
 
 export default DatabaseService;

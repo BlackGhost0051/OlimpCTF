@@ -58,6 +58,9 @@ class UserService{
             throw new Error("This profile is private");
         }
 
+        // TODO: verify logic
+        const statistics = await this.databaseService.getUserStatistics(user.login);
+
         return {
             name: user.name,
             lastname: user.lastname,
@@ -68,6 +71,7 @@ class UserService{
             bio: user.bio,
             icon: user.icon,
             isPrivate: user.isprivate,
+            statistics: statistics,
         };
     }
 

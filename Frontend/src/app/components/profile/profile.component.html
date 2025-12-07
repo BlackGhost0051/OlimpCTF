@@ -31,10 +31,7 @@
       <div class="profile-rank"><div class="box-icon"><i class="icon-rank"></i></div>100-th</div>
       <div class="profile-description">{{ userProfile.bio || 'No bio available' }}</div>
 
-<!--      <h2>Skills</h2>-->
-<!--      <div>DIAGRAM</div>-->
-
-<!--      <div>STATISTIC</div>-->
+      <app-statistics-radar-chart [statistics]="userProfile.statistics"></app-statistics-radar-chart>
     </div>
   }
 </div>

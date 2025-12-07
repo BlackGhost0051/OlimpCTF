@@ -3,11 +3,12 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../../services/user/user.service';
 import {UserProfile} from '../../models/user';
 import {CommonModule} from '@angular/common';
+import {StatisticsRadarChartComponent} from '../statistics-radar-chart/statistics-radar-chart.component';
 
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule],
+  imports: [CommonModule, StatisticsRadarChartComponent],
   standalone: true,
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'

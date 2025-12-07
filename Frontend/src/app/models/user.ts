@@ -1,3 +1,10 @@
+export interface CategoryStatistics {
+  category: string;
+  total_tasks: number;
+  completed_tasks: number;
+  total_points: number;
+}
+
 export interface UserProfile {
   name: string;
   lastname: string;
@@ -8,6 +15,7 @@ export interface UserProfile {
   bio: string;
   icon: string;
   isPrivate: boolean;
+  statistics?: CategoryStatistics[];
 }
 
 export interface ShortUserProfile{
