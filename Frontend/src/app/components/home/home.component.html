@@ -3,35 +3,37 @@
     <div class="main-header-box">
       <div class="home-header-title">Master Cybersecurity Through Competitive Challenges</div>
       <div class="home-header-subtitle">Join olimpCTF and test your skills against the world's best hackers. Solve real-world security challenges and climb the global leaderboard.</div>
-      <button class="start_competing_button btn">Start Competing</button>
-      <button class="view_challenges_button btn">View Challenges</button>
+      <div class="button-group">
+        <button class="btn" (click)="startCompeting()">Start Competing</button>
+        <button class="btn" (click)="viewChallenges()">View Challenges</button>
+      </div>
     </div>
 
     <div class="dashboard-container">
       <div class="dashboard">
-        <img src="assets/icons/mountains.svg" alt="Mountains" />
+        <img src="assets/icons/mountains.svg" alt="Mountains" class="dashboard-image" />
       </div>
     </div>
   </div>
 
   <div class="statistics-container">
     <div class="statistics-item">
-      <div class="statistics-item-value">10</div>
+      <div class="statistics-item-value">{{ statistics.activePlayers | number }}</div>
       <div class="statistics-item-title">Active Players</div>
     </div>
 
     <div class="statistics-item">
-      <div class="statistics-item-value">10</div>
+      <div class="statistics-item-value">{{ statistics.challenges | number }}</div>
       <div class="statistics-item-title">Challenges</div>
     </div>
 
     <div class="statistics-item">
-      <div class="statistics-item-value">10</div>
+      <div class="statistics-item-value">{{ statistics.countries | number }}</div>
       <div class="statistics-item-title">Countries</div>
     </div>
 
     <div class="statistics-item">
-      <div class="statistics-item-value">10</div>
+      <div class="statistics-item-value">{{ statistics.guides | number }}</div>
       <div class="statistics-item-title">Guides</div>
     </div>
   </div>
@@ -42,12 +44,10 @@
     <div class="subtitle">Test your skills across multiple cybersecurity domains</div>
     <div class="categories-container">
 
-      @for(category of categories; track category){
-        <div class="category">
-          <div class="box-icon"><i class="{{ category.icon }}"></i></div>
+      @for(category of categories; track category.id){
+        <div class="category" (click)="navigateToCategory(category.nicename)">
           <div class="category-title">{{ category.name }}</div>
           <div class="category-subtitle">{{ category.details }}</div>
-          <div class="challenges-count">24 Challenges</div>
         </div>
       }
 
@@ -55,12 +55,12 @@
   </div>
 
 
-  <div>
+  <div class="cta-section">
     <div class="title">Ready to Start Your Journey?</div>
     <div class="subtitle">Join thousands of security professionals and enthusiasts competing in olimpCTF. Test your skills, learn new techniques, and win prizes.</div>
     <div class="button-box">
-      <button class="create-account-button btn">Create Account</button>
-      <button class="browse-challenges-button btn">Browse Challenges</button>
+      <button class="btn" (click)="createAccount()">Create Account</button>
+      <button class="btn  " (click)="browseChallenges()">Browse Challenges</button>
     </div>
   </div>
 

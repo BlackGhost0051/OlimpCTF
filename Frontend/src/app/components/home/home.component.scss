@@ -1,113 +1,269 @@
 @use 'colors' as colors;
 
-.home-container{
+.home-container {
   color: colors.$text_primary;
 
-  .home-header-container{
+  .home-header-container {
     padding: 4rem;
+    background: linear-gradient(135deg, colors.$background_secondary 0%, colors.$background_primary 100%);
     background-image: radial-gradient(circle at 1px 1px, rgba(colors.$primary, 0.15) 1px, transparent 0);
-    background-size: 20px 20px;
+    background-size: 1.25rem 1.25rem;
     display: flex;
     align-items: center;
+    gap: 2rem;
+    min-height: 31.25rem;
+    position: relative;
+    overflow: hidden;
 
-    .main-header-box{
-      width: 50%;
+    &::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(colors.$primary, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-      .home-header-title{
+    .main-header-box {
+      flex: 1;
+      z-index: 1;
+
+      .home-header-title {
         font-size: 3rem;
-      }
-      .home-header-subtitle{
-        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
         color: colors.$text_secondary;
+        text-shadow: 0 0 1.25rem rgba(colors.$primary, 0.3);
       }
 
-      button{
-        margin-right: 1rem;
-        margin-top: 1rem;
+      .home-header-subtitle {
+        font-size: 1.125rem;
+        line-height: 1.6;
+        color: colors.$text_tertiary;
+        margin-bottom: 2rem;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
       }
     }
 
-    .dashboard-container{
-      width: 50%;
+    .dashboard-container {
+      flex: 1;
+      z-index: 1;
 
-      .dashboard{
-        margin-left: 1rem;
+      .dashboard {
         border-radius: 1rem;
+        padding: 1.5rem;
+        background: rgba(colors.$background_primary, 0.6);
+        border: 0.0625rem solid rgba(colors.$primary, 0.2);
+        box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(0.625rem);
+        transition: transform 0.3s ease;
 
-        height: 100%;
-        width: 100%;
-        background: black;
+        &:hover {
+          transform: scale(1.02);
+        }
+
+        .dashboard-image {
+          width: 100%;
+          height: auto;
+          display: block;
+          opacity: 0.9;
+        }
       }
     }
   }
 
-  .statistics-container{
+  .statistics-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    padding: 4rem 2rem;
+    background: colors.$background_primary;
 
-    padding: 2rem;
-
-    .statistics-item{
+    .statistics-item {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 2rem;
+      background: colors.$background_secondary;
+      border-radius: 0.75rem;
+      border: 0.0625rem solid rgba(colors.$primary, 0.2);
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-0.5rem);
+        border-color: colors.$primary;
+        box-shadow: 0 0.5rem 1.5rem rgba(colors.$primary, 0.2);
+      }
+
+      .statistics-item-value {
+        font-size: 3rem;
+        font-weight: 700;
+        color: colors.$primary;
+        margin-bottom: 0.5rem;
+      }
+
+      .statistics-item-title {
+        font-size: 1rem;
+        color: colors.$text_tertiary;
+        text-transform: uppercase;
+        letter-spacing: 0.0625rem;
+      }
     }
   }
 
-  .challenge-categories-container{
-    padding: 2rem;
+  .challenge-categories-container {
+    padding: 4rem 2rem;
+    background: colors.$background_secondary;
 
-    .title{
-      font-size: 2rem;
+    .title {
+      font-size: 2.5rem;
+      font-weight: 700;
       text-align: center;
-    }
-
-    .subtitle{
-      font-size: 1rem;
-      text-align: center;
+      margin-bottom: 1rem;
       color: colors.$text_secondary;
     }
 
-    .categories-container{
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 1rem;
+    .subtitle {
+      font-size: 1.125rem;
+      text-align: center;
+      color: colors.$text_tertiary;
+      margin-bottom: 3rem;
+    }
 
-      .category{
-        background: rgba(0, 0, 0, 0.13);
+    .categories-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr));
+      gap: 1.5rem;
+      max-width: 75rem;
+      margin: 0 auto;
 
+      .category {
+        background: colors.$background_primary;
         padding: 2rem;
-        height: 10rem;
-        width: 20rem;
-        border-radius: 1rem;
-        margin: 1rem;
+        border-radius: 0.75rem;
+        border: 0.0625rem solid rgba(colors.$primary, 0.2);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
 
-        display: grid;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
-
-        .box-icon{
-          height: 2rem;
-          width: 2rem;
-          background: black;
-
-          i{
-            height: 1.5rem;
-            width: 1.5rem;
-
-          }
+        &:hover {
+          transform: translateY(-0.5rem);
+          border-color: colors.$primary;
+          box-shadow: 0 0.75rem 2rem rgba(colors.$primary, 0.2);
         }
-        .category-title{
+
+        .category-title {
           font-size: 1.5rem;
+          font-weight: 600;
+          color: colors.$text_secondary;
         }
-        .category-subtitle{
 
-        }
-        .challenges-count{
-
+        .category-subtitle {
+          font-size: 0.875rem;
+          color: colors.$text_tertiary;
+          line-height: 1.5;
+          flex-grow: 1;
         }
       }
+    }
+  }
+
+  .cta-section {
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, colors.$background_primary 0%, colors.$background_secondary 100%);
+    text-align: center;
+
+    .title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: colors.$text_secondary;
+    }
+
+    .subtitle {
+      font-size: 1.125rem;
+      color: colors.$text_tertiary;
+      margin-bottom: 2rem;
+      max-width: 43.75rem;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .button-box {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  }
+}
+
+@media (max-width: 64rem) {
+  .home-container {
+    .home-header-container {
+      flex-direction: column;
+      padding: 3rem 1.5rem;
+      text-align: center;
+
+      .main-header-box {
+        .home-header-title {
+          font-size: 2.25rem;
+        }
+
+        .home-header-subtitle {
+          font-size: 1rem;
+        }
+
+        .button-group {
+          justify-content: center;
+        }
+      }
+    }
+
+    .statistics-container {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      padding: 2rem 1rem;
+    }
+
+    .challenge-categories-container {
+      padding: 2rem 1rem;
+
+      .title {
+        font-size: 2rem;
+      }
+
+      .categories-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cta-section {
+      padding: 3rem 1.5rem;
+
+      .title {
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 48rem) {
+  .home-container {
+    .statistics-container {
+      grid-template-columns: 1fr;
     }
   }
 }
