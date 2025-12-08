@@ -274,10 +274,6 @@ class ChallengeController implements Controller{
 
             const tasks = await this.challengeService.getCategoryTasks(category, user.login);
 
-            if(tasks.length === 0){
-                return response.status(404).json({ status: false, message: "Category not found." });
-            }
-
             return response.status(200).json({ status: true, tasks, message: "Category tasks." });
         } catch (error) {
             return response.status(500).json({ status: false, message: "Failed to get category tasks." });

@@ -41,10 +41,10 @@ export class CategoryViewComponent implements OnInit{
       );
 
       this.getCategoryTasks(categoryNicename).subscribe((response: any) => {
-          this.tasks = response.tasks;
+          this.tasks = response.tasks || [];
         },
         (error) => {
-          this.router.navigate(['/categories']);
+          this.tasks = [];
         }
       );
     });
