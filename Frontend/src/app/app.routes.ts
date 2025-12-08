@@ -28,3 +28,5 @@ export const routes: Routes = [
   { path: 'categories', component: CategoriesComponent, canActivate: [authGuard] },
   { path: 'category/:id', component: CategoryViewComponent, canActivate: [authGuard] },
 ];
+
+// TODO: dashboard logic
