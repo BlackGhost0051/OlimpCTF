@@ -4,12 +4,11 @@
   padding: 2rem;
   display: flex;
 
-  //background: #00d5a6;
-
 
   &.info-message{
     height: calc(100dvh - var(--navbar-height));
     width: 100%;
+    padding: 0;
 
     justify-content: center;
     align-items: center;
