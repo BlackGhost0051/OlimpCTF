@@ -322,6 +322,29 @@ class DatabaseService{
         const result = await this.query(query, [login])
         return result.rows;
     }
+
+    async getLeaderboard(limit: number = 100): Promise<any[]> {
+        const query = `
+            SELECT
+                u.login,
+                u.name,
+                u.lastname,
+                u.icon,
+                u.created_at,
+                COALESCE(SUM(t.points), 0) as total_points,
+                COUNT(DISTINCT ut.task_id) as completed_tasks
+            FROM users u
+            LEFT JOIN user_tasks ut ON ut.user_id = u.id AND ut.completed = true
+            LEFT JOIN tasks t ON t.id = ut.task_id
+            WHERE u.isPrivate = false
+            GROUP BY u.id, u.login, u.name, u.lastname, u.icon, u.created_at
+            ORDER BY total_points DESC, completed_tasks DESC, u.created_at ASC
+            LIMIT $1
+        `;
+
+        const result = await this.query(query, [limit]);
+        return result.rows;
+    }
 }
 
 export default DatabaseService;

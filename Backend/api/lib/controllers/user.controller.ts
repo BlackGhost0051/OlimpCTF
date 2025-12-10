@@ -284,6 +284,50 @@ class UserController implements Controller{
          */
         // TODO: VERIFY and TEST
         this.router.patch(`${this.path}/profile`, JwtMiddleware, this.updateProfile.bind(this));
+
+        /**
+         * @swagger
+         * /api/user/leaderboard:
+         *   get:
+         *     summary: Get top 100 users leaderboard
+         *     tags: [User]
+         *     parameters:
+         *       - in: query
+         *         name: limit
+         *         schema:
+         *           type: integer
+         *           default: 100
+         *           maximum: 100
+         *         description: Number of top users to return (max 100)
+         *     responses:
+         *       200:
+         *         description: Leaderboard data
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: array
+         *               items:
+         *                 type: object
+         *                 properties:
+         *                   login:
+         *                     type: string
+         *                   name:
+         *                     type: string
+         *                   lastname:
+         *                     type: string
+         *                   icon:
+         *                     type: string
+         *                   created_at:
+         *                     type: string
+         *                     format: date-time
+         *                   total_points:
+         *                     type: integer
+         *                   completed_tasks:
+         *                     type: integer
+         *       400:
+         *         description: Invalid input
+         */
+        this.router.get(`${this.path}/leaderboard`, this.getLeaderboard.bind(this));
     }
 
     private async login(request: Request, response: Response){
@@ -451,6 +495,18 @@ class UserController implements Controller{
             await this.userService.updateProfile(user.login, updateData);
 
             return response.status(200).json({ message: "Profile updated successfully" });
+        } catch (error){
+            return response.status(400).json({ error: error.message });
+        }
+    }
+
+    private async getLeaderboard(request: Request, response: Response){
+        try{
+            const limit = Math.min(parseInt(request.query.limit as string) || 100, 100);
+
+            const leaderboard = await this.userService.getLeaderboard(limit);
+
+            return response.status(200).json(leaderboard);
         } catch (error){
             return response.status(400).json({ error: error.message });
         }
