@@ -187,6 +187,21 @@ class UserService{
 
         await this.databaseService.updateUserProfile(login, data);
     }
+
+    async getLeaderboard(limit: number = 100) {
+        const leaderboardData = await this.databaseService.getLeaderboard(limit);
+
+        return leaderboardData.map((user, index) => ({
+            rank: index + 1,
+            login: user.login,
+            name: user.name,
+            lastname: user.lastname,
+            icon: user.icon,
+            totalPoints: parseInt(user.total_points),
+            completedTasks: parseInt(user.completed_tasks),
+            createdAt: user.created_at
+        }));
+    }
 }
 
 export default UserService;
