@@ -53,4 +53,8 @@ export class UserService {
   uploadIcon(iconBase64: string): Observable<any> {
     return this.http.patch(`${this.url}/user/icon`, { icon: iconBase64 });
   }
+
+  getLeaderboard(limit: number = 100): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}/user/leaderboard?limit=${limit}`);
+  }
 }

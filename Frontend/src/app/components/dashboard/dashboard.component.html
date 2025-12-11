@@ -1,7 +1,94 @@
 <div class="dashboard-container">
-  <div>
-    <div></div>
-    <div></div>
+  <div class="dashboard-header">
+    <h1>Leaderboard</h1>
+    <p class="subtitle">Top 100 Players by Score</p>
   </div>
-  <div></div>
+
+  @if (!loading && !error && leaderboard.length > 0){
+    <div class="chart-section">
+      <div class="chart-header">
+        <h2>Top 20 Players - Points Distribution</h2>
+      </div>
+      <div class="chart-container">
+        <canvas #chartCanvas></canvas>
+      </div>
+    </div>
+  }
+
+
+  <div class="leaderboard-content">
+    @if(loading){
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading leaderboard...</p>
+      </div>
+    }
+
+    @if (error && !loading){
+      <div class="error-state">
+        <p>{{ error }}</p>
+        <button (click)="loadLeaderboard()" class="retry-btn">Retry</button>
+      </div>
+    }
+
+    @if(!loading && !error && leaderboard.length > 0){
+      <div class="leaderboard-table-container">
+        <table class="leaderboard-table">
+          <thead>
+          <tr>
+            <th class="rank-col">Rank</th>
+            <th class="user-col">User</th>
+            <th class="points-col">Points</th>
+            <th class="tasks-col">Completed Tasks</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let user of leaderboard"
+              [class.top-three]="user.rank <= 3"
+              [class.rank-1]="user.rank === 1"
+              [class.rank-2]="user.rank === 2"
+              [class.rank-3]="user.rank === 3">
+            <td class="rank-col">
+              <span class="rank-number">
+                <span *ngIf="user.rank <= 3" class="medal">{{ getMedalEmoji(user.rank) }}</span>
+                <span *ngIf="user.rank > 3">#{{ user.rank }}</span>
+              </span>
+            </td>
+            <td class="user-col">
+              <div class="user-info">
+                <div class="user-avatar">
+                  @if (user.icon){
+                    <img [src]="user.icon" [alt]="user.login">
+                  }
+<!--              TODO: make in global scss class-->
+                  @if (!user.icon){
+                    <div class="default-avatar">
+                      {{ user.login.charAt(0).toUpperCase() }}
+                    </div>
+                  }
+                </div>
+                <div class="user-details">
+                  <div class="user-name">{{ getDisplayName(user) }}</div>
+                  <div class="user-login">@{{ user.login }}</div>
+                </div>
+              </div>
+            </td>
+            <td class="points-col">
+              <span class="points-value">{{ user.totalPoints }}</span>
+            </td>
+            <td class="tasks-col">
+              <span class="tasks-value">{{ user.completedTasks }}</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    }
+
+    @if(!loading && !error && leaderboard.length === 0){
+      <div class="empty-state">
+        <p>No users found on the leaderboard yet.</p>
+      </div>
+    }
+  </div>
 </div>
