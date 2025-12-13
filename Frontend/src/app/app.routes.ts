@@ -30,3 +30,4 @@ export const routes: Routes = [
 ];
 
 // TODO: dashboard logic
+// TODO: add dynamic animation
