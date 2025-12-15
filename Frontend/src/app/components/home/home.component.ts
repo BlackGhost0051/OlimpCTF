@@ -3,11 +3,12 @@ import {CommonModule} from '@angular/common';
 import {Router} from '@angular/router';
 import {FooterComponent} from '../global/footer/footer.component';
 import {ChallengeService} from '../../services/challenge/challenge.service';
+import {ThreeDMountainsComponent} from '../three-d-mountains/three-d-mountains.component';
 
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, FooterComponent],
+  imports: [CommonModule, FooterComponent, ThreeDMountainsComponent],
   standalone: true,
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
