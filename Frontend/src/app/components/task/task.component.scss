@@ -13,6 +13,10 @@
   border-radius: 0.5rem;
   background: colors.$background_secondary;
 
+  // TODO: add color to global variable
+  box-shadow: inset 0 0 0 1px rgba(0, 213, 166, 0.2);
+  transition: box-shadow 0.2s ease;
+
   &.completed{
     box-shadow: inset 0 0 0 1px colors.$primary;
     opacity: 0.6;
