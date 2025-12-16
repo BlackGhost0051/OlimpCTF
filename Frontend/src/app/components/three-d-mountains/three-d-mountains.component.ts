@@ -45,7 +45,7 @@ export class ThreeDMountainsComponent implements OnInit, OnDestroy {
       1000
     );
     this.camera.position.z = 10;
-    this.camera.position.y = 0;
+    this.camera.position.y = -2.3;
     this.camera.lookAt(0, 0, 0);
 
     this.renderer = new THREE.WebGLRenderer({
@@ -58,10 +58,6 @@ export class ThreeDMountainsComponent implements OnInit, OnDestroy {
 
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     this.scene.add(ambientLight);
-
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    directionalLight.position.set(5, 10, 7.5);
-    this.scene.add(directionalLight);
 
     window.addEventListener('resize', this.onWindowResize.bind(this));
   }
@@ -123,7 +119,7 @@ export class ThreeDMountainsComponent implements OnInit, OnDestroy {
     this.animationId = requestAnimationFrame(() => this.animate());
 
     if (this.mountains) {
-      this.mountains.rotation.y += 0.001;
+      this.mountains.rotation.y += 0.003;
     }
 
     this.renderer.render(this.scene, this.camera);
