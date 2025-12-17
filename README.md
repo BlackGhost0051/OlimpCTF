@@ -43,7 +43,147 @@ docker-compose down
 
 # Testy
 
-Implementacja w 2 etapie.
+## Frontend
+
+Testy jednostkowe i integracyjne - **34 testy** (Karma/Jasmine).
+
+### Uruchomienie
+```bash
+cd Frontend
+CHROME_BIN=/bin/chromium npm test -- --include='**/challenge.service.spec.ts' --watch=false --browsers=ChromeHeadless
+CHROME_BIN=/bin/chromium npm test -- --include='**/task-view.component.spec.ts' --watch=false --browsers=ChromeHeadless 
+```
+
+```bash
+npm test -- --include='**/challenge.service.spec.ts' --watch=false --browsers=ChromeHeadless
+```
+
+### ChallengeService - Testy jednostkowe (17)
+1. should be created
+2. should verify flag with correct task ID and flag
+3. should handle incorrect flag submission
+4. should retrieve tasks for a specific category
+5. should return empty array when category has no tasks
+6. should retrieve category details by nicename
+7. should retrieve all categories
+8. should handle empty categories list
+9. should start container for a task
+10. should handle container start failure
+11. should stop container for a task
+12. should handle container stop failure
+13. should retrieve task details by ID
+14. should download task file as blob
+15. should handle different file types
+16. verifyFlag - should verify flag with correct task ID and flag
+17. downloadTaskFile - should handle different file types
+
+### TaskViewComponent - Testy integracyjne (17)
+1. should create
+2. should load task details on initialization
+3. should set container info when container is running
+4. should handle task details loading error
+5. should verify correct flag and show success alert
+6. should verify incorrect flag and show error message
+7. should handle flag verification error
+8. should start container successfully
+9. should handle container start error
+10. should not start container when task ID is missing
+11. should stop container successfully
+12. should handle container stop error
+13. should not stop container when task ID is missing
+14. should download file successfully
+15. should handle download error
+16. should not download file when task ID is missing
+17. should emit close event when onCloseClick is called
+18. should toggle hints visibility
+19. should toggle hints multiple times
+
+## Backend
+
+Testy jednostkowe i integracyjne - **42 testy** (Jest).
+
+### Uruchomienie
+```bash
+cd Backend/api
+npm test
+```
+
+### ChallengeController - Testy integracyjne (23)
+1. should return all categories successfully
+2. should handle service error when fetching categories
+3. should return category details by nicename
+4. should return 400 when nicename is missing
+5. should return 404 when category not found
+6. should return tasks for a category
+7. should return 400 when category is missing
+8. should handle service error
+9. should verify correct flag successfully
+10. should reject incorrect flag
+11. should return 400 when flag is missing
+12. should return 400 when task_id is missing
+13. should handle service error during verification
+14. should start container successfully
+15. should return 400 when task_id is missing (start container)
+16. should handle container start error
+17. should stop container successfully
+18. should return 400 when task_id is missing (stop container)
+19. should handle container stop error
+20. should return task details
+21. should handle task details error
+22. should download file successfully
+23. should return 404 when file not found
+
+### ChallengeService - Testy jednostkowe (19)
+1. should retrieve category by nicename
+2. should handle category not found
+3. should retrieve all categories
+4. should return empty array when no categories exist
+5. should retrieve tasks for a category and user
+6. should throw error when user not found
+7. should verify correct flag and save completion for first solve
+8. should verify correct flag but not save if already completed
+9. should return false for incorrect flag
+10. should not save completion if user not found
+11. should add task to both database and task runner
+12. should handle add task error
+13. should delete task from both database and task runner
+14. should handle delete task error gracefully
+15. should create new category with all details
+16. should update existing category
+17. should retrieve all tasks from database
+18. should add task to database only
+19. should throw error if database add fails
+
+## Playwright
+
+Testy E2E - **13 testów** automatycznych.
+
+### Uruchomienie
+```bash
+cd Playwright
+npm install
+npx playwright install
+cp .env.example .env  # Skonfiguruj dane testowe
+npx playwright test
+```
+
+### Lista testów (13)
+1. Should display task details when task is clicked
+2. Should display task metadata correctly
+3. Should allow flag submission with input
+4. Should disable submit button when flag input is empty
+5. Should handle flag submission
+6. Should show container controls for tasks with container support
+7. Should start container when button is clicked
+8. Should display container URL when container is running
+9. Should stop container when stop button is clicked
+10. Should show file download buttons when files exist
+11. Should close task view when close button is clicked
+12. Should close task view when clicking backdrop
+13. Should redirect to login when accessing tasks without authentication
+
+[//]: # (Szczegóły: [Playwright/README.md]&#40;Playwright/README.md&#41;)
+
 
 # Dokumentacja API
 
