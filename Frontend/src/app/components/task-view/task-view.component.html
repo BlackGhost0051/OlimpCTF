@@ -1,26 +1,26 @@
-<div class="back" (click)="onCloseClick()">
-  <div class="task-view-container" (click)="$event.stopPropagation()">
+<div class="back" (click)="onCloseClick()" data-cy="task-view-backdrop">
+  <div class="task-view-container" (click)="$event.stopPropagation()" data-cy="task-view-container">
 
     <div class="header">
       <div class="header-left">
         <div class="task-icon">
           @if(task.icon){
-            <img [src]="task.icon" alt="Task icon">
+            <img [src]="task.icon" alt="Task icon" data-cy="task-icon">
           } @else {
             <i class="icon-default"></i>
           }
         </div>
         <div class="task-title-section">
-          <h1 class="task-title">{{ task.title }}</h1>
+          <h1 class="task-title" data-cy="task-title">{{ task.title }}</h1>
           <div class="task-meta">
-            <span class="category">{{ task.category }}</span>
+            <span class="category" data-cy="task-category">{{ task.category }}</span>
             @if(task.author){
-              <span class="author">by {{ task.author }}</span>
+              <span class="author" data-cy="task-author">by {{ task.author }}</span>
             }
           </div>
         </div>
       </div>
-      <button class="close-btn" (click)="onCloseClick()">
+      <button class="close-btn" (click)="onCloseClick()" data-cy="task-close-btn">
         <i class="icon-close">✕</i>
       </button>
     </div>
@@ -28,16 +28,16 @@
     <div class="info-bar">
       <div class="info-item">
         <span class="info-label">Points</span>
-        <span class="info-value points">{{ task.points }}</span>
+        <span class="info-value points" data-cy="task-points">{{ task.points }}</span>
       </div>
       <div class="info-item">
         <span class="info-label">Difficulty</span>
-        <span class="info-value difficulty" [attr.data-difficulty]="task.difficulty.toLowerCase()">
+        <span class="info-value difficulty" data-cy="task-difficulty" [attr.data-difficulty]="task.difficulty.toLowerCase()">
           {{ task.difficulty }}
         </span>
       </div>
       @if(task.completed){
-        <div class="info-item completed-badge">
+        <div class="info-item completed-badge" data-cy="task-completed-badge">
           <i class="icon-check">✓</i>
           <span>Completed</span>
         </div>
@@ -47,20 +47,20 @@
     <div class="content-container">
       <div class="section description-section">
         <h2 class="section-title">Description</h2>
-        <div class="task-description">{{ task.description }}</div>
+        <div class="task-description" data-cy="task-description">{{ task.description }}</div>
       </div>
 
       @if(task.hints && task.hints.length > 0){
         <div class="section hints-section">
-          <button class="hints-toggle btn" (click)="noHintsClick()">
+          <button class="hints-toggle btn" (click)="noHintsClick()" data-cy="hints-toggle-btn">
             <i class="icon-hint">💡</i>
             <span>{{ showHints ? 'Hide Hints' : 'Show Hints' }} ({{ task.hints.length }})</span>
           </button>
 
           @if(showHints){
-            <div class="hints-list">
+            <div class="hints-list" data-cy="hints-list">
               @for(hint of task.hints; track $index){
-                <div class="hint-item">
+                <div class="hint-item" [attr.data-cy]="'hint-item-' + $index">
                   <span class="hint-number">Hint {{ $index + 1 }}</span>
                   <span class="hint-text">{{ hint }}</span>
                 </div>
@@ -71,28 +71,29 @@
       }
 
       @if(hasContainer){
-        <div class="section container-section">
+        <div class="section container-section" data-cy="container-section">
           <h2 class="section-title">Challenge Environment</h2>
           <div class="container-controls">
             <button
               class="btn btn-primary"
               (click)="startContainer()"
-              [disabled]="containerLoading || containerStatus === 'running'">
+              [disabled]="containerLoading || containerStatus === 'running'"
+              data-cy="start-container-btn">
               {{ containerLoading ? 'Starting...' : (containerStatus === 'running' ? 'Container Running' : 'Start Container') }}
             </button>
 
             @if(containerStatus === 'running' && containerUrl){
-            <button class="btn btn-danger" (click)="stopContainer()" [disabled]="containerLoading">
+            <button class="btn btn-danger" (click)="stopContainer()" [disabled]="containerLoading" data-cy="stop-container-btn">
               Stop Container
             </button>
             }
           </div>
 
           @if(containerStatus === 'running' && containerUrl){
-            <div class="container-info">
-              <a [href]="containerUrl" target="_blank" class="container-url">Link</a>
+            <div class="container-info" data-cy="container-info">
+              <a [href]="containerUrl" target="_blank" class="container-url" data-cy="container-url">Link</a>
               @if(expiresAt){
-                <span class="expires-info">Expires at: {{ expiresAt | date:'short' }}</span>
+                <span class="expires-info" data-cy="container-expires">Expires at: {{ expiresAt | date:'short' }}</span>
               }
 
             </div>
@@ -101,13 +102,13 @@
       }
 
       @if(taskFiles.length > 0){
-        <div class="section files-section">
+        <div class="section files-section" data-cy="files-section">
           <h2 class="section-title">Challenge Files</h2>
           <div class="files-list">
             @for(file of taskFiles; track file){
-              <div class="file-item">
-                <span class="file-name">{{ file }}</span>
-                <button class="btn btn-small" (click)="downloadFile(file)">Download</button>
+              <div class="file-item" [attr.data-cy]="'file-item-' + file">
+                <span class="file-name" data-cy="file-name">{{ file }}</span>
+                <button class="btn btn-small" (click)="downloadFile(file)" [attr.data-cy]="'download-file-' + file">Download</button>
               </div>
             }
           </div>
@@ -122,11 +123,13 @@
           class="flag-input"
           [(ngModel)]="flagInput"
           placeholder="Enter flag here..."
-          [disabled]="!!task.completed">
+          [disabled]="!!task.completed"
+          data-cy="flag-input">
         <button
           class="submit-btn btn"
           (click)="verifyFlag(task.id)"
-          [disabled]="!flagInput || !!task.completed">
+          [disabled]="!flagInput || !!task.completed"
+          data-cy="submit-flag-btn">
           {{ task.completed ? 'Already Completed' : 'Submit Flag' }}
         </button>
       </div>
