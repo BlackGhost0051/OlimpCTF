@@ -196,7 +196,25 @@ http://localhost:5000/swagpag
 ```
 
 # Przypadki testowe dla testera manualnego
-Implementacja w 2 etapie.
+
+**15 przypadków testowych manualnych**
+
+### Lista przypadków testowych
+1. **Wyświetlanie szczegółów zadania** - sprawdzenie poprawnego wyświetlania nazwy, opisu, punktów, kategorii, plików i kontrolek kontenera
+2. **Przesłanie poprawnej flagi** - weryfikacja akceptacji prawidłowej flagi, aktualizacji punktów i oznaczenia zadania jako rozwiązane
+3. **Przesłanie niepoprawnej flagi** - sprawdzenie komunikatu błędu, brak zmiany punktów, możliwość ponownej próby
+4. **Przesłanie pustej flagi** - walidacja formularza, brak wysłania żądania do serwera
+5. **Uruchomienie kontenera zadania** - start kontenera, wyświetlenie URL i czasu wygaśnięcia, zmiana statusu na "running"
+6. **Zatrzymanie działającego kontenera** - poprawne zatrzymanie, usunięcie URL, zmiana statusu na "not_found"
+7. **Uruchomienie kontenera po osiągnięciu limitu** - komunikat o błędzie limitu, brak tworzenia nowego kontenera
+8. **Pobranie pliku zadania** - poprawne pobranie pliku, sprawdzenie nazwy i integralności pliku
+9. **Pobranie nieistniejącego pliku** - komunikat błędu "File not found", brak pobierania uszkodzonego pliku
+10. **Wyświetlanie kategorii zadań** - lista wszystkich kategorii z nazwami, ikonami, liczbą zadań
+11. **Wyświetlanie zadań w konkretnej kategorii** - lista zadań z nazwami, punktami, statusem rozwiązania
+12. **Automatyczne odświeżanie statusu kontenera** - aktualizacja statusu wygasłych kontenerów
+13. **Wielokrotne próby przesłania flagi** - niezależna ocena każdego przesłania, możliwość ostatecznego sukcesu
+14. **Obsługa błędów ładowania szczegółów zadania** - przyjazny komunikat błędu, możliwość ponowienia, brak zawieszenia aplikacji
+15. **Współbieżne operacje na kontenerach** - synchronizacja stanu między kartami, brak duplikacji kontenerów
 
 # Technologie użyte w projekcie
 
