@@ -1,0 +1,84 @@
+@use '../../../styles/colors';
+
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: colors.$background_primary;
+  padding: 2rem;
+  overflow: hidden;
+
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 80rem;
+    width: 100%;
+    gap: 2rem;
+  }
+
+  .mountains-wrapper {
+    width: 100%;
+    max-width: 50rem;
+    height: 30rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    app-three-d-mountains {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  }
+
+  .error-content {
+    text-align: center;
+    z-index: 10;
+
+    .error-code {
+      font-size: 8rem;
+      font-weight: 700;
+      color: colors.$primary;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .error-message {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: colors.$text_secondary;
+      margin: 1rem 0;
+    }
+
+    .error-description {
+      font-size: 1.125rem;
+      color: colors.$text_tertiary;
+      margin: 1rem 0 2rem;
+      max-width: 30rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .mountains-wrapper {
+      height: 20rem;
+      max-width: 100%;
+    }
+
+    .error-content {
+      .error-code {
+        font-size: 5rem;
+      }
+
+      .error-message {
+        font-size: 1.75rem;
+      }
+
+      .error-description {
+        font-size: 1rem;
+      }
+    }
+  }
+}
