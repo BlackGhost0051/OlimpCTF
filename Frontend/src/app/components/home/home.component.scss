@@ -59,16 +59,10 @@
 
       .dashboard {
         border-radius: 1rem;
-        padding: 1.5rem;
-        background: rgba(colors.$background_primary, 0.6);
-        border: 0.0625rem solid rgba(colors.$primary, 0.2);
+        background: colors.$background_primary;
         box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(0.625rem);
         transition: transform 0.3s ease;
 
-        &:hover {
-          transform: scale(1.02);
-        }
 
         .dashboard-image {
           width: 100%;
@@ -96,13 +90,6 @@
       background: colors.$background_secondary;
       border-radius: 0.75rem;
       border: 0.0625rem solid rgba(colors.$primary, 0.2);
-      transition: all 0.3s ease;
-
-      &:hover {
-        transform: translateY(-0.5rem);
-        border-color: colors.$primary;
-        box-shadow: 0 0.5rem 1.5rem rgba(colors.$primary, 0.2);
-      }
 
       .statistics-item-value {
         font-size: 3rem;
