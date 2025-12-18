@@ -7,7 +7,7 @@ import {CategoriesComponent} from './components/categories/categories.component'
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
-
+import {NotFoundComponent} from './components/not-found/not-found.component';
 
 import { authGuard } from './services/auth/auth.guard';
 import {CategoryViewComponent} from './components/category-view/category-view.component';
@@ -27,6 +27,7 @@ export const routes: Routes = [
   { path: 'profile-edit', component: ProfileEditComponent, canActivate: [authGuard] },
   { path: 'categories', component: CategoriesComponent, canActivate: [authGuard] },
   { path: 'category/:id', component: CategoryViewComponent, canActivate: [authGuard] },
+  { path: '**', component: NotFoundComponent }
 ];
 
 // TODO: dashboard logic
