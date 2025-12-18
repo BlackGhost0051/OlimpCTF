@@ -20,22 +20,22 @@
   </div>
 
   <div class="statistics-container">
-    <div class="statistics-item">
+    <div class="statistics-item interactive-container">
       <div class="statistics-item-value">{{ statistics.activePlayers | number }}</div>
       <div class="statistics-item-title">Active Players</div>
     </div>
 
-    <div class="statistics-item">
+    <div class="statistics-item interactive-container">
       <div class="statistics-item-value">{{ statistics.challenges | number }}</div>
       <div class="statistics-item-title">Challenges</div>
     </div>
 
-    <div class="statistics-item">
+    <div class="statistics-item interactive-container">
       <div class="statistics-item-value">{{ statistics.countries | number }}</div>
       <div class="statistics-item-title">Countries</div>
     </div>
 
-    <div class="statistics-item">
+    <div class="statistics-item interactive-container">
       <div class="statistics-item-value">{{ statistics.guides | number }}</div>
       <div class="statistics-item-title">Guides</div>
     </div>
@@ -48,7 +48,7 @@
     <div class="categories-container">
 
       @for(category of categories; track category.id){
-        <div class="category" (click)="navigateToCategory(category.nicename)">
+        <div class="category interactive-container" (click)="navigateToCategory(category.nicename)">
           <div class="category-title">{{ category.name }}</div>
           <div class="category-subtitle">{{ category.details }}</div>
         </div>
