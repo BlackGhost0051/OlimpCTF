@@ -48,7 +48,7 @@
     <div class="categories-container">
 
       @for(category of categories; track category.id){
-        <div class="category interactive-container" (click)="navigateToCategory(category.nicename)">
+        <div class="category interactive-container active" (click)="navigateToCategory(category.nicename)">
           <div class="category-title">{{ category.name }}</div>
           <div class="category-subtitle">{{ category.details }}</div>
         </div>

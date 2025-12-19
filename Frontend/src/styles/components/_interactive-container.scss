@@ -1,2 +1,16 @@
+@use 'colors' as colors;
+
 .interactive-container{
+  background: colors.$background_secondary;
+  border-radius: 0.75rem;
+  box-shadow: inset 0 0 0 1px rgba(colors.$primary, 0.2);
+  cursor: default;
+
+  &.active{
+    cursor: pointer;
+
+    &:hover{
+      box-shadow: inset 0 0 0 1px colors.$primary;
+    }
+  }
 }

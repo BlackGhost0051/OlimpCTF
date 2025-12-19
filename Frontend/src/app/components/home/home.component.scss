@@ -87,9 +87,6 @@
       align-items: center;
       justify-content: center;
       padding: 2rem;
-      background: colors.$background_secondary;
-      border-radius: 0.75rem;
-      border: 0.0625rem solid rgba(colors.$primary, 0.2);
 
       .statistics-item-value {
         font-size: 3rem;
@@ -136,19 +133,9 @@
       .category {
         background: colors.$background_primary;
         padding: 2rem;
-        border-radius: 0.75rem;
-        border: 0.0625rem solid rgba(colors.$primary, 0.2);
-        cursor: pointer;
-        transition: all 0.3s ease;
         display: flex;
         flex-direction: column;
         gap: 0.75rem;
-
-        &:hover {
-          transform: translateY(-0.5rem);
-          border-color: colors.$primary;
-          box-shadow: 0 0.75rem 2rem rgba(colors.$primary, 0.2);
-        }
 
         .category-title {
           font-size: 1.5rem;
