@@ -1,5 +1,12 @@
 @use 'colors' as colors;
 
+
+.form-section{
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .profile-edit-container {
   padding: 1.5rem;
   max-width: 50rem;
