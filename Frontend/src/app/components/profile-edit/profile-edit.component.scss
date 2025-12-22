@@ -26,16 +26,9 @@
   }
 
   .icon-upload-container {
-    background: colors.$background_secondary;
-    border: 1px solid colors.$primary;
-    border-radius: 1rem;
     padding: 1rem;
     margin-bottom: 2rem;
     transition: box-shadow 0.3s ease;
-
-    &:hover {
-      box-shadow: 0 4px 12px rgba(colors.$primary, 0.2);
-    }
 
     .preview-container {
       display: flex;
@@ -117,11 +110,7 @@
     flex-direction: column;
     gap: 1.5rem;
     margin-bottom: 2rem;
-
-    background: colors.$background_secondary;
-    box-shadow: 0 0 0 1px colors.$primary;
     padding: 1rem;
-    border-radius: 0.5rem;
 
 
 
@@ -200,14 +189,8 @@
 
   .privacy-container {
     padding: 1.5rem;
-    border: 1px solid colors.$primary;
-    border-radius: 0.5rem;
-    background-color: colors.$background_secondary;
     transition: all 0.3s ease;
 
-    &:hover {
-      box-shadow: 0 4px 12px rgba(colors.$primary, 0.2);
-    }
 
     label {
       display: flex;

@@ -7,7 +7,7 @@
   } @else if (userProfile){
 
 
-  <div class="icon-upload-container">
+  <div class="icon-upload-container interactive-container">
     <h2>Profile image</h2>
     <div class="preview-container">
       <div class="icon-preview" [class.previewUrl]="previewUrl">
@@ -64,7 +64,7 @@
 
 
 
-  <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="profile-form">
+  <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="profile-form interactive-container">
     <h2>Profile Information</h2>
     <div class="form-section">
       <label for="name">First Name</label>
@@ -148,7 +148,7 @@
 
 <!--  TODO: use global input correct classes  -->
 
-  <form [formGroup]="passwordForm" (ngSubmit)="changePassword()" class="password-form">
+  <form [formGroup]="passwordForm" (ngSubmit)="changePassword()" class="password-form interactive-container">
     <h2>Change Password</h2>
     <div class="form-section">
       <label for="currentPassword">Current Password</label>
@@ -197,8 +197,9 @@
     </button>
   </form>
 
-  <h2>Privacy Settings</h2>
-  <div class="privacy-container">
+
+  <div class="privacy-container interactive-container">
+    <h2>Privacy Settings</h2>
     <label>
       <input type="checkbox" [checked]="userProfile.isPrivate" (change)="togglePrivacy()">
       <span>Private Profile</span>
