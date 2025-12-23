@@ -2,9 +2,6 @@
 
 .statistics-container {
   padding: 1.25rem;
-  background: colors.$background_secondary;
-  border-radius: 0.5rem;
-  border: 0.0625rem solid rgba(0, 213, 166, 0.2);
 }
 
 .statistics-header {
@@ -79,15 +76,7 @@
 
 .category-item {
   padding: 1rem;
-  background: colors.$background_primary;
-  border-radius: 0.375rem;
-  border: 0.0625rem solid rgba(0, 213, 166, 0.1);
   transition: transform 0.2s ease, border-color 0.2s ease;
-
-  &:hover {
-    transform: translateY(-0.125rem);
-    border-color: rgba(0, 213, 166, 0.3);
-  }
 
   .category-name {
     font-size: 1rem;

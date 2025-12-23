@@ -1,4 +1,4 @@
-<div class="statistics-container">
+<div class="statistics-container interactive-container">
   @if (hasStatistics) {
     <div class="statistics-header">
       <h2>Skills & Statistics</h2>
@@ -26,7 +26,7 @@
       <h3>Category Breakdown</h3>
       <div class="category-list">
         @for (stat of statistics; track stat.category) {
-          <div class="category-item">
+          <div class="category-item interactive-container active">
             <div class="category-name">{{ stat.category }}</div>
             <div class="category-stats">
               <span class="tasks">{{ +stat.completed_tasks | number }}/{{ +stat.total_tasks | number }} tasks</span>
