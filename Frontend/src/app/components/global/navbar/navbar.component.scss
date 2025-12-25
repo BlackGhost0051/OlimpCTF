@@ -65,8 +65,13 @@
 
   img {
     height: calc(var(--navbar-height) - 1rem);
-
     border-radius: 50%;
+  }
+
+  .default-profile-icon {
+    height: calc(var(--navbar-height) - 1rem);
+    width: calc(var(--navbar-height) - 1rem);
+    font-size: 1rem;
   }
 }
 

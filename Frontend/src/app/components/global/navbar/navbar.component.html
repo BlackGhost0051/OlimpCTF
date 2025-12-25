@@ -23,7 +23,13 @@
 
           <a [routerLink]="['/profile']">
             <div class="profile-icon-container">
-              @if(user.icon){<img [src]="user.icon" alt="Profile Icon" class="icon-image">} @else {<img [src]="user.icon" alt="Profile Icon" class="icon-image">}
+              @if(user.icon){
+                <img [src]="user.icon" alt="Profile Icon" class="icon-image">
+              } @else {
+                <div class="default-profile-icon">
+                  {{ user.login.charAt(0).toUpperCase() }}
+                </div>
+              }
             </div>
           </a>
 

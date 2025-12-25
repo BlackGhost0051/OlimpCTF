@@ -11,7 +11,13 @@
 
     <div class="side-container">
       <div class="profile-icon-container">
-        @if(userProfile.icon){<img [src]="userProfile.icon" alt="Profile Icon" class="icon-image">} @else {<img [src]="userProfile.icon" alt="Profile Icon" class="icon-image">}
+        @if(userProfile.icon){
+          <img [src]="userProfile.icon" alt="Profile Icon" class="icon-image">
+        } @else {
+          <div class="default-profile-icon">
+            {{ userProfile.login.charAt(0).toUpperCase() }}
+          </div>
+        }
       </div>
 
       <div class="side-footer-container">

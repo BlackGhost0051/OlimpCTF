@@ -33,9 +33,15 @@
     .profile-icon-container{
       .icon-image{
         border-radius: 50%;
-
         height: 18rem;
         width: 18rem;
+      }
+
+      .default-profile-icon {
+        height: 18rem;
+        width: 18rem;
+        font-size: 8rem;
+        border-width: 3px;
       }
     }
 

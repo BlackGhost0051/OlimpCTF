@@ -1,0 +1,13 @@
+@use '../colors' as colors;
+
+.default-profile-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: colors.$background_primary;
+  color: colors.$primary;
+  font-weight: 600;
+  border: 2px solid colors.$primary;
+  border-radius: 50%;
+}
+// TODO: make by box-shadow
