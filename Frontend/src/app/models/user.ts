@@ -16,6 +16,7 @@ export interface UserProfile {
   icon: string;
   isPrivate: boolean;
   statistics?: CategoryStatistics[];
+  rank?: number | null;
 }
 
 export interface ShortUserProfile{

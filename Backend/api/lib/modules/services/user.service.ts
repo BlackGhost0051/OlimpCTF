@@ -58,8 +58,8 @@ class UserService{
             throw new Error("This profile is private");
         }
 
-        // TODO: verify logic
         const statistics = await this.databaseService.getUserStatistics(user.login);
+        const rank = await this.databaseService.getUserRank(user.login);
 
         return {
             name: user.name,
@@ -69,10 +69,13 @@ class UserService{
             email_verified: user.email_verified,
             created_at: user.created_at,
             bio: user.bio,
-            icon: user.icon,
             isPrivate: user.isprivate,
             statistics: statistics,
+            rank: rank,
+            icon: user.icon,
         };
+
+    //     TODO: verify if more data in ne request is good idea? | icon in big
     }
 
     async login(login: string, password: string ){

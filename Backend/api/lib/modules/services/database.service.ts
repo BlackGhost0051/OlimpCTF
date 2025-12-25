@@ -345,6 +345,32 @@ class DatabaseService{
         const result = await this.query(query, [limit]);
         return result.rows;
     }
+
+    async getUserRank(login: string): Promise<number | null> {
+        const query = `
+            WITH ranked_users AS (
+                SELECT
+                    u.login,
+                    COALESCE(SUM(t.points), 0) as total_points,
+                    COUNT(DISTINCT ut.task_id) as completed_tasks,
+                    ROW_NUMBER() OVER (ORDER BY COALESCE(SUM(t.points), 0) DESC, COUNT(DISTINCT ut.task_id) DESC, u.created_at ASC) as rank
+                FROM users u
+                LEFT JOIN user_tasks ut ON ut.user_id = u.id AND ut.completed = true
+                LEFT JOIN tasks t ON t.id = ut.task_id
+                WHERE u.isPrivate = false
+                GROUP BY u.id, u.login, u.created_at
+            )
+            SELECT rank FROM ranked_users WHERE login = $1
+        `;
+
+        const result = await this.query<{ rank: string }>(query, [login]);
+
+        if (result.rows.length > 0) {
+            return parseInt(result.rows[0].rank);
+        }
+
+        return null;
+    }
 }
 
 export default DatabaseService;

@@ -28,7 +28,7 @@
     <div class="main-container">
       <div class="profile-name">{{ userProfile.name }} {{ userProfile.lastname }}</div>
 
-      <div class="profile-rank"><div class="box-icon"><i class="icon-rank"></i></div>100-th</div>
+      <div class="profile-rank"><div class="box-icon"><i class="icon-rank"></i></div>{{ userProfile.rank ? userProfile.rank + '-th' : 'Unranked' }}</div>
       <div class="profile-description">{{ userProfile.bio || 'No bio available' }}</div>
 
       <app-statistics-radar-chart [statistics]="userProfile.statistics"></app-statistics-radar-chart>
