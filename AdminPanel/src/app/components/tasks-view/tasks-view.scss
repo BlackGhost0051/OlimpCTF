@@ -4,6 +4,24 @@
 
 .tasks-view {
   ::ng-deep {
+    .p-card {
+      height: 85dvh;
+      display: flex;
+      flex-direction: column;
+
+      .p-card-body {
+        flex: 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .p-card-content {
+        flex: 1;
+        overflow: auto;
+      }
+    }
+
     .p-dialog-content {
       .field {
         margin-bottom: 1.5rem;
