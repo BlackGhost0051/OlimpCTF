@@ -1,5 +1,8 @@
 .users-view {
-  ::ng-deep .p-card-header {
-    padding: 1.25rem;
+  .p-card{
+    height: 85dvh;
+    ::ng-deep .p-card-header {
+      padding: 1.25rem;
+    }
   }
 }

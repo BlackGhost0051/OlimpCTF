@@ -13,9 +13,28 @@
   }
 
   ::ng-deep {
+    .p-card {
+      padding: 1.5rem;
+      height: 85dvh;
+      display: flex;
+      flex-direction: column;
+
+      .p-card-body {
+        padding: 1rem 0 0 0;
+        flex: 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .p-card-content {
+        flex: 1;
+        overflow: auto;
+      }
+    }
+
     .p-dialog-content {
       .field {
-        margin-bottom: 1.5rem;
 
         label {
           display: block;
