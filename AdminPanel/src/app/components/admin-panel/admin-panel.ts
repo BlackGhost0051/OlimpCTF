@@ -27,7 +27,7 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './admin-panel.scss',
 })
 export class AdminPanel {
-  currentView: string = 'dashboard';
+  currentView: string = 'users';
 
   menuItems: MenuItem[] = [
     // {
