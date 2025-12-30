@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Router} from '@angular/router';
 import {FooterComponent} from '../global/footer/footer.component';
@@ -13,7 +13,7 @@ import {ThreeDMountainsComponent} from '../three-d-mountains/three-d-mountains.c
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit, OnDestroy{
   categories: any[] = [];
   statistics = {
     activePlayers: 0,
@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit{
     countries: 0,
     guides: 0
   };
+  private animationTimers: number[] = [];
 
   constructor(
     private challengeService: ChallengeService,
@@ -62,9 +63,20 @@ export class HomeComponent implements OnInit{
       if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
         current = end;
         clearInterval(timer);
+        const index = this.animationTimers.indexOf(timer);
+        if (index > -1) {
+          this.animationTimers.splice(index, 1);
+        }
       }
       this.statistics[key] = Math.floor(current);
     }, 16);
+
+    this.animationTimers.push(timer);
+  }
+
+  ngOnDestroy() {
+    this.animationTimers.forEach(timer => clearInterval(timer));
+    this.animationTimers = [];
   }
 
   startCompeting() {
