@@ -1,4 +1,5 @@
 @use 'colors' as colors;
+@use 'sass:color';
 
 .admin-container {
   display: flex;
@@ -93,7 +94,7 @@
         border-radius: 4px;
 
         &:hover {
-          background: darken(colors.$text_secondary, 20%);
+          background: color.scale(colors.$text_secondary, $lightness: -20%);
         }
       }
 
