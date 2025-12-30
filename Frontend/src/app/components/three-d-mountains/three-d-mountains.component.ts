@@ -16,6 +16,7 @@ export class ThreeDMountainsComponent implements OnInit, OnDestroy {
   private renderer!: THREE.WebGLRenderer;
   private mountains!: THREE.Object3D;
   private animationId!: number;
+  private resizeHandler!: () => void;
 
   ngOnInit(): void {
     this.initScene();
@@ -26,6 +27,9 @@ export class ThreeDMountainsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.animationId) {
       cancelAnimationFrame(this.animationId);
+    }
+    if (this.resizeHandler) {
+      window.removeEventListener('resize', this.resizeHandler);
     }
     this.renderer?.dispose();
   }
@@ -59,7 +63,8 @@ export class ThreeDMountainsComponent implements OnInit, OnDestroy {
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     this.scene.add(ambientLight);
 
-    window.addEventListener('resize', this.onWindowResize.bind(this));
+    this.resizeHandler = this.onWindowResize.bind(this);
+    window.addEventListener('resize', this.resizeHandler);
   }
 
   private loadModel(): void {
