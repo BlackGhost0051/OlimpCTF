@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy{
     countries: 0,
     guides: 0
   };
-  private animationTimers: number[] = [];
+  private animationTimers: ReturnType<typeof setInterval>[] = [];
 
   constructor(
     private challengeService: ChallengeService,
