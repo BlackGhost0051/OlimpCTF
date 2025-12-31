@@ -342,7 +342,6 @@ class UserController implements Controller{
 
             const token = this.jwtService.generateToken(user.login);
 
-            // TODO: need verify in frontend
             return response.status(200).json({ token: token, message: "User is logged." });
         } catch (error){
             return response.status(401).json({ message: error.message });
