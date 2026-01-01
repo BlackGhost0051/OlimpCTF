@@ -50,4 +50,8 @@ export class ChallengeService {
       responseType: 'blob'
     });
   }
+
+  getStatistics(){
+    return this.http.post(this.url + '/statistics', {});
+  }
 }

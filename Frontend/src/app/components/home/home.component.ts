@@ -31,20 +31,21 @@ export class HomeComponent implements OnInit, OnDestroy{
   ngOnInit() {
     this.challengeService.getCategories().subscribe((response: any) => {
       this.categories = response.categories;
-      this.statistics.challenges = this.categories.reduce((sum, cat) => sum + (cat.task_count || 0), 0);
     });
 
-    this.animateStatistics();
+    this.challengeService.getStatistics().subscribe((response: any) => {
+      if (response.status && response.statistics) {
+        this.animateStatistics({
+          activePlayers: response.statistics.registeredPlayers,
+          challenges: response.statistics.tasks,
+          countries: response.statistics.categories,
+          guides: response.statistics.guides
+        });
+      }
+    });
   }
 
-  animateStatistics() {
-    const targets = {
-      activePlayers: 1247,
-      challenges: 0,
-      countries: 42,
-      guides: 156
-    };
-
+  animateStatistics(targets: { activePlayers: number, challenges: number, countries: number, guides: number }) {
     Object.keys(targets).forEach(key => {
       const target = targets[key as keyof typeof targets];
       if (target > 0) {
