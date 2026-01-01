@@ -180,6 +180,40 @@ class ChallengeController implements Controller{
          */
         this.router.post(`${this.path}/category`, this.getCategory.bind(this));
 
+        /**
+         * @swagger
+         * /api/challenge/statistics:
+         *   post:
+         *     summary: Get platform statistics
+         *     tags: [Challenge]
+         *     responses:
+         *       200:
+         *         description: Platform statistics
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: object
+         *               properties:
+         *                 status:
+         *                   type: boolean
+         *                 statistics:
+         *                   type: object
+         *                   properties:
+         *                     registeredPlayers:
+         *                       type: integer
+         *                     categories:
+         *                       type: integer
+         *                     tasks:
+         *                       type: integer
+         *                     guides:
+         *                       type: integer
+         *                 message:
+         *                   type: string
+         *       500:
+         *         description: Server error
+         */
+        this.router.post(`${this.path}/statistics`, this.getStatistics.bind(this));
+
         this.router.post(`${this.path}/start_container`, JwtMiddleware, this.startContainer.bind(this));
         this.router.post(`${this.path}/stop_container`, JwtMiddleware, this.stopContainer.bind(this));
 
@@ -287,6 +321,16 @@ class ChallengeController implements Controller{
             return response.status(200).json({ status: true, categories, message: "Categories." });
         } catch (error) {
             return response.status(500).json({ status: false, message: "Failed to get categories." });
+        }
+    }
+
+    private async getStatistics(request: Request, response: Response){
+        try{
+            const statistics = await this.challengeService.getStatistics();
+
+            return response.status(200).json({ status: true, statistics, message: "Statistics." });
+        } catch (error) {
+            return response.status(500).json({ status: false, message: "Failed to get statistics." });
         }
     }
 

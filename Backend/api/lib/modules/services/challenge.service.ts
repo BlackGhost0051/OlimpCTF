@@ -97,6 +97,10 @@ class ChallengeService {
     async getAllTasks(){
         return await this.databaseService.getAllTasks();
     }
+
+    async getStatistics(){
+        return await this.databaseService.getStatistics();
+    }
 }
 
 export default ChallengeService;

@@ -371,6 +371,25 @@ class DatabaseService{
 
         return null;
     }
+
+    async getStatistics() {
+        const registeredPlayersQuery = `SELECT COUNT(*) as count FROM users`;
+        const categoriesQuery = `SELECT COUNT(*) as count FROM categories`;
+        const tasksQuery = `SELECT COUNT(*) as count FROM tasks`;
+
+        const [registeredPlayers, categories, tasks] = await Promise.all([
+            this.query(registeredPlayersQuery),
+            this.query(categoriesQuery),
+            this.query(tasksQuery)
+        ]);
+
+        return {
+            registeredPlayers: parseInt(registeredPlayers.rows[0].count),
+            categories: parseInt(categories.rows[0].count),
+            tasks: parseInt(tasks.rows[0].count),
+            guides: 0
+        };
+    }
 }
 
 export default DatabaseService;
