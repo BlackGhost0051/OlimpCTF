@@ -405,7 +405,3 @@ To stop
 
 
 ```TABLE categories```
-
-
-[//]: # (TODO: add statistic logic)
-[//]: # (TODO: correct view)
