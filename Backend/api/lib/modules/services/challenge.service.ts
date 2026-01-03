@@ -20,7 +20,6 @@ class ChallengeService {
         return await this.databaseService.getCategoryByNicename(nicename);
     }
 
-    // TODO: test logic
     async addTask(task: Task, flag: string ){
         try{
             task.id = uuidv4();
@@ -51,7 +50,6 @@ class ChallengeService {
         }
     }
 
-    // TODO: NEED TEST
     // TODO: NEED RATE-LIMIT
     async verifyFlag(login: string, task_id: string, flag: string ): Promise<boolean>{
 
