@@ -337,6 +337,11 @@ Install TS:
   sudo npm install -g ts-node
 ```
 
+Run all:
+```bash
+./run.sh
+```
+
 ## Frontend
 
 **Framework:** Angular
