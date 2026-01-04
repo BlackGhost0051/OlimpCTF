@@ -46,8 +46,6 @@ export class TaskViewComponent implements OnInit{
 
     this.challengeService.checkTaskDetails(this.task.id).subscribe({
       next: (response: any) =>{
-
-        console.log("TASK DETAILS ", response);
         if (response.status && response.files) {
           this.taskFiles = response.files;
         }
@@ -82,6 +80,9 @@ export class TaskViewComponent implements OnInit{
           // TODO: Refresh tasks it must add flag what was resolved
 
           // TODO: Return data with completed flag in main task request
+          if(this.hasContainer){
+           this.stopContainer();
+          }
         } else {
           alert(response.message);
         }
@@ -121,7 +122,6 @@ export class TaskViewComponent implements OnInit{
         this.containerUrl = null;
         this.containerStatus = 'not_found';
         this.expiresAt = null;
-        alert("Container stopped successfully");
         this.containerLoading = false;
       },
       error: (error) => {
