@@ -50,10 +50,7 @@ class ChallengeService {
         }
     }
 
-    // TODO: NEED RATE-LIMIT
     async verifyFlag(login: string, task_id: string, flag: string ): Promise<boolean>{
-
-        // TODO: add verification if user is making too many requests
         // TODO: add verify task was already solved by user ???
 
         const isValid = await this.taskRunnerService.verifyFlag(task_id, flag);

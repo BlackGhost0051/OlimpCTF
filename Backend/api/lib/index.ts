@@ -11,7 +11,6 @@ const app: App = new App([
 
 app.listen();
 
-// TODO: Rate limit
 // TODO: RSA or another algorithm to communicate with TASK_RUNNER
 // TODO: LOGGER SERVICE ??? how realise
 // TODO: input filters ONLY WHITE LIST SYMBOLS
