@@ -4,6 +4,7 @@ import { Router, Request, Response } from "express";
 import ChallengeService from "../modules/services/challenge.service";
 import JwtMiddleware from "../middlewares/jwt.middleware";
 import TaskRunnerService from "../modules/services/task.runner.service";
+import { flagVerifyRateLimiter } from "../middlewares/ratelimit.middleware";
 
 /**
  * @swagger
@@ -67,7 +68,7 @@ class ChallengeController implements Controller{
          *       500:
          *         description: Server error
          */
-        this.router.post(`${this.path}/verify_flag`, JwtMiddleware , this.verifyFlag.bind(this));
+        this.router.post(`${this.path}/verify_flag`, flagVerifyRateLimiter, JwtMiddleware , this.verifyFlag.bind(this));
 
         /**
          * @swagger
