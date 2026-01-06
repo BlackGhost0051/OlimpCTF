@@ -51,8 +51,6 @@ class ChallengeService {
     }
 
     async verifyFlag(login: string, task_id: string, flag: string ): Promise<boolean>{
-        // TODO: add verify task was already solved by user ???
-
         const isValid = await this.taskRunnerService.verifyFlag(task_id, flag);
 
         if (isValid) {
