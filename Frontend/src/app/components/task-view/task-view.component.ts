@@ -73,23 +73,26 @@ export class TaskViewComponent implements OnInit{
 
 
   verifyFlag(id: any){
-    this.challengeService.verifyFlag(id, this.flagInput).subscribe({
-      next: (response: any) => {
-        if(response.status === true){
-          alert("Correct flag!");
 
-          // TODO: Return data with completed flag in main task request
-          if(this.hasContainer){
-           this.stopContainer();
+    if(!this.task.completed){
+      this.challengeService.verifyFlag(id, this.flagInput).subscribe({
+        next: (response: any) => {
+          if(response.status === true){
+            alert("Correct flag!");
+
+            // TODO: Return data with completed flag in main task request
+            if(this.hasContainer){
+              this.stopContainer();
+            }
+          } else {
+            alert(response.message);
           }
-        } else {
-          alert(response.message);
+        },
+        error: (error) => {
+          alert("Error verifying flag");
         }
-      },
-      error: (error) => {
-        alert("Error verifying flag");
-      }
-    });
+      });
+    }
   }
 
   startContainer() {
