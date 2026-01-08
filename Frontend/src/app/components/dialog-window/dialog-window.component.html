@@ -6,7 +6,13 @@
       </div>
   </div>
   <div class="active-container">
-    <button (click)="onCancelToggled()">Cancel</button>
-    <button (click)="onSubmitToggled()">Submit</button>
+
+
+    @if (dialogMode === 'info') {
+      <button (click)="onSubmitToggled()">Ok</button>
+    } @else {
+      <button (click)="onCancelToggled()">Cancel</button>
+      <button (click)="onSubmitToggled()">Submit</button>
+    }
   </div>
 </div>

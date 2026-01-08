@@ -12,6 +12,8 @@ export class DialogWindowComponent {
   @Output() submit = new EventEmitter<any>;
   @Output() cancel = new EventEmitter<any>;
 
+  dialogMode: 'info' | 'warning' = 'info';
+
   onSubmitToggled(): void{
     this.submit.emit();
   }
