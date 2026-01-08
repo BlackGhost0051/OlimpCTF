@@ -1,6 +1,9 @@
-<div class="dialog-window-container">
+<div class="dialog-window-container interactive-container">
   <div class="content-container">
-
+      <div class="dialog-icon"></div>
+      <div class="dialog-message">
+        {{ message }}
+      </div>
   </div>
   <div class="active-container">
     <button (click)="onCancelToggled()">Cancel</button>
