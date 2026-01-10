@@ -162,6 +162,7 @@ export class TaskViewComponent implements OnInit{
 
   onCloseClick(){
     // Don't close task view if dialog is open
+    //  TODO: dont work need fix
     if (this.showDialog) {
       return;
     }
