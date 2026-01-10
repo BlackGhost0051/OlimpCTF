@@ -3,12 +3,14 @@ import {Task} from '../../models/task';
 import {FormsModule} from '@angular/forms';
 import {ChallengeService} from '../../services/challenge/challenge.service';
 import {CommonModule} from '@angular/common';
+import {DialogWindowComponent} from '../dialog-window/dialog-window.component';
 
 @Component({
   selector: 'app-task-view',
   imports: [
     FormsModule,
-    CommonModule
+    CommonModule,
+    DialogWindowComponent
   ],
   templateUrl: './task-view.component.html',
   styleUrl: './task-view.component.scss'
@@ -28,6 +30,11 @@ export class TaskViewComponent implements OnInit{
 
   taskFiles: string[] = [];
   filesLoading: boolean = false;
+
+  showDialog: boolean = false;
+  dialogMessage: string = '';
+  dialogMode: 'info' | 'warning' = 'info';
+  dialogAction: (() => void) | null = null;
 
   constructor(private challengeService: ChallengeService) {
   }
@@ -78,18 +85,18 @@ export class TaskViewComponent implements OnInit{
       this.challengeService.verifyFlag(id, this.flagInput).subscribe({
         next: (response: any) => {
           if(response.status === true){
-            alert("Correct flag!");
-
-            // TODO: Return data with completed flag in main task request
-            if(this.hasContainer){
-              this.stopContainer();
-            }
+            this.openDialog("Correct flag!", 'info', () => {
+              // TODO: Return data with completed flag in main task request
+              if(this.hasContainer){
+                this.stopContainer();
+              }
+            });
           } else {
-            alert(response.message);
+            this.openDialog(response.message, 'info');
           }
         },
         error: (error) => {
-          alert("Error verifying flag");
+          this.openDialog("Error verifying flag", 'info');
         }
       });
     }
@@ -109,7 +116,7 @@ export class TaskViewComponent implements OnInit{
         this.containerLoading = false;
       },
       error: (error) => {
-        alert("Error starting container: " + (error.error?.message || "Unknown error"));
+        this.openDialog("Error starting container: " + (error.error?.message || "Unknown error"), 'info');
         this.containerLoading = false;
       }
     });
@@ -127,7 +134,7 @@ export class TaskViewComponent implements OnInit{
         this.containerLoading = false;
       },
       error: (error) => {
-        alert("Error stopping container: " + (error.error?.message || "Unknown error"));
+        this.openDialog("Error stopping container: " + (error.error?.message || "Unknown error"), 'info');
         this.containerLoading = false;
       }
     });
@@ -148,15 +155,44 @@ export class TaskViewComponent implements OnInit{
         window.URL.revokeObjectURL(url);
       },
       error: (error) => {
-        alert("Error downloading file: " + (error.error?.message || "Unknown error"));
+        this.openDialog("Error downloading file: " + (error.error?.message || "Unknown error"), 'info');
       }
     });
   }
 
   onCloseClick(){
+    // Don't close task view if dialog is open
+    if (this.showDialog) {
+      return;
+    }
     this.close.emit();
   }
   noHintsClick(){
     this.showHints = !this.showHints;
+  }
+
+  // Dialog methods
+  openDialog(message: string, mode: 'info' | 'warning' = 'info', action: (() => void) | null = null) {
+    this.dialogMessage = message;
+    this.dialogMode = mode;
+    this.dialogAction = action;
+    this.showDialog = true;
+  }
+
+  onDialogSubmit() {
+    if (this.dialogAction) {
+      this.dialogAction();
+    }
+    this.closeDialog();
+  }
+
+  onDialogCancel() {
+    this.closeDialog();
+  }
+
+  closeDialog() {
+    this.showDialog = false;
+    this.dialogMessage = '';
+    this.dialogAction = null;
   }
 }

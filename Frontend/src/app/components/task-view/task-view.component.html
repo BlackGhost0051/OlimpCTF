@@ -1,4 +1,12 @@
 <div class="back" (click)="onCloseClick()" data-cy="task-view-backdrop">
+  @if(showDialog) {
+    <app-dialog-window
+      [message]="dialogMessage"
+      [dialogMode]="dialogMode"
+      (submit)="onDialogSubmit()"
+      (cancel)="onDialogCancel()">
+    </app-dialog-window>
+  }
   <div class="task-view-container interactive-container" (click)="$event.stopPropagation()" data-cy="task-view-container">
 
     <div class="header">

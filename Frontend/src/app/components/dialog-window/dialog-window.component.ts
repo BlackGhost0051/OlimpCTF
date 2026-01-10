@@ -9,10 +9,9 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 export class DialogWindowComponent {
 
   @Input() message: string = "";
+  @Input() dialogMode: 'info' | 'warning' = 'info';
   @Output() submit = new EventEmitter<any>;
   @Output() cancel = new EventEmitter<any>;
-
-  dialogMode: 'info' | 'warning' = 'info';
 
   onSubmitToggled(): void{
     this.submit.emit();

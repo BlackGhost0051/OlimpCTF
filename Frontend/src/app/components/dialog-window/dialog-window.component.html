@@ -1,4 +1,4 @@
-<div class="dialog-window-container interactive-container">
+<div class="dialog-window-container interactive-container" (click)="$event.stopPropagation()">
   <div class="content-container">
       <div class="dialog-icon"></div>
       <div class="dialog-message">
@@ -6,8 +6,6 @@
       </div>
   </div>
   <div class="active-container">
-
-
     @if (dialogMode === 'info') {
       <button (click)="onSubmitToggled()">Ok</button>
     } @else {
