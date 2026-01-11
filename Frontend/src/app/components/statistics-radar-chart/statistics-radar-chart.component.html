@@ -1,5 +1,3 @@
-<!--TODO: need corect statistic position-->
-
 <div class="statistics-container interactive-container">
   @if (hasStatistics) {
     <div class="statistics-header">
@@ -20,28 +18,30 @@
       </div>
     </div>
 
-    <div class="chart-container">
-      <canvas #radarCanvas></canvas>
-    </div>
-
-    <div class="statistics-details">
-      <h3>Category Breakdown</h3>
-      <div class="category-list">
-        @for (stat of statistics; track stat.category) {
-          <div class="category-item interactive-container active">
-            <div class="category-name">{{ stat.category }}</div>
-            <div class="category-stats">
-              <span class="tasks">{{ +stat.completed_tasks | number }}/{{ +stat.total_tasks | number }} tasks</span>
-              <span class="points">{{ +stat.total_points | number }} pts</span>
-            </div>
-            <div class="progress-bar">
-              <div
-                class="progress-fill"
-                [style.width.%]="(+stat.total_tasks) > 0 ? ((+stat.completed_tasks) / (+stat.total_tasks)) * 100 : 0">
+    <div class="content-layout">
+      <div class="statistics-details">
+        <h3>Category Breakdown</h3>
+        <div class="category-list">
+          @for (stat of statistics; track stat.category) {
+            <div class="category-item interactive-container active">
+              <div class="category-name">{{ stat.category }}</div>
+              <div class="category-stats">
+                <span class="tasks">{{ +stat.completed_tasks | number }}/{{ +stat.total_tasks | number }} tasks</span>
+                <span class="points">{{ +stat.total_points | number }} pts</span>
+              </div>
+              <div class="progress-bar">
+                <div
+                  class="progress-fill"
+                  [style.width.%]="(+stat.total_tasks) > 0 ? ((+stat.completed_tasks) / (+stat.total_tasks)) * 100 : 0">
+                </div>
               </div>
             </div>
-          </div>
-        }
+          }
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <canvas #radarCanvas></canvas>
       </div>
     </div>
   } @else {
