@@ -151,17 +151,45 @@ export class TasksView implements OnInit {
     const completeFlag = this.flagPrefix + this.flag + this.flagSuffix;
 
     if (this.editMode && this.selectedTask && this.selectedTask.id) {
-      // this.adminService.updateTask(this.selectedTask.id, this.editedTask).subscribe({
-      //   next: (data) => {
-      //     console.log('Task updated:', data);
-      //     this.loadTasks();
-      //     this.hideDialog();
-      //   },
-      //   error: (err) => {
-      //     console.error('Error updating task:', err);
-      //   }
-      // });
-      this.hideDialog();
+      const updates: Partial<Task> = {};
+
+      if (this.editedTask.title !== this.selectedTask.title) {
+        updates.title = this.editedTask.title;
+      }
+      if (this.editedTask.category !== this.selectedTask.category) {
+        updates.category = this.editedTask.category;
+      }
+      if (this.editedTask.difficulty !== this.selectedTask.difficulty) {
+        updates.difficulty = this.editedTask.difficulty;
+      }
+      if (this.editedTask.points !== this.selectedTask.points) {
+        updates.points = this.editedTask.points;
+      }
+      if (this.editedTask.description !== this.selectedTask.description) {
+        updates.description = this.editedTask.description;
+      }
+      if (this.editedTask.icon !== this.selectedTask.icon) {
+        updates.icon = this.editedTask.icon;
+      }
+
+      // Only send request if there are changes
+      if (Object.keys(updates).length === 0) {
+        console.log('No changes detected');
+        this.hideDialog();
+        return;
+      }
+
+      this.adminService.updateTask(this.selectedTask.id, updates).subscribe({
+        next: (data) => {
+          console.log('Task updated:', data);
+          this.loadTasks();
+          this.hideDialog();
+        },
+        error: (err) => {
+          console.error('Error updating task:', err);
+          alert('Error updating task: ' + (err.error?.message || 'Unknown error'));
+        }
+      });
     } else {
       if (this.uploadMode === 'zip' && this.selectedZipFile) {
         this.adminService.uploadTaskZip(this.editedTask as Task, completeFlag, this.selectedZipFile).subscribe({

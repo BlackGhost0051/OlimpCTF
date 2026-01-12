@@ -68,6 +68,15 @@ export class AdminService {
     );
   }
 
+  updateTask(taskId: string, updates: Partial<Task>): Observable<any> {
+    return this.http.put(this.url + '/task', { task_id: taskId, updates: updates }).pipe(
+      catchError(error => {
+        console.error('Error updating task:', error);
+        throw error;
+      })
+    );
+  }
+
   deleteTask(taskId: string): Observable<any> {
     return this.http.delete(this.url + '/task', { body: { task_id: taskId } }).pipe(
       catchError(error => {
