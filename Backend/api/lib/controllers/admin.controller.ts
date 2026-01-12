@@ -196,6 +196,53 @@ class AdminController implements Controller{
          *         description: Server error
          */
         this.router.post(`${this.path}/upload_task`, AdminMiddleware, this.upload.single('task_zip'), this.uploadTask.bind(this));
+
+        /**
+         * @swagger
+         * /api/admin/task:
+         *   put:
+         *     summary: Update an existing task
+         *     tags: [Admin]
+         *     security:
+         *       - bearerAuth: []
+         *     requestBody:
+         *       required: true
+         *       content:
+         *         application/json:
+         *           schema:
+         *             type: object
+         *             required:
+         *               - task_id
+         *             properties:
+         *               task_id:
+         *                 type: string
+         *                 description: Task ID to update
+         *               updates:
+         *                 type: object
+         *                 properties:
+         *                   title:
+         *                     type: string
+         *                   category:
+         *                     type: string
+         *                   icon:
+         *                     type: string
+         *                   difficulty:
+         *                     type: string
+         *                     enum: [easy, medium, hard]
+         *                   points:
+         *                     type: number
+         *                   description:
+         *                     type: string
+         *     responses:
+         *       200:
+         *         description: Task updated successfully
+         *       400:
+         *         description: Invalid input or missing task_id
+         *       500:
+         *         description: Server error
+         */
+        this.router.put(`${this.path}/task`, AdminMiddleware, this.updateTask.bind(this));
+
         /**
          * @swagger
          * /api/admin/task:
@@ -557,6 +604,49 @@ class AdminController implements Controller{
             return response.status(500).json({
                 status: false,
                 message: error.message || "Failed to upload task"
+            });
+        }
+    }
+
+    private async updateTask(request: Request, response: Response) {
+        const { task_id, updates } = request.body;
+
+        if (!task_id) {
+            return response.status(400).json({
+                status: false,
+                message: "Task ID is required."
+            });
+        }
+
+        if (!updates || Object.keys(updates).length === 0) {
+            return response.status(400).json({
+                status: false,
+                message: "No updates provided."
+            });
+        }
+
+        // Validate difficulty if it's being updated
+        if (updates.difficulty &&
+            updates.difficulty !== "easy" &&
+            updates.difficulty !== "medium" &&
+            updates.difficulty !== "hard") {
+            return response.status(400).json({
+                status: false,
+                message: "Difficulty must be easy, medium or hard."
+            });
+        }
+
+        try {
+            await this.challengeService.updateTask(task_id, updates);
+            return response.status(200).json({
+                status: true,
+                message: "Task updated successfully."
+            });
+        } catch (error: any) {
+            console.error('Error updating task:', error);
+            return response.status(500).json({
+                status: false,
+                message: error.message || "Failed to update task"
             });
         }
     }

@@ -197,6 +197,57 @@ class DatabaseService{
         console.log(`Task added with id ${task.id}`);
     }
 
+    async updateTask(task_id: string, updates: Partial<Task>): Promise<void> {
+        const fields: string[] = [];
+        const values: any[] = [];
+        let paramIndex = 1;
+
+        if (updates.title !== undefined) {
+            fields.push(`title = $${paramIndex}`);
+            values.push(updates.title);
+            paramIndex++;
+        }
+
+        if (updates.category !== undefined) {
+            fields.push(`category = $${paramIndex}`);
+            values.push(updates.category);
+            paramIndex++;
+        }
+
+        if (updates.difficulty !== undefined) {
+            fields.push(`difficulty = $${paramIndex}`);
+            values.push(updates.difficulty);
+            paramIndex++;
+        }
+
+        if (updates.points !== undefined) {
+            fields.push(`points = $${paramIndex}`);
+            values.push(updates.points);
+            paramIndex++;
+        }
+
+        if (updates.description !== undefined) {
+            fields.push(`description = $${paramIndex}`);
+            values.push(updates.description);
+            paramIndex++;
+        }
+
+        if (updates.icon !== undefined) {
+            fields.push(`icon = $${paramIndex}`);
+            values.push(updates.icon);
+            paramIndex++;
+        }
+
+        if (fields.length === 0) {
+            throw new Error("No fields to update");
+        }
+
+        values.push(task_id);
+        const query = `UPDATE tasks SET ${fields.join(', ')} WHERE id = $${paramIndex}`;
+        await this.query(query, values);
+        console.log(`Task updated with id ${task_id}`);
+    }
+
     async deleteTask(task_id: string){
         const checkQuery = `SELECT 1 FROM tasks WHERE id = $1 LIMIT 1`;
         const result = await this.pool.query(checkQuery, [task_id]);

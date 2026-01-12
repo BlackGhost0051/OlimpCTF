@@ -41,6 +41,15 @@ class ChallengeService {
         }
     }
 
+    async updateTask(task_id: string, updates: Partial<Task>): Promise<void> {
+        try {
+            await this.databaseService.updateTask(task_id, updates);
+        } catch (error) {
+            console.error(`Failed to update task ${task_id}:`, error);
+            throw error;
+        }
+    }
+
     async deleteTask(task_id: string){
         try{
             await this.databaseService.deleteTask(task_id);
