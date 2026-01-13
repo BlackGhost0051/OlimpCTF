@@ -8,6 +8,8 @@ import { Task } from "../modules/models/task.model";
 import AdminJwtService from "../modules/services/admin.jwt.service";
 import TaskRunnerService from "../modules/services/task.runner.service";
 import multer from "multer";
+import fs from "fs";
+import path from "path";
 
 /**
  * @swagger
@@ -373,6 +375,15 @@ class AdminController implements Controller{
          *     tags: [Admin]
          *     security:
          *       - bearerAuth: []
+         *     parameters:
+         *       - in: query
+         *         name: lines
+         *         schema:
+         *           type: integer
+         *           minimum: 1
+         *           maximum: 10000
+         *           default: 100
+         *         description: Number of most recent log lines to retrieve
          *     responses:
          *       200:
          *         description: System logs
@@ -383,6 +394,12 @@ class AdminController implements Controller{
          *               properties:
          *                 status:
          *                   type: boolean
+         *                 logs:
+         *                   type: array
+         *                   items:
+         *                     type: string
+         *                 totalLines:
+         *                   type: integer
          *       500:
          *         description: Server error
          */
@@ -708,7 +725,46 @@ class AdminController implements Controller{
     }
 
     private async getLogs(request: Request, response: Response) {
-        return response.status(200).json({ status: true });
+        try {
+            const lines = parseInt(request.query.lines as string) || 100;
+
+            if (lines < 1 || lines > 10000) {
+                return response.status(400).json({
+                    status: false,
+                    message: "Lines must be between 1 and 10000"
+                });
+            }
+
+            const logFilePath = path.join(__dirname, '../logs/app.log');
+
+            if (!fs.existsSync(logFilePath)) {
+                return response.status(200).json({
+                    status: true,
+                    logs: [],
+                    totalLines: 0,
+                    message: "Log file not found"
+                });
+            }
+
+            const fileContent = fs.readFileSync(logFilePath, 'utf8');
+            const allLines = fileContent.split('\n').filter(line => line.trim() !== '');
+            const totalLines = allLines.length;
+
+            const recentLogs = allLines.slice(-lines);
+
+            return response.status(200).json({
+                status: true,
+                logs: recentLogs,
+                totalLines: totalLines,
+                message: `Retrieved ${recentLogs.length} log entries`
+            });
+        } catch (error) {
+            console.error('Error reading logs:', error);
+            return response.status(500).json({
+                status: false,
+                message: "Error reading log file"
+            });
+        }
     }
 
 
