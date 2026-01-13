@@ -130,4 +130,15 @@ export class AdminService {
   updateCategory(id: number, category: Partial<Category>): Observable<Category> {
     return this.http.put<Category>(this.url + '/categories/' + id, category);
   }
+
+  getLogs(lines: number = 100): Observable<any> {
+    let params = new HttpParams().set('lines', lines.toString());
+
+    return this.http.get<any>(this.url + '/logs', { params }).pipe(
+      catchError(error => {
+        console.error('Error fetching logs:', error);
+        throw error;
+      })
+    );
+  }
 }

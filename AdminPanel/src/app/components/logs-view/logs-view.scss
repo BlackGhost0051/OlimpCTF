@@ -1,0 +1,76 @@
+// TODO: use global style line in frontend
+
+.logs-view {
+  .header-container {
+    padding: 1.25rem;
+  }
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+  }
+
+  .no-logs {
+    text-align: center;
+    padding: 3rem;
+    color: #888;
+  }
+
+  .timestamp {
+    font-family: monospace;
+    color: #6c757d;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .ip {
+    font-family: monospace;
+    color: #007bff;
+    font-weight: 500;
+  }
+
+  .url {
+    font-family: monospace;
+    max-width: 18.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .user-agent {
+    color: #6c757d;
+    font-size: 0.85rem;
+    max-width: 25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .raw-log {
+    font-family: monospace;
+    font-size: 0.85rem;
+    word-break: break-all;
+  }
+
+  ::ng-deep {
+    .p-card {
+      height: 85dvh;
+      display: flex;
+      flex-direction: column;
+
+      .p-card-body {
+        flex: 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .p-card-content {
+        flex: 1;
+        overflow: auto;
+      }
+    }
+  }
+}

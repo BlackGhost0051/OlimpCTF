@@ -45,11 +45,11 @@ export class AdminPanel {
     {
       label: 'Categories',
       command: () => this.selectView('categories')
+    },
+    {
+      label: 'Logs',
+      command: () => this.selectView('logs')
     }
-    // {
-    //   label: 'Logs',
-    //   command: () => this.selectView('logs')
-    // }
   ];
 
   constructor(private adminService: AdminService) {}

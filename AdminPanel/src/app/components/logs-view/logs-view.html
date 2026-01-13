@@ -1,6 +1,94 @@
 <div class="logs-view">
-  <h1>System Logs</h1>
   <p-card>
-    <p>This section will display system logs and activity.</p>
+    <ng-template pTemplate="header">
+      <div class="flex justify-content-between align-items-center header-container">
+        <h2>System Logs</h2>
+        <div class="flex align-items-center gap-3">
+          <div class="flex align-items-center gap-2">
+            <label for="lines">Lines:</label>
+            <p-inputNumber
+              [(ngModel)]="linesToFetch"
+              [min]="1"
+              [max]="10000"
+              [showButtons]="true"
+              [step]="50"
+              inputId="lines"
+              [style]="{'width': '130px'}">
+            </p-inputNumber>
+          </div>
+          <p-button
+            label="Refresh"
+            icon="pi pi-refresh"
+            (onClick)="refresh()"
+            [loading]="loading">
+          </p-button>
+        </div>
+      </div>
+    </ng-template>
+
+    <div class="mb-3 flex justify-content-between align-items-center">
+      <div class="flex gap-3">
+        <p-tag [value]="'Total: ' + totalLines" severity="info"></p-tag>
+        <p-tag [value]="'Showing: ' + logs.length" severity="success"></p-tag>
+      </div>
+      <p-message
+        *ngIf="error"
+        severity="error"
+        [text]="error">
+      </p-message>
+    </div>
+
+    <div *ngIf="loading" class="loading-container">
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+
+    <div *ngIf="!loading && logs.length === 0" class="no-logs">
+      <p>No logs available.</p>
+    </div>
+
+    <p-table
+      *ngIf="!loading && logs.length > 0"
+      [value]="logs.slice().reverse()"
+      dataKey="timestamp"
+      styleClass="p-datatable-striped">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Timestamp</th>
+          <th>IP Address</th>
+          <th>Method</th>
+          <th>URL</th>
+          <th>User Agent</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-log>
+        <ng-container *ngIf="parseLogLine(log) as parsed; else rawLog">
+          <tr>
+            <td class="timestamp">{{ parsed.timestamp | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+            <td class="ip">{{ parsed.ip }}</td>
+            <td>
+              <p-tag
+                [value]="parsed.method"
+                [severity]="getMethodSeverity(parsed.method)">
+              </p-tag>
+            </td>
+            <td class="url">{{ parsed.url }}</td>
+            <td class="user-agent">{{ parsed.userAgent }}</td>
+          </tr>
+        </ng-container>
+        <ng-template #rawLog>
+          <tr>
+            <td colspan="5" class="raw-log">{{ log }}</td>
+          </tr>
+        </ng-template>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5" class="text-center">No logs found</td>
+        </tr>
+      </ng-template>
+    </p-table>
   </p-card>
 </div>
