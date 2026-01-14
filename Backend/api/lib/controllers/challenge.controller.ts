@@ -5,6 +5,7 @@ import ChallengeService from "../modules/services/challenge.service";
 import JwtMiddleware from "../middlewares/jwt.middleware";
 import TaskRunnerService from "../modules/services/task.runner.service";
 import { flagVerifyRateLimiter } from "../middlewares/ratelimit.middleware";
+import { sanitizeFilename } from "../utils/path.sanitizer";
 
 /**
  * @swagger
@@ -413,12 +414,22 @@ class ChallengeController implements Controller{
         }
 
         try {
-            const fileBuffer = await this.taskRunnerService.downloadTaskFile(task_id, filename);
+            const sanitizedFilename = sanitizeFilename(filename);
 
-            response.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+            if (!sanitizedFilename) {
+                return response.status(400).json({
+                    status: false,
+                    message: "Invalid filename"
+                });
+            }
+
+            const fileBuffer = await this.taskRunnerService.downloadTaskFile(task_id, sanitizedFilename);
+            response.setHeader('Content-Disposition', `attachment; filename="${sanitizedFilename}"`);
             response.setHeader('Content-Type', 'application/octet-stream');
             return response.send(Buffer.from(fileBuffer));
         } catch (error: any) {
+            console.error(`File download error - Task: ${task_id}, Filename: ${filename}, Error: ${error.message}`);
+
             return response.status(404).json({
                 status: false,
                 message: error.message || "File not found"
