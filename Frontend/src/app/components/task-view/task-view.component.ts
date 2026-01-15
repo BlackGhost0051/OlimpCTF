@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {ChallengeService} from '../../services/challenge/challenge.service';
 import {CommonModule} from '@angular/common';
 import {DialogWindowComponent} from '../dialog-window/dialog-window.component';
+import {FilenameValidator} from '../../utils/filename-validator';
 
 @Component({
   selector: 'app-task-view',
@@ -143,6 +144,13 @@ export class TaskViewComponent implements OnInit{
   downloadFile(filename: string) {
     if (!this.task.id) return;
 
+    const validation = FilenameValidator.validate(filename);
+    if (!validation.isValid) {
+      this.openDialog("Invalid filename: " + (validation.error || "Security check failed"), 'warning');
+      console.warn(`Filename validation failed: ${filename} - ${validation.error}`);
+      return;
+    }
+
     this.challengeService.downloadTaskFile(this.task.id, filename).subscribe({
       next: (blob: Blob) => {
         const url = window.URL.createObjectURL(blob);
@@ -172,7 +180,6 @@ export class TaskViewComponent implements OnInit{
     this.showHints = !this.showHints;
   }
 
-  // Dialog methods
   openDialog(message: string, mode: 'info' | 'warning' = 'info', action: (() => void) | null = null) {
     this.dialogMessage = message;
     this.dialogMode = mode;
