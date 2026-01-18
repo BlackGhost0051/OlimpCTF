@@ -403,10 +403,3 @@ To stop
 ```bash
   docker-compose down
 ```
-
-## Categories
-
-### Dynamic for database
-
-
-```TABLE categories```
