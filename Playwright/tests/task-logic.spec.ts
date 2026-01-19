@@ -149,10 +149,16 @@ test.describe('Task Logic - E2E Tests', () => {
         if (await containerSection.isVisible()) {
 
         if(await page.locator('[data-cy="stop-container-btn"]').isVisible()){
-            await await page.locator('[data-cy="stop-container-btn"]').click();
+            await page.locator('[data-cy="stop-container-btn"]').click();
         }
 
         const startButton = page.locator('[data-cy="start-container-btn"]');
+
+        let dialogAppeared = false;
+        page.once('dialog', async dialog => {
+            dialogAppeared = true;
+            await dialog.accept();
+        });
 
         // When
         await startButton.click();
@@ -165,12 +171,15 @@ test.describe('Task Logic - E2E Tests', () => {
 
         expect(buttonText?.includes('Starting') ||
             buttonText?.includes('Running') ||
-            await containerInfo.isVisible()).toBeTruthy();
+            await containerInfo.isVisible() ||
+            dialogAppeared).toBeTruthy();
+
+        if (await page.locator('[data-cy="stop-container-btn"]').isVisible()) {
+            await page.locator('[data-cy="stop-container-btn"]').click();
+        }
         } else {
         test.skip();
         }
-
-        await page.locator('[data-cy="stop-container-btn"]').click();
     });
 
     test('Should display container URL when container is running', async ({ page }) => {

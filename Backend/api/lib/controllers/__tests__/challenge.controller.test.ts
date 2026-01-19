@@ -449,6 +449,7 @@ describe('ChallengeController - Integration Tests', () => {
     it('should return 404 when file not found', async () => {
       // Given
       mockTaskRunnerService.downloadTaskFile = jest.fn().mockRejectedValue(new Error('File not found'));
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
 
       // When
       const response = await request(app)
@@ -460,6 +461,10 @@ describe('ChallengeController - Integration Tests', () => {
         status: false,
         message: 'File not found'
       });
+      expect(consoleErrorSpy).toHaveBeenCalledWith(
+        'File download error - Task: task-123, Filename: missing.zip, Error: File not found'
+      );
+      consoleErrorSpy.mockRestore();
     });
   });
 });
