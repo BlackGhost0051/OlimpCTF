@@ -111,14 +111,14 @@ describe('TaskViewComponent - Integration Tests', () => {
         const mockResponse = { status: true, message: 'Correct!' };
         challengeService.verifyFlag.and.returnValue(of(mockResponse));
         component.flagInput = 'CTF{correct_flag}';
-        spyOn(window, 'alert');
+        spyOn(component, 'openDialog');
 
         // Act
         component.verifyFlag('task-123');
 
         // Assert
         expect(challengeService.verifyFlag).toHaveBeenCalledWith('task-123', 'CTF{correct_flag}');
-        expect(window.alert).toHaveBeenCalledWith('Correct flag!');
+        expect(component.openDialog).toHaveBeenCalledWith('Correct flag!', 'info', jasmine.any(Function));
       });
 
       it('should verify incorrect flag and show error message', () => {
@@ -126,14 +126,14 @@ describe('TaskViewComponent - Integration Tests', () => {
         const mockResponse = { status: false, message: 'Incorrect flag' };
         challengeService.verifyFlag.and.returnValue(of(mockResponse));
         component.flagInput = 'CTF{wrong_flag}';
-        spyOn(window, 'alert');
+        spyOn(component, 'openDialog');
 
         // Act
         component.verifyFlag('task-123');
 
         // Assert
         expect(challengeService.verifyFlag).toHaveBeenCalledWith('task-123', 'CTF{wrong_flag}');
-        expect(window.alert).toHaveBeenCalledWith('Incorrect flag');
+        expect(component.openDialog).toHaveBeenCalledWith('Incorrect flag', 'info');
       });
 
       it('should handle flag verification error', () => {
@@ -142,13 +142,13 @@ describe('TaskViewComponent - Integration Tests', () => {
           throwError(() => new Error('Network error'))
         );
         component.flagInput = 'CTF{test_flag}';
-        spyOn(window, 'alert');
+        spyOn(component, 'openDialog');
 
         // Act
         component.verifyFlag('task-123');
 
         // Assert
-        expect(window.alert).toHaveBeenCalledWith('Error verifying flag');
+        expect(component.openDialog).toHaveBeenCalledWith('Error verifying flag', 'info');
       });
     });
 
@@ -179,13 +179,13 @@ describe('TaskViewComponent - Integration Tests', () => {
         challengeService.startContainer.and.returnValue(
           throwError(() => errorResponse)
         );
-       spyOn(window, 'alert');
+        spyOn(component, 'openDialog');
 
         // Act
         component.startContainer();
 
         // Assert
-        expect(window.alert).toHaveBeenCalledWith('Error starting container: Container limit reached');
+        expect(component.openDialog).toHaveBeenCalledWith('Error starting container: Container limit reached', 'info');
         expect(component.containerLoading).toBe(false);
       });
 
@@ -208,7 +208,6 @@ describe('TaskViewComponent - Integration Tests', () => {
         challengeService.stopContainer.and.returnValue(of(mockResponse));
         component.containerUrl = 'http://localhost:8080';
         component.containerStatus = 'running';
-        spyOn(window, 'alert');
 
         // Act
         component.stopContainer();
@@ -218,7 +217,6 @@ describe('TaskViewComponent - Integration Tests', () => {
         expect(component.containerUrl).toBeNull();
         expect(component.containerStatus).toBe('not_found');
         expect(component.expiresAt).toBeNull();
-        expect(window.alert).toHaveBeenCalledWith('Container stopped successfully');
         expect(component.containerLoading).toBe(false);
       });
 
@@ -228,13 +226,13 @@ describe('TaskViewComponent - Integration Tests', () => {
         challengeService.stopContainer.and.returnValue(
           throwError(() => errorResponse)
         );
-        spyOn(window, 'alert');
+        spyOn(component, 'openDialog');
 
         // Act
         component.stopContainer();
 
         // Assert
-        expect(window.alert).toHaveBeenCalledWith('Error stopping container: Container not found');
+        expect(component.openDialog).toHaveBeenCalledWith('Error stopping container: Container not found', 'info');
         expect(component.containerLoading).toBe(false);
       });
 
@@ -275,13 +273,13 @@ describe('TaskViewComponent - Integration Tests', () => {
         challengeService.downloadTaskFile.and.returnValue(
           throwError(() => errorResponse)
         );
-        spyOn(window, 'alert');
+        spyOn(component, 'openDialog');
 
         // Act
         component.downloadFile('missing.zip');
 
         // Assert
-        expect(window.alert).toHaveBeenCalledWith('Error downloading file: File not found');
+        expect(component.openDialog).toHaveBeenCalledWith('Error downloading file: File not found', 'info');
       });
 
       it('should not download file when task ID is missing', () => {
