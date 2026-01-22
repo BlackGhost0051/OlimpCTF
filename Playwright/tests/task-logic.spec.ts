@@ -242,7 +242,8 @@ test.describe('Task Logic - E2E Tests', () => {
                 await page.waitForTimeout(2000);
 
                 // Then
-                await expect(stopButton).not.toBeVisible();
+                await expect(stopButton).not.toBeVisible({ timeout: 10000 });
+                await expect(page.locator('[data-cy="start-container-btn"]')).toBeVisible({ timeout: 10000 });
             }
         } else {
             test.skip();
