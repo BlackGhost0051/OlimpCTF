@@ -50,8 +50,7 @@ Testy jednostkowe i integracyjne - **34 testy** (Karma/Jasmine).
 ### Uruchomienie
 ```bash
 cd Frontend
-CHROME_BIN=/bin/chromium npm test -- --include='**/challenge.service.spec.ts' --watch=false --browsers=ChromeHeadless
-CHROME_BIN=/bin/chromium npm test -- --include='**/task-view.component.spec.ts' --watch=false --browsers=ChromeHeadless 
+CHROME_BIN=/bin/chromium npm test
 ```
 
 ```bash
@@ -215,6 +214,8 @@ http://localhost:5000/swagpag
 13. **Wielokrotne próby przesłania flagi** - niezależna ocena każdego przesłania, możliwość ostatecznego sukcesu
 14. **Obsługa błędów ładowania szczegółów zadania** - przyjazny komunikat błędu, możliwość ponowienia, brak zawieszenia aplikacji
 15. **Współbieżne operacje na kontenerach** - synchronizacja stanu między kartami, brak duplikacji kontenerów
+
+[//]: # (TODO: Zrobic na tabelke !!!)
 
 # Technologie użyte w projekcie
 
